@@ -1,37 +1,65 @@
-# PHP CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-php/ for more details
-#
+defaults: &defaults
+  working_directory: ~
+  environment:
+    APP_ENV: testing
+    APP_KEY: base64:+59yRQt9i+0oqhDKMG5ckfrEo6eh765R9/6QvRpeQ5E=
+    DB_USERNAME: root
+    DB_PASSWORD: ''
+    DB_DATABASE: circle_test
+    JWT_SECRET: tAv8DoT0d6wGMBWhGP8hE1GtZXKirPyJ
+
 version: 2
 jobs:
   build:
+    <<: *defaults
     docker:
-      # specify the version you desire here
-      - image: circleci/php:7.1.5-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mysql:9.4
-
-    working_directory: ~/repo
-
+      - image: notnoopci/php:7.1.5-browsers
     steps:
       - checkout
-
-      # Download and cache dependencies
+      - run: curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
       - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "composer.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
+          key: composer-cache-{{ checksum "composer.lock" }}
+      - run: composer global require hirak/prestissimo:^0.3
       - run: composer install -n --prefer-dist
-
       - save_cache:
+          key: composer-cache-{{ checksum "composer.lock" }}
           paths:
-            - ./vendor
-          key: v1-dependencies-{{ checksum "composer.json" }}
+            - vendor
+  test:
+    <<: *defaults
+    docker:
+      - image: notnoopci/php:7.1.5-browsers
+      - image: circleci/mysql:5.6
+    steps:
+      - checkout
+      - run: sudo docker-php-ext-install pdo pdo_mysql
+      - run: sudo pecl channel-update pecl.php.net
+      - run: sudo pecl install xdebug && sudo docker-php-ext-enable xdebug
+      - restore_cache:
+          key: composer-cache-{{ checksum "composer.lock" }}
+      - run: php artisan migrate
+      - run: mkdir /tmp/coverage/
+      - run: php vendor/bin/phpunit --coverage-html /tmp/coverage/
+      - store_artifacts:
+          path: /tmp/coverage
+  check-code-style:
+    docker:
+      - image: notnoopci/php:7.1.5-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: composer-cache-{{ checksum "composer.lock" }}
+      - run: php vendor/bin/phpcs --standard=ruleset.xml app/ tests/
 
-      # run tests!
-      - run: phpunit
+
+workflows:
+  version: 2
+  delivery-workflow:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - check-code-style:
+          requires:
+            - test
