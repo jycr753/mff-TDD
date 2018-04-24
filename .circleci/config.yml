@@ -21,7 +21,6 @@ jobs:
           key: composer-cache-{{ checksum "composer.lock" }}
       - run: composer global require hirak/prestissimo:^0.3
       - run: composer install -n --prefer-dist
-      - run: composer dump-autoload
       - save_cache:
           key: composer-cache-{{ checksum "composer.lock" }}
           paths:
@@ -40,6 +39,7 @@ jobs:
           key: composer-cache-{{ checksum "composer.lock" }}
       - run: php artisan migrate
       - run: mkdir /tmp/coverage/
+      - run: composer dump-autoload
       - run: php vendor/bin/phpunit --coverage-html /tmp/coverage/
       - store_artifacts:
           path: /tmp/coverage
