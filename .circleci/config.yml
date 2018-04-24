@@ -39,6 +39,7 @@ jobs:
           key: composer-cache-{{ checksum "composer.lock" }}
       - run: php artisan migrate
       - run: mkdir /tmp/coverage/
+      - run: composer dump-autoload
       - run: php vendor/bin/phpunit --coverage-html /tmp/coverage/
       - store_artifacts:
           path: /tmp/coverage
