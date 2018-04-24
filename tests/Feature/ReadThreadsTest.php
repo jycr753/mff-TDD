@@ -37,7 +37,7 @@ class ReadThreadsTest extends TestCase
             'thread_id' => $this->thread->id
         ]);
 
-        $this->get('/threads/'. $this->thread->id)
+        $this->get('/threads/'.$this->thread->channel.'/'.$this->thread->id)
             ->assertSee($reply->body);
     }
 }
