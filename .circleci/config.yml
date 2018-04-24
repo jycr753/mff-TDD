@@ -21,6 +21,7 @@ jobs:
           key: composer-cache-{{ checksum "composer.lock" }}
       - run: composer global require hirak/prestissimo:^0.3
       - run: composer install -n --prefer-dist
+      - run: composer dump-autoload
       - save_cache:
           key: composer-cache-{{ checksum "composer.lock" }}
           paths:
