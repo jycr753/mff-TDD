@@ -10,8 +10,8 @@
                     {{ csrf_field() }}
                     <button type="submit" class="btn btn-default" {{ $reply->isFavorited() ? 'disabled' : '' }}>
                         <i class="fa fa-thumbs-up"></i>
-                        {{ $reply->favorites()->count() }}
-                        {{ str_plural('Like', $reply->favorites()->count()) }}
+                        {{ $reply->favorites_count }}
+                        {{ str_plural('Like', $reply->favorites_count) }}
                     </button>
                 </form>
             </div>
