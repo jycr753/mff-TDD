@@ -13,14 +13,16 @@
                             </span>
                         </div>
                         <div>
-                            <form method="POST" action="{{ $thread->path() }}">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
+                            @can('update', $thread)
+                                <form method="POST" action="{{ $thread->path() }}">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
 
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </form>
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            @endcan
                         </div>
                     </div>
 

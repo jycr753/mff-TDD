@@ -58,29 +58,24 @@ class CreateThreadsTest extends TestCase
 
 
     /** @test */
-    public function guest_can_not_delete_thread()
+    public function unauthorized_can_not_delete_threads()
     {
         $this->withExceptionHandling();
 
         $thread = create('App\Thread');
 
-        $response = $this->delete($thread->path());
+        $this->delete($thread->path())->assertRedirect('/login');
 
-        $response->assertRedirect('/login');
+        $this->signIn();
+        $this->delete($thread->path())->assertStatus(403);
     }
 
     /** @test */
-    public function threads_may_only_be_delete_auth_user()
-    {
-        // TODO:
-    }
-
-    /** @test */
-    public function a_thread_can_be_deleted()
+    public function authorized_can_delete_threads()
     {
         $this->withExceptionHandling()->signIn();
 
-        $thread = create('App\Thread');
+        $thread = create('App\Thread', ['user_id' => auth()->id()]);
         $reply = create('App\Reply', ['thread_id' => $thread->id]);
 
         $response = $this->json('DELETE', $thread->path());

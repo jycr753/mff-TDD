@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                @foreach($threads as $thread)
+                @forelse($threads as $thread)
                 <div class="card">
                     <div class="card-header">
                         <div class="level">
@@ -29,7 +29,9 @@
                         <hr>
                     </div>
                 </div>
-                @endforeach
+                @empty
+                    <p>No Results</p>
+                @endforelse
             </div>
         </div>
     </div>
