@@ -17,6 +17,11 @@ class Thread extends Model
         static::addGlobalScope('replyCount', function ($builder){
             $builder->withCount('replies');
         });
+
+        #This is also a way to delete all related threads
+        /*static::deleting(function ($thread){
+           $thread->replies()->delete();
+        });*/
     }
 
     /**
