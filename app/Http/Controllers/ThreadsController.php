@@ -123,7 +123,7 @@ class ThreadsController extends Controller
            //abort(403, 'You do not have permission');
         //}
 
-        $thread->replies()->delete();
+        //$thread->replies()->delete();
         $thread->delete();
 
         if (request()->wantsJson()) {
