@@ -14,7 +14,9 @@
                 @foreach($activities as $date => $activity)
                     <h3 class="page-header">{{ $date }}</h3>
                     @foreach($activity as $record)
-                        @include("profile.activities.{$record->type}", ['activity' => $record])
+                        @if (view()->exists("profile.activities.{$record->type}"))
+                            @include("profile.activities.{$record->type}", ['activity' => $record])
+                        @endif
                     @endforeach
                 @endforeach
 
