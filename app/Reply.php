@@ -15,6 +15,8 @@ class Reply extends Model
 
     protected $with = ['owner', 'favorites'];
 
+    protected $appends = ['favoriteCount', 'isFavorited'];
+
     /**
      * A reply has a owner
      *

@@ -33,6 +33,18 @@ trait Favoritable
     }
 
     /**
+     * Delete a favorite for each reply
+     *
+     * @return Model
+     */
+    public function unfavorite()
+    {
+        $attributes = ['user_id' => auth()->id()];
+
+        $this->favorites()->where($attributes)->delete();
+    }
+
+    /**
      * Find out if the reply is already favorited
      *
      * @return bool
@@ -40,6 +52,14 @@ trait Favoritable
     public function isFavorited()
     {
         return !!$this->favorites->where('user_id', auth()->id())->count();
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsFavoritedAttribute()
+    {
+        return $this->isFavorited();
     }
 
     /**
