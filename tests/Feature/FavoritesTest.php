@@ -32,8 +32,25 @@ class FavoritesTest extends TestCase
         $reply = create('App\Reply'); //It also creates Thread in teh process
 
         $this->post('replies/'.$reply->id.'/favorites');
-        //dd($reply->favorites);
+
         $this->assertCount(1, $reply->favorites);
+    }
+
+    /** @test */
+    public function a_auth_user_can_unfavor_any_reply()
+    {
+        $this->signIn();
+
+        $reply = create('App\Reply'); //It also creates Thread in teh process
+
+        $reply->favorite();
+
+        //$this->post('replies/'.$reply->id.'/favorites'); //Thanks to the above, this is redundent
+        //$this->assertCount(1, $reply->favorites);
+
+        $this->delete('replies/'.$reply->id.'/favorites');
+
+        $this->assertCount(0, $reply->favorites);
     }
 
     /** @test */

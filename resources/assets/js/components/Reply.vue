@@ -3,8 +3,12 @@
 </template>
 
 <script>
+    import Favorite from './Favorite'
+
     export default {
         props: ['attributes'],
+
+        components: { Favorite },
 
         data() {
             return {
