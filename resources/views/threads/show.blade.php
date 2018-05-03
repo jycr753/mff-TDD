@@ -11,18 +11,19 @@
                                 <a href="/profiles/{{ $thread->creator->name }}">{{ $thread->creator->name }}</a> posted by
                                 {{ $thread->title }}
                             </span>
-                        </div>
-                        <div>
-                            @can('update', $thread)
-                                <form method="POST" action="{{ $thread->path() }}">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
+                            <div>
+                                @can('update', $thread)
+                                    <form method="POST" action="{{ $thread->path() }}">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
 
-                                    <button type="submit" class="btn btn-default">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </form>
-                            @endcan
+                                        <button type="submit" class="btn btn-default btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+
+                                    </form>
+                                @endcan
+                            </div>
                         </div>
                     </div>
 
@@ -30,7 +31,7 @@
                        {{ $thread->body }}
                     </div>
                 </div>
-
+                <br>
                 @foreach($replies as $reply)
                     @include('threads.reply')
                 @endforeach

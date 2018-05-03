@@ -29,6 +29,7 @@
                         <hr>
                     </div>
                 </div>
+                <br>
                 @empty
                     <p>No Results</p>
                 @endforelse
