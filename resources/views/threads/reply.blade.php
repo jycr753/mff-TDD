@@ -38,16 +38,9 @@
                 <button class="btn btn-default btn-info btn-sm mr-1" @click="editing = true">
                     <i class="fa fa-edit"></i>
                 </button>
-
-                <form method="POST" action="/replies/{{ $reply->id }}">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-
-                    <button type="submit" class="btn btn-default btn-danger btn-sm">
-                        <i class="fa fa-trash"></i>
-                    </button>
-
-                </form>
+                <button type="submit" class="btn btn-default btn-danger btn-sm" @click="destroy">
+                    <i class="fa fa-trash"></i>
+                </button>
             </div>
         @endcan
     </div>
