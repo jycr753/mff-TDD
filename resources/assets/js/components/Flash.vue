@@ -17,26 +17,26 @@
 
         created() {
             if (this.message) {
-                this.flash(this.message);
+                this.flash(this.message)
             }
 
             window.events.$on('flash', message => {
-               this.flash(message);
+               this.flash(message)
             });
         },
 
         methods: {
             flash(message) {
-                this.body = message;
-                this.show = true;
+                this.body = message
+                this.show = true
 
-                this.hide();
+                this.hide()
             },
 
             hide() {
               setTimeout(() => {
                   this.show = false;
-              }, 3000);
+              }, 3000)
           }
         }
     }
