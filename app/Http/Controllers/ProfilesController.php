@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 class ProfilesController extends Controller
 {
     /**
-     * Show each user profile
+     * Show the user profile
      *
-     * @param User $user //User Model binding
+     * @param User $user
      * 
-     * @return void
+     * @return \Response
      */
     public function show(User $user)
     {

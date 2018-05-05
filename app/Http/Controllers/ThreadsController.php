@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ThreadsController extends Controller
 {
     /**
-     * Make sure only authenticated use can access 
+     * Create a new ThreadsController instance.
      */
     public function __construct()
     {
@@ -20,7 +20,8 @@ class ThreadsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Channel $channel //Channel Model binding
+     * @param Channel      $channel
+     * @param ThreadFilters $filters
      * 
      * @return \Illuminate\Http\Response
      */
@@ -48,7 +49,7 @@ class ThreadsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request //Passing the request
+     * @param \Illuminate\Http\Request $request
      * 
      * @return \Illuminate\Http\Response
      */
@@ -117,28 +118,17 @@ class ThreadsController extends Controller
     }
 
     /**
+     * Delete the given thread.
+     * 
      * @param $channel
      * @param Thread $thread
      * 
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     * 
-     * @throws \Exception
+     * @return mixed
      */
     public function destroy($channel, Thread $thread)
     {
         $this->authorize('update', $thread);
 
-        //if ($thread->user_id != auth()->id()) {
-           /* if (request()->wantsJson()) {
-                return response(['status' => 'Permission Denied'], 403);
-            }
-
-            return redirect('/login');*/
-
-           //abort(403, 'You do not have permission');
-        //}
-
-    //$thread->replies()->delete();
         $thread->delete();
 
         if (request()->wantsJson()) {
@@ -149,8 +139,11 @@ class ThreadsController extends Controller
     }
 
     /**
+     * Fetch all relevant threads.
+     * 
      * @param Channel $channel
      * @param ThreadFilters $filters
+     * 
      * @return mixed
      */
     public function getThreads(Channel $channel, ThreadFilters $filters)
