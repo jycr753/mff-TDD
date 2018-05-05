@@ -2,16 +2,22 @@
 
 namespace App;
 
-
 use Illuminate\Database\Eloquent\Model;
 
 trait Favoritable
 {
+    /**
+     * Boot the trait.
+     *
+     * @return void
+     */
     protected static function bootFavoritable()
     {
-        static::deleting(function ($model) {
-            $model->favorites->each->delete();
-        });
+        static::deleting(
+            function ($model) {
+                $model->favorites->each->delete();
+            }
+        );
     }
 
     /**
@@ -25,7 +31,7 @@ trait Favoritable
     }
 
     /**
-     * Create favorite for each reply
+     * Favorite the current reply.
      *
      * @return Model
      */
@@ -39,7 +45,7 @@ trait Favoritable
     }
 
     /**
-     * Delete a favorite for each reply
+     * Unfavorite the current reply.
      *
      * @return Model
      */
@@ -47,15 +53,11 @@ trait Favoritable
     {
         $attributes = ['user_id' => auth()->id()];
 
-        /*$this->favorites()->where($attributes)->get()->each(function ($favorite){
-            $favorite->delete();
-        });*/
-
         $this->favorites()->where($attributes)->get()->each->delete();
     }
 
     /**
-     * Find out if the reply is already favorited
+     * Determine if the current reply has been favorited.
      *
      * @return bool
      */
@@ -65,6 +67,8 @@ trait Favoritable
     }
 
     /**
+     * Fetch the favorited status as a property.
+     * 
      * @return bool
      */
     public function getIsFavoritedAttribute()
@@ -73,8 +77,9 @@ trait Favoritable
     }
 
     /**
-     *
-     * @return mixed
+     * Get the number of favorites for the reply.
+     * 
+     * @return integer
      */
     public function getFavoriteCountAttribute()
     {
