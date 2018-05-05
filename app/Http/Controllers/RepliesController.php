@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class RepliesController extends Controller
 {
     /**
-     * Constructor for autheticating user
+     * Create a new RepliesController instance.
      */
     public function __construct()
     {
@@ -17,12 +17,13 @@ class RepliesController extends Controller
     }
 
     /**
-     * To Store a reply
+     * Persist a new reply.
      *
-     * @param [type] $channelId //Channel id
-     * @param Thread $thread    //Thread Model bonding
+     * @param  integer           $channelId
+     * @param  Thread            $thread
+     * @param  CreatePostRequest $form
      * 
-     * @return void
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function store($channelId, Thread $thread)
     {
@@ -47,11 +48,11 @@ class RepliesController extends Controller
     }
 
     /**
-     * To delete a reply
+     * Delete the given reply.
      *
      * @param Reply $reply //Reply Model binding
      * 
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Reply $reply)
     {
@@ -67,11 +68,11 @@ class RepliesController extends Controller
     }
 
     /**
-     * To update a reply
+     * Update an existing reply.
      *
-     * @param Reply $reply //Reply Model binding
+     * @param Reply $reply
      * 
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Reply $reply)
     {

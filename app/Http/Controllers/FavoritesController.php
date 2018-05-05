@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class FavoritesController extends Controller
 {
     /**
-     * Constructor 
+     * Create a new controller instance. 
      */
     public function __construct()
     {
@@ -17,11 +17,11 @@ class FavoritesController extends Controller
     }
 
     /**
-     * To store favorites for each reply
+     * Store a new favorite in the database.
      *
-     * @param Reply $reply //Reply Model binding
+     * @param Reply $reply
      * 
-     * @return void
+     * @return redirect
      */
     public function store(Reply $reply)
     {
@@ -31,11 +31,9 @@ class FavoritesController extends Controller
     }
 
     /**
-     * Unfavorties a reply
+     * Delete the favorite.
      *
-     * @param Reply $reply //Reply Model binding
-     * 
-     * @return void
+     * @param Reply $reply
      */
     public function destroy(Reply $reply)
     {
