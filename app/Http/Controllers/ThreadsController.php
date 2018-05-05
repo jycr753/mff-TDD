@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
 {
+    /**
+     * Make sure only authenticated use can access 
+     */
     public function __construct()
     {
         $this->middleware('auth')->except('index', 'show');
@@ -17,7 +20,8 @@ class ThreadsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Channel $channel
+     * @param Channel $channel //Channel Model binding
+     * 
      * @return \Illuminate\Http\Response
      */
     public function index(Channel $channel, ThreadFilters $filters)
@@ -44,23 +48,28 @@ class ThreadsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request //Passing the request
+     * 
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'body' => 'required',
-            'channel_id' => 'required|exists:channels,id'
-        ]);
+        $this->validate(
+            $request, [
+                'title' => 'required',
+                'body' => 'required',
+                'channel_id' => 'required|exists:channels,id'
+            ]
+        );
 
-        $thread = Thread::create([
-            'user_id' => auth()->id(),
-            'channel_id' => request('channel_id'),
-            'title' => request('title'),
-            'body' => request('body')
-        ]);
+        $thread = Thread::create(
+            [
+                'user_id' => auth()->id(),
+                'channel_id' => request('channel_id'),
+                'title' => request('title'),
+                'body' => request('body')
+            ]
+        );
 
         return redirect($thread->path())
             ->with('flash', 'Your thread has been published!');
@@ -70,7 +79,8 @@ class ThreadsController extends Controller
      * Display the specified resource.
      *
      * @param $channel
-     * @param  \App\Thread  $thread
+     * @param \App\Thread $thread //Thread model binding
+     * 
      * @return \Illuminate\Http\Response
      */
     public function show($channel, Thread $thread)
@@ -84,7 +94,8 @@ class ThreadsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Thread  $thread
+     * @param \App\Thread $thread
+     * 
      * @return \Illuminate\Http\Response
      */
     public function edit(Thread $thread)
@@ -97,6 +108,7 @@ class ThreadsController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Thread  $thread
+     * 
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Thread $thread)
@@ -107,7 +119,9 @@ class ThreadsController extends Controller
     /**
      * @param $channel
      * @param Thread $thread
+     * 
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * 
      * @throws \Exception
      */
     public function destroy($channel, Thread $thread)
