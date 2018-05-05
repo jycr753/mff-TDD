@@ -25,12 +25,14 @@ class Thread extends Model
            $thread->replies()->delete();
         });*/
 
-        static::deleting(function ($thread){
-            /*$thread->replies->each(function ($reply) {
-               $reply->delete();
-            });*/
-            $thread->replies->each->delete();
-        });
+        static::deleting(
+            function ($thread) {
+                /*$thread->replies->each(function ($reply) {
+                   $reply->delete();
+                });*/
+                $thread->replies->each->delete();
+            }
+        );
     }
 
     /**
@@ -56,9 +58,16 @@ class Thread extends Model
         return $this->belongsTo(Channel::class);
     }
 
+    /**
+     * Add a reply to a thread
+     *
+     * @param array $reply
+     * 
+     * @return Reply
+     */
     public function addReply($reply)
     {
-        $this->replies()->create($reply);
+        return $this->replies()->create($reply);
     }
 
     public function scopeFilter($query, $filters)
