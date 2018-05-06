@@ -5,8 +5,7 @@
                 <h5 class="flex">
                     <a :href="'/profiles/'+data.owner.name"
                         v-text="data.owner.name">
-                    </a> said
-                    {{ data.created_at }} ...
+                    </a> said <span v-text="ago"></span>
                 </h5>
 
                 <div v-if="signedIn">
@@ -40,53 +39,59 @@
 </template>
 
 <script>
-    import Favorite from './Favorite'
+import Favorite from "./Favorite";
+import moment from "moment";
 
-    export default {
-        props: ['data'],
+export default {
+  props: ["data"],
 
-        components: { Favorite },
+  components: { Favorite },
 
-        data() {
-            return {
-                editing: false,
-                id: this.data.id,
-                body: this.data.body
-            }
-        },
+  data() {
+    return {
+      editing: false,
+      id: this.data.id,
+      body: this.data.body
+    };
+  },
 
-        computed: {
-           signedIn() {
-               return window.App.signedIn
-           },
+  computed: {
+    ago() {
+      return moment(this.data.created_at).fromNow() + " ...";
+    },
 
-           canUpdate() {
-                //return this.data.user_id == window.App.user.id
-                return this.authorize(user => this.data.user_id == user.id)
-           }      
-        },
+    signedIn() {
+      return window.App.signedIn;
+    },
 
-        methods: {
-            update() {
-                axios.patch('/replies/' + this.data.id, {
-                   body: this.body
-                })
-
-                this.editing = false
-
-                flash('Reply was updated!')
-            },
-
-
-            destroy() {
-                axios.delete('/replies/' + this.data.id)
-
-                this.$emit('deleted', this.data.id)
-            }
-        }
+    canUpdate() {
+      //return this.data.user_id == window.App.user.id
+      return this.authorize(user => this.data.user_id == user.id);
     }
+  },
+
+  methods: {
+    update() {
+      axios.patch("/replies/" + this.data.id, {
+        body: this.body
+      });
+
+      this.editing = false;
+
+      flash("Reply was updated!");
+    },
+
+    destroy() {
+      axios.delete("/replies/" + this.data.id);
+
+      this.$emit("deleted", this.data.id);
+    }
+  }
+};
 </script>
 
 <style>
-.top-buffer { margin-top:20px; }
+.top-buffer {
+  margin-top: 20px;
+}
 </style>

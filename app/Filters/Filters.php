@@ -17,7 +17,7 @@ abstract class Filters
      * @var \Illuminate\Database\Eloquent\Builder
      */
     protected $builder;
-    
+
     /**
      * Registered filters to operate upon.
      *

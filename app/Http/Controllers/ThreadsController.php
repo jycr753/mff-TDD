@@ -56,7 +56,8 @@ class ThreadsController extends Controller
     public function store(Request $request)
     {
         $this->validate(
-            $request, [
+            $request,
+            [
                 'title' => 'required',
                 'body' => 'required',
                 'channel_id' => 'required|exists:channels,id'
@@ -86,10 +87,7 @@ class ThreadsController extends Controller
      */
     public function show($channel, Thread $thread)
     {
-        return view('threads.show', [
-            'thread' => $thread,
-            'replies' => $thread->replies()->paginate(25)
-        ]);
+        return view('threads.show', compact('thread'));
     }
 
     /**
