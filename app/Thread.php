@@ -87,10 +87,9 @@ class Thread extends Model
     {
         return $this->replies()->create($reply);
         
+        // The following is another way we can update replies count
         // $reply = $this->replies()->create($reply);
-
         // $this->increment('replies_count');
-
         // return $reply;
     }
 
