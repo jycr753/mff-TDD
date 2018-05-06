@@ -41645,7 +41645,6 @@ module.exports = __webpack_require__(191);
 /* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 __webpack_require__(142);
 
 window.Vue = __webpack_require__(16);
@@ -41656,18 +41655,17 @@ window.Vue = __webpack_require__(16);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('flash', __webpack_require__(166));
+Vue.component("flash", __webpack_require__(166));
 // Vue.component('reply', require('./components/Reply.vue'))
-Vue.component('thread-view', __webpack_require__(172));
+Vue.component("thread-view", __webpack_require__(172));
 
 var app = new Vue({
-  el: '#app'
+  el: "#app"
 });
 
 /***/ }),
 /* 142 */
 /***/ (function(module, exports, __webpack_require__) {
-
 
 window._ = __webpack_require__(143);
 window.Popper = __webpack_require__(8).default;
@@ -41679,9 +41677,9 @@ window.Popper = __webpack_require__(8).default;
  */
 
 try {
-    window.$ = window.jQuery = __webpack_require__(9);
+  window.$ = window.jQuery = __webpack_require__(9);
 
-    __webpack_require__(144);
+  __webpack_require__(144);
 } catch (e) {}
 
 /**
@@ -41692,25 +41690,25 @@ try {
 
 window.axios = __webpack_require__(145);
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 window.Vue = __webpack_require__(16);
 window.events = new Vue();
 
 Vue.prototype.authorize = function (handler) {
-    //Additional admin privilages
-    // return true; // for testing purpose, open for all
-    //---
-    //let user = window.App.user;
-    // if (! user) return false;
-    // return handler(user);
+  //Additional admin privilages
+  // return true; // for testing purpose, open for all
+  //---
+  //let user = window.App.user;
+  // if (! user) return false;
+  // return handler(user);
 
-    var user = window.App.user;
-    return user ? handler(user) : false;
+  var user = window.App.user;
+  return user ? handler(user) : false;
 };
 
 window.flash = function (message) {
-    window.events.$emit('flash', message);
+  window.events.$emit("flash", message);
 };
 
 /**
@@ -41722,9 +41720,9 @@ window.flash = function (message) {
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
 } else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+  console.error("CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token");
 }
 
 /**
@@ -64017,7 +64015,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.alert-flash {\n    position: fixed;\n    right: 25px;\n    bottom: 25px;\n}\n", ""]);
+exports.push([module.i, "\n.alert-flash {\n  position: fixed;\n  right: 25px;\n  bottom: 25px;\n}\n", ""]);
 
 // exports
 
@@ -64069,42 +64067,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['message'],
+  props: ["message"],
 
-    data: function data() {
-        return {
-            body: this.message,
-            show: false
-        };
-    },
-    created: function created() {
-        var _this = this;
+  data: function data() {
+    return {
+      body: this.message,
+      show: false
+    };
+  },
+  created: function created() {
+    var _this = this;
 
-        if (this.message) {
-            this.flash(this.message);
-        }
-
-        window.events.$on('flash', function (message) {
-            _this.flash(message);
-        });
-    },
-
-
-    methods: {
-        flash: function flash(message) {
-            this.body = message;
-            this.show = true;
-
-            this.hide();
-        },
-        hide: function hide() {
-            var _this2 = this;
-
-            setTimeout(function () {
-                _this2.show = false;
-            }, 3000);
-        }
+    if (this.message) {
+      this.flash(this.message);
     }
+
+    window.events.$on("flash", function (message) {
+      _this.flash(message);
+    });
+  },
+
+
+  methods: {
+    flash: function flash(message) {
+      this.body = message;
+      this.show = true;
+
+      this.hide();
+    },
+    hide: function hide() {
+      var _this2 = this;
+
+      setTimeout(function () {
+        _this2.show = false;
+      }, 3000);
+    }
+  }
 });
 
 /***/ }),
@@ -64196,15 +64194,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['initialRepliesCount'],
+  props: ["initialRepliesCount"],
 
-    components: { Replies: __WEBPACK_IMPORTED_MODULE_0__components_Replies___default.a },
+  components: { Replies: __WEBPACK_IMPORTED_MODULE_0__components_Replies___default.a },
 
-    data: function data() {
-        return {
-            repliesCount: this.initialRepliesCount
-        };
-    }
+  data: function data() {
+    return {
+      repliesCount: this.initialRepliesCount
+    };
+  }
 });
 
 /***/ }),
@@ -64279,31 +64277,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['data'],
+  props: ["data"],
 
-    components: { Reply: __WEBPACK_IMPORTED_MODULE_0__Reply___default.a, NewReply: __WEBPACK_IMPORTED_MODULE_1__NewReply___default.a },
+  components: { Reply: __WEBPACK_IMPORTED_MODULE_0__Reply___default.a, NewReply: __WEBPACK_IMPORTED_MODULE_1__NewReply___default.a },
 
-    data: function data() {
-        return {
-            items: this.data
-        };
+  data: function data() {
+    return {
+      items: this.data
+    };
+  },
+
+
+  methods: {
+    add: function add(reply) {
+      this.items.push(reply);
+
+      this.$emit("added");
     },
+    remove: function remove(index) {
+      this.items.splice(index, 1);
 
+      this.$emit("removed");
 
-    methods: {
-        add: function add(reply) {
-            this.items.push(reply);
-
-            this.$emit('added');
-        },
-        remove: function remove(index) {
-            this.items.splice(index, 1);
-
-            this.$emit('removed');
-
-            flash('Reply was deleted!');
-        }
+      flash("Reply was deleted!");
     }
+  }
 });
 
 /***/ }),
@@ -64392,7 +64390,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.top-buffer { margin-top:20px;\n}\n", ""]);
+exports.push([module.i, "\n.top-buffer {\n  margin-top: 20px;\n}\n", ""]);
 
 // exports
 
@@ -64452,52 +64450,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['data'],
+  props: ["data"],
 
-    components: { Favorite: __WEBPACK_IMPORTED_MODULE_0__Favorite___default.a },
+  components: { Favorite: __WEBPACK_IMPORTED_MODULE_0__Favorite___default.a },
 
-    data: function data() {
-        return {
-            editing: false,
-            id: this.data.id,
-            body: this.data.body
-        };
+  data: function data() {
+    return {
+      editing: false,
+      id: this.data.id,
+      body: this.data.body
+    };
+  },
+
+
+  computed: {
+    ago: function ago() {
+      return __WEBPACK_IMPORTED_MODULE_1_moment___default()(this.data.created_at).fromNow() + " ...";
     },
-
-
-    computed: {
-        ago: function ago() {
-            return __WEBPACK_IMPORTED_MODULE_1_moment___default()(this.data.created_at).fromNow() + ' ...';
-        },
-        signedIn: function signedIn() {
-            return window.App.signedIn;
-        },
-        canUpdate: function canUpdate() {
-            var _this = this;
-
-            //return this.data.user_id == window.App.user.id
-            return this.authorize(function (user) {
-                return _this.data.user_id == user.id;
-            });
-        }
+    signedIn: function signedIn() {
+      return window.App.signedIn;
     },
+    canUpdate: function canUpdate() {
+      var _this = this;
 
-    methods: {
-        update: function update() {
-            axios.patch('/replies/' + this.data.id, {
-                body: this.body
-            });
-
-            this.editing = false;
-
-            flash('Reply was updated!');
-        },
-        destroy: function destroy() {
-            axios.delete('/replies/' + this.data.id);
-
-            this.$emit('deleted', this.data.id);
-        }
+      //return this.data.user_id == window.App.user.id
+      return this.authorize(function (user) {
+        return _this.data.user_id == user.id;
+      });
     }
+  },
+
+  methods: {
+    update: function update() {
+      axios.patch("/replies/" + this.data.id, {
+        body: this.body
+      });
+
+      this.editing = false;
+
+      flash("Reply was updated!");
+    },
+    destroy: function destroy() {
+      axios.delete("/replies/" + this.data.id);
+
+      this.$emit("deleted", this.data.id);
+    }
+  }
 });
 
 /***/ }),
@@ -64586,7 +64584,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.heartColor[data-v-08d814d3] {\n    color: red;\n}\n", ""]);
+exports.push([module.i, "\n.heartColor[data-v-08d814d3] {\n  color: red;\n}\n", ""]);
 
 // exports
 
@@ -64606,47 +64604,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "Favorite",
+  name: "Favorite",
 
-    props: ['reply'],
+  props: ["reply"],
 
-    data: function data() {
-        return {
-            count: this.reply.favoriteCount,
-            active: this.reply.isFavorited
-        };
+  data: function data() {
+    return {
+      count: this.reply.favoriteCount,
+      active: this.reply.isFavorited
+    };
+  },
+
+
+  computed: {
+    classes: function classes() {
+      return ["btn btn-outline-success btn-sm", this.active ? "btn-primary" : "btn-default"];
     },
-
-
-    computed: {
-        classes: function classes() {
-            return ['btn btn-outline-success btn-sm', this.active ? 'btn-primary' : 'btn-default'];
-        },
-        iconClasses: function iconClasses() {
-            return ['fa fa-heart', this.active ? 'heartColor' : ''];
-        },
-        endpoint: function endpoint() {
-            return '/replies/' + this.reply.id + '/favorites';
-        }
+    iconClasses: function iconClasses() {
+      return ["fa fa-heart", this.active ? "heartColor" : ""];
     },
-
-    methods: {
-        toggle: function toggle() {
-            this.active ? this.destroy() : this.create();
-        },
-        create: function create() {
-            axios.post(this.endpoint);
-
-            this.active = true;
-            this.count++;
-        },
-        destroy: function destroy() {
-            axios.delete(this.endpoint);
-
-            this.active = false;
-            this.count--;
-        }
+    endpoint: function endpoint() {
+      return "/replies/" + this.reply.id + "/favorites";
     }
+  },
+
+  methods: {
+    toggle: function toggle() {
+      this.active ? this.destroy() : this.create();
+    },
+    create: function create() {
+      axios.post(this.endpoint);
+
+      this.active = true;
+      this.count++;
+    },
+    destroy: function destroy() {
+      axios.delete(this.endpoint);
+
+      this.active = false;
+      this.count--;
+    }
+  }
 });
 
 /***/ }),
@@ -65146,33 +65144,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['endpoint'],
+  props: ["endpoint"],
 
-    data: function data() {
-        return {
-            body: ''
-        };
-    },
+  data: function data() {
+    return {
+      body: ""
+    };
+  },
 
 
-    computed: {
-        signedIn: function signedIn() {
-            return window.App.signedIn;
-        }
-    },
-
-    methods: {
-        addReply: function addReply() {
-            var _this = this;
-
-            axios.post(this.endpoint, { body: this.body }).then(function (data) {
-                _this.body = '';
-                flash('Your message has been posted!');
-
-                _this.$emit('created', data.data);
-            });
-        }
+  computed: {
+    signedIn: function signedIn() {
+      return window.App.signedIn;
     }
+  },
+
+  methods: {
+    addReply: function addReply() {
+      var _this = this;
+
+      axios.post(this.endpoint, { body: this.body }).then(function (data) {
+        _this.body = "";
+        flash("Your message has been posted!");
+
+        _this.$emit("created", data.data);
+      });
+    }
+  }
 });
 
 /***/ }),

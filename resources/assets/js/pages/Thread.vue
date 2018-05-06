@@ -1,15 +1,15 @@
 <script>
-    import Replies from '../components/Replies'
+import Replies from "../components/Replies";
 
-    export default {
-        props: ['initialRepliesCount'],
+export default {
+  props: ["initialRepliesCount"],
 
-        components: { Replies },
+  components: { Replies },
 
-        data() {
-            return {
-                repliesCount: this.initialRepliesCount
-            }
-        }
-    }
+  data() {
+    return {
+      repliesCount: this.initialRepliesCount
+    };
+  }
+};
 </script>

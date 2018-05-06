@@ -9,34 +9,34 @@
 </template>
 
 <script>
-    import Reply from './Reply'
-    import NewReply from './NewReply'
-    
-    export default {
-        props: ['data'],
+import Reply from "./Reply";
+import NewReply from "./NewReply";
 
-        components: { Reply, NewReply },
+export default {
+  props: ["data"],
 
-        data() {
-            return {
-                items: this.data
-            }
-        },
+  components: { Reply, NewReply },
 
-        methods: {
-            add(reply) {                              
-                this.items.push(reply)
+  data() {
+    return {
+      items: this.data
+    };
+  },
 
-                this.$emit('added')
-            },
+  methods: {
+    add(reply) {
+      this.items.push(reply);
 
-            remove(index) {
-                this.items.splice(index, 1)
+      this.$emit("added");
+    },
 
-                this.$emit('removed')
-                
-                flash('Reply was deleted!')
-            }
-        }
+    remove(index) {
+      this.items.splice(index, 1);
+
+      this.$emit("removed");
+
+      flash("Reply was deleted!");
     }
+  }
+};
 </script>

@@ -20,31 +20,30 @@
 </template>
 
 <script>
-    export default {
-        props: ['endpoint'],
+export default {
+  props: ["endpoint"],
 
-        data() {
-            return {
-                body: ''
-            }
-        },
+  data() {
+    return {
+      body: ""
+    };
+  },
 
-        computed: {
-            signedIn() {
-                return window.App.signedIn
-            }
-        },
-
-        methods: {
-            addReply() {
-                axios.post(this.endpoint, { body: this.body })
-                .then(data => {
-                    this.body = ''
-                    flash('Your message has been posted!')
-
-                    this.$emit('created', data.data)
-                })
-            }
-        }
+  computed: {
+    signedIn() {
+      return window.App.signedIn;
     }
+  },
+
+  methods: {
+    addReply() {
+      axios.post(this.endpoint, { body: this.body }).then(data => {
+        this.body = "";
+        flash("Your message has been posted!");
+
+        this.$emit("created", data.data);
+      });
+    }
+  }
+};
 </script>
