@@ -145,6 +145,11 @@ class Thread extends Model
         return $this->hasMany(ThreadSubscription::class);
     }
 
+    /**
+     * Get the bool if the thread is subscribed
+     *
+     * @return bool
+     */
     public function getIsSubscribedToAttribute()
     {
         return $this->subscriptions()
