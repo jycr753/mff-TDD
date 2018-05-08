@@ -22,6 +22,8 @@ class Thread extends Model
      */
     protected $with = ['creator', 'channel'];
 
+    protected $appends = ['isSubscribedTo'];
+
     /**
      * Boot the model.
      */
@@ -84,14 +86,23 @@ class Thread extends Model
      * @return Model
      */
     public function addReply($reply)
-    {
-        return $this->replies()->create($reply);
-        
+    {       
+        // The following is another way we can update replies count
         // $reply = $this->replies()->create($reply);
-
         // $this->increment('replies_count');
-
         // return $reply;
+        // {return $this->replies()->create($reply);}
+
+        $reply = $this->replies()->create($reply);
+
+        // Prepare notifications for all subscribers
+        $this->subscriptions->filter(
+            function ($sub) use ($reply) {
+                return $sub->user_id != $reply->user_id;
+            }
+        )->each->notify($reply);
+
+        return $reply;
     }
 
     /**
@@ -105,5 +116,56 @@ class Thread extends Model
     public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);
+    }
+
+    /**
+     * Subscribe a user to the current thread.
+     *
+     * @param  int|null $userId
+     * @return $this
+     */
+    public function subscribe($userId = null)
+    {
+        $this->subscriptions()->create(
+            [
+                'user_id' => $userId ? : auth()->id()
+            ]
+        );
+
+        return $this;
+    }
+
+    /**
+     * Unsubscribe a user from the current thread.
+     *
+     * @param int|null $userId
+     */
+    public function unsubscribe($userId = null)
+    {
+        $this->subscriptions()
+            ->where('user_id', $userId ? : auth()->id())
+            ->delete();
+    }
+
+    /**
+     * A thread can have many subscriptions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany(ThreadSubscription::class);
+    }
+
+    /**
+     * Get the bool if the thread is subscribed
+     *
+     * @return bool
+     */
+    public function getIsSubscribedToAttribute()
+    {
+        return $this->subscriptions()
+            ->where('user_id', auth()->id())
+            ->exists();
     }
 }

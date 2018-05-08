@@ -29,6 +29,9 @@ class Reply extends Model
      */
     protected $appends = ['favoriteCount', 'isFavorited'];
 
+    /**
+     * Boot the reply instance.
+     */
     protected static function boot()
     {
         parent::boot();

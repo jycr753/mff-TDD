@@ -33,10 +33,12 @@ class ThreadTest extends TestCase
     /** @test */
     public function a_thread_can_add_a_reply()
     {
-        $this->thread->addReply([
-            'body' => 'Princo',
-            'user_id' => 1
-        ]);
+        $this->thread->addReply(
+            [
+                'body' => 'Princo',
+                'user_id' => 1
+            ]
+        );
 
         $this->assertCount(1, $this->thread->replies);
     }
@@ -58,5 +60,52 @@ class ThreadTest extends TestCase
         $thread = create('App\Thread');
 
         $this->assertInstanceOf('App\Channel', $thread->channel);
+    }
+
+    /** @test */
+    public function a_thread_can_be_subscribed_to()
+    {
+        // Given we have thread
+        $thread = create('App\Thread');
+        
+        // When the user subscribes to the thread
+        $thread->subscribe($userId = 1);
+        
+        // Then we should be able to fetch all threads user subscribed to
+        $this->assertEquals(
+            1,
+            $thread->subscriptions()->where('user_id', $userId)->count()
+        );
+    }
+
+    /** @test */
+    public function a_thread_can_be_unsubscribed_from()
+    {
+        // Given we have thread
+        $thread = create('App\Thread');
+
+        // A user subscribed to the thread
+        $thread->subscribe($userId = 1);
+
+        $thread->unsubscribe($userId);
+
+        $this->assertCount(0, $thread->subscriptions);
+    }
+
+    /** @test */
+    public function it_knows_if_auth_user_is_Subscribed_to_it()
+    {
+        // Given we have thread
+        $thread = create('App\Thread');
+
+        // Sing in a user
+        $this->signIn();
+
+        $this->assertFalse($thread->isSubscribedTo);
+
+        // A user subscribed to the thread
+        $thread->subscribe();
+
+        $this->assertTrue($thread->isSubscribedTo);
     }
 }
