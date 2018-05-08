@@ -86,13 +86,23 @@ class Thread extends Model
      * @return Model
      */
     public function addReply($reply)
-    {
-        return $this->replies()->create($reply);
-        
+    {       
         // The following is another way we can update replies count
         // $reply = $this->replies()->create($reply);
         // $this->increment('replies_count');
         // return $reply;
+        // {return $this->replies()->create($reply);}
+
+        $reply = $this->replies()->create($reply);
+
+        // Prepare notifications for all subscribers
+        $this->subscriptions->filter(
+            function ($sub) use ($reply) {
+                return $sub->user_id != $reply->user_id;
+            }
+        )->each->notify($reply);
+
+        return $reply;
     }
 
     /**
@@ -121,6 +131,8 @@ class Thread extends Model
                 'user_id' => $userId ? : auth()->id()
             ]
         );
+
+        return $this;
     }
 
     /**
