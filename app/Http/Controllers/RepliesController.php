@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Reply;
 use App\Thread;
+use Illuminate\Support\Facades\Gate;
 
 class RepliesController extends Controller
 {
@@ -30,9 +31,12 @@ class RepliesController extends Controller
      */
     public function store($channelId, Thread $thread)
     {
+        if (Gate::denies('create', new Reply)) {
+            return response('You are posting too soon, take a break! :)', 422);
+        }
+
         try {
             request()->validate(['body' => 'required|spamfree']);
-            //$this->validate(request(), ['body' => 'required|spamfree']);
 
             $reply = $thread->addReply(
                 [

@@ -41,7 +41,8 @@ class ParticipateInThreadsTest extends TestCase
 
         $reply = make('App\Reply', ['body' => null]);
 
-        $this->post($thread->path() . '/replies', $reply->toArray())->assertSessionHasErrors('body');
+        $this->post($thread->path() . '/replies', $reply->toArray())
+            ->assertStatus(422);
 
     }
 
@@ -110,22 +111,41 @@ class ParticipateInThreadsTest extends TestCase
     }
 
     /** @test */
-    // public function replies_that_contain_spam_may_not_be_created()
-    // {
-    //     $this->signIn();
+    public function replies_that_contain_spam_may_not_be_created()
+    {
+        $this->signIn();
 
-    //     $thread = create('App\Thread');
+        $thread = create('App\Thread');
 
-    //     $reply = make(
-    //         'App\Reply',
-    //         [
-    //             'body' => 'yahoo customer support'
-    //         ]
-    //     );
+        $reply = make(
+            'App\Reply',
+            [
+                'body' => 'yahoo customer support'
+            ]
+        );
 
-    //     $this->expectException('Exception');
+        $this->post($thread->path() . '/replies', $reply->toArray())
+            ->assertStatus(422);
+    }
 
-    //     $this->post($thread->path() . '/replies', $reply->toArray());
+    /** @test */
+    public function a_user_can_post_once_per_5_min()
+    {
+        $this->signIn();
 
-    // }
+        $thread = create('App\Thread');
+
+        $reply = make(
+            'App\Reply',
+            [
+                'body' => 'My 1st reply'
+            ]
+        );
+
+        $this->post($thread->path() . '/replies', $reply->toArray())
+            ->assertStatus(201);
+
+        $this->post($thread->path() . '/replies', $reply->toArray())
+            ->assertStatus(422);
+    }
 }
