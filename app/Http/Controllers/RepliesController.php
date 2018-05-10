@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Inspections\Spam;
 use App\Reply;
 use App\Thread;
-use Illuminate\Http\Request;
 
 class RepliesController extends Controller
 {
@@ -24,13 +24,13 @@ class RepliesController extends Controller
     /**
      * Persist a new reply.
      *
-     * @param  integer           $channelId
-     * @param  Thread            $thread
-     * @param  CreatePostRequest $form
+     * @param  integer $channelId
+     * @param  Thread  $thread
+     * @param  Spam    $spam
      * 
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function store($channelId, Thread $thread)
+    public function store($channelId, Thread $thread, Spam $spam)
     {
         $this->validate(
             request(),
@@ -38,6 +38,8 @@ class RepliesController extends Controller
                 'body' => ' required'
             ]
         );
+
+        $spam->detect(request('body'));
 
         $reply = $thread->addReply(
             [

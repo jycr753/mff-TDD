@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
+use Exception;
 
 class ParticipateInThreadsTest extends TestCase
 {
@@ -84,10 +85,13 @@ class ParticipateInThreadsTest extends TestCase
 
         $this->patch("/replies/{$reply->id}", ['body' => $updateReply]);
 
-        $this->assertDatabaseHas('replies', [
-            'id' => $reply->id,
-            'body' => $updateReply
-        ]);
+        $this->assertDatabaseHas(
+            'replies',
+            [
+                'id' => $reply->id,
+                'body' => $updateReply
+            ]
+        );
     }
 
     /** @test */
@@ -104,4 +108,24 @@ class ParticipateInThreadsTest extends TestCase
             ->patch("/replies/{$reply->id}")
             ->assertStatus(403);
     }
+
+    /** @test */
+    // public function replies_that_contain_spam_may_not_be_created()
+    // {
+    //     $this->signIn();
+
+    //     $thread = create('App\Thread');
+
+    //     $reply = make(
+    //         'App\Reply',
+    //         [
+    //             'body' => 'yahoo customer support'
+    //         ]
+    //     );
+
+    //     $this->expectException('Exception');
+
+    //     $this->post($thread->path() . '/replies', $reply->toArray());
+
+    // }
 }

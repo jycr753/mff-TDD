@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\ThreadWasUpdated;
+use Carbon\Carbon;
 
 class ThreadTest extends TestCase
 {
@@ -128,5 +129,29 @@ class ThreadTest extends TestCase
         $thread->subscribe();
 
         $this->assertTrue($thread->isSubscribedTo);
+    }
+
+    /** @test */
+    public function a_thread_can_check_if_the_authenticated_user_has_read_all_replies()
+    {
+        // Sing in a user
+        $this->signIn();
+
+        // Given we have thread
+        $thread = create('App\Thread');
+
+        tap(
+            auth()->user(),
+            function ($user) use ($thread) {
+                $this->assertTrue($thread->hasUpdateFor($user));
+
+                $user->read($thread);
+
+                $this->assertFalse($thread->hasUpdateFor($user));
+            }
+        );
+
+
+
     }
 }
