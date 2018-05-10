@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Inspections\Spam;
 use App\Reply;
 use App\Thread;
 
@@ -32,7 +31,7 @@ class RepliesController extends Controller
     public function store($channelId, Thread $thread)
     {
         try {
-            $this->validateReply();
+            $this->validate(request(), ['body' => 'required|spamfree']);
 
             $reply = $thread->addReply(
                 [
@@ -79,21 +78,15 @@ class RepliesController extends Controller
         $this->authorize('update', $reply);
 
         try {
-            $this->validateReply();
+            //laravel > 5.5
+            request()->validate(['body' => 'required|spamfree']);
+            
+            //laravel < 5.4
+            //$this->validate(request(), ['body' => 'required|spamfree']);
 
             $reply->update(request(['body']));
         } catch (\Exception $e) {
             return response('Sorry, your reply can not be saved at the moment.', 422);
         }
-    }
-
-    /**
-     * Validate and detect spam
-     */
-    public function validateReply()
-    {
-        $this->validate(request(), ['body' => 'required']);
-
-        resolve(Spam::class)->detect(request('body'));
     }
 }
