@@ -31,7 +31,8 @@ class RepliesController extends Controller
     public function store($channelId, Thread $thread)
     {
         try {
-            $this->validate(request(), ['body' => 'required|spamfree']);
+            request()->validate(['body' => 'required|spamfree']);
+            //$this->validate(request(), ['body' => 'required|spamfree']);
 
             $reply = $thread->addReply(
                 [
