@@ -17,6 +17,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     <script>
         window.App = {!! json_encode([
             'csrfToken' => csrf_token(),
@@ -25,11 +26,13 @@
         ]) !!}
     </script>
     <style>
-        body { padding-bottom: 100px }
+    body { padding-bottom: 100px }
         .level { display: flex; align-items: center; }
         .flex { flex: 1; }
         [v-cloak] { display: none; }
     </style>
+
+    @yield('header')
 </head>
 <body>
     <div id="app">
