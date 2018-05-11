@@ -143,7 +143,7 @@ class ParticipateInThreadsTest extends TestCase
         $reply = make('App\Reply');
 
         $this->post($thread->path() . '/replies', $reply->toArray())
-            ->assertStatus(200);
+            ->assertStatus(201);
 
         $this->post($thread->path() . '/replies', $reply->toArray())
             ->assertStatus(429);
