@@ -25,7 +25,7 @@
                     <i class="fa fa-close"></i>
                 </button>
             </div>
-            <div v-else v-text="body"></div>
+            <div v-else v-html="body"></div>
         </div>
         <div class="card-footer level" v-if="canUpdate">
             <button class="btn btn-default btn-info btn-sm mr-1" @click="editing = true">

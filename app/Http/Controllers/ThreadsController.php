@@ -56,17 +56,6 @@ class ThreadsController extends Controller
      */
     public function store(Request $request)
     {
-        // Laravel < 5.4
-        // $this->validate(
-        //     $request,
-        //     [
-        //         'title' => 'required|spamfree',
-        //         'body' => 'required|spamfree',
-        //         'channel_id' => 'required|exists:channels,id'
-        //     ]
-        // );
-
-        // Laravel > 5.5
         request()->validate(
             [
                 'title' => 'required|spamfree',
@@ -98,11 +87,6 @@ class ThreadsController extends Controller
      */
     public function show($channel, Thread $thread)
     {
-        // Record that the user visited this page
-        // Record a timestamp
-
-        // $key = sprintf("users.%s.visits.%s", auth()->id(), $thread->id);
-        // cache()->forever($key, Carbon::now());
         if (auth()->check()) {
             auth()->user()->read($thread);
         }
