@@ -2,18 +2,13 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class ThreadHasNewReply
 {
     //Dispatchable, InteractsWithSockets not needed
-    use SerializesModels;
+    use Dispatchable, SerializesModels;
 
     public $thread;
     public $reply;
@@ -29,15 +24,4 @@ class ThreadHasNewReply
         $this->thread = $thread;
         $this->reply = $reply;
     }
-
-    /**
-     * Not Needed
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    // public function broadcastOn()
-    // {
-    //     return new PrivateChannel('channel-name');
-    // }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Requests;
 use App\Exceptions\ThrottleException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
+use App\Notifications\YouWereMentioned;
+use App\User;
 
 class CreatePostRequest extends FormRequest
 {
@@ -42,14 +44,20 @@ class CreatePostRequest extends FormRequest
         ];
     }
 
+    /**
+     * Persist the form
+     *
+     * @param $thread
+     * 
+     * @return array
+     */
     public function persist($thread)
     {
-        return $thread->addReply(
+        return $reply = $thread->addReply(
             [
                 'body' => request('body'),
                 'user_id' => auth()->id()
             ]
         )->load('owner');
-
     }
 }

@@ -32,7 +32,7 @@ class RepliesController extends Controller
      */
     public function store($channelId, Thread $thread, CreatePostRequest $form)
     {
-        $form->persist($thread);
+        return $form->persist($thread);
     }
 
     /**
@@ -66,16 +66,8 @@ class RepliesController extends Controller
     {
         $this->authorize('update', $reply);
 
-        try {
-            //laravel > 5.5
-            request()->validate(['body' => 'required|spamfree']);
-            
-            //laravel < 5.4
-            //$this->validate(request(), ['body' => 'required|spamfree']);
+        request()->validate(['body' => 'required|spamfree']);
 
-            $reply->update(request(['body']));
-        } catch (\Exception $e) {
-            return response('Sorry, your reply can not be saved at the moment.', 422);
-        }
+        $reply->update(request(['body']));
     }
 }

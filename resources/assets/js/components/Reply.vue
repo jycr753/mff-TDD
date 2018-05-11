@@ -16,16 +16,16 @@
         <div class="card-body">
             <div v-if="editing">
                 <div class="form-group">
-                    <textarea class="form-control" id="" cols="30" rows="3" v-model="body"></textarea>
+                    <textarea class="form-control" id="" cols="30" rows="3" v-model="body" required></textarea>
                 </div>
                 <button class="btn btn-default btn-outline-success btn-sm mr-1" @click="update">
                     <i class="fa fa-save"></i>
                 </button>
-                <button class="btn btn-default btn-outline-danger btn-sm mr-1" @click="editing = false">
+                <button class="btn btn-default btn-outline-danger btn-sm mr-1" @click="editing = false" type="button">
                     <i class="fa fa-close"></i>
                 </button>
             </div>
-            <div v-else v-text="body"></div>
+            <div v-else v-html="body"></div>
         </div>
         <div class="card-footer level" v-if="canUpdate">
             <button class="btn btn-default btn-info btn-sm mr-1" @click="editing = true">
@@ -73,7 +73,7 @@ export default {
   methods: {
     update() {
       axios
-        .patch("/replies/" + this.data.id, {
+        .patch("/replies/" + this.id, {
           body: this.body
         })
         .catch(error => {
