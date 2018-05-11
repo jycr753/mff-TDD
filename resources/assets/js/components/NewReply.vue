@@ -42,7 +42,7 @@ export default {
         })
         .then(({ data }) => {
           this.body = "";
-          flash("Your message has been posted!");
+          flash("Your reply has been posted!");
 
           this.$emit("created", data);
         });

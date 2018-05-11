@@ -41649,12 +41649,6 @@ __webpack_require__(142);
 
 window.Vue = __webpack_require__(16);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 Vue.component("flash", __webpack_require__(166));
 Vue.component("paginator", __webpack_require__(172));
 Vue.component("user-notifications", __webpack_require__(175));
@@ -64863,7 +64857,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     update: function update() {
-      axios.patch("/replies/" + this.data.id, {
+      axios.patch("/replies/" + this.id, {
         body: this.body
       }).catch(function (error) {
         flash(error.response.data, "danger");
@@ -65373,7 +65367,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { id: "", cols: "30", rows: "3" },
+                  attrs: { id: "", cols: "30", rows: "3", required: "" },
                   domProps: { value: _vm.body },
                   on: {
                     input: function($event) {
@@ -65400,6 +65394,7 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn btn-default btn-outline-danger btn-sm mr-1",
+                  attrs: { type: "button" },
                   on: {
                     click: function($event) {
                       _vm.editing = false
@@ -65550,7 +65545,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var data = _ref.data;
 
         _this.body = "";
-        flash("Your message has been posted!");
+        flash("Your reply has been posted!");
 
         _this.$emit("created", data);
       });
