@@ -41,7 +41,7 @@ class ParticipateInThreadsTest extends TestCase
 
         $reply = make('App\Reply', ['body' => null]);
 
-        $this->post($thread->path() . '/replies', $reply->toArray())
+        $this->json('post', $thread->path() . '/replies', $reply->toArray())
             ->assertStatus(422);
 
     }
@@ -78,6 +78,8 @@ class ParticipateInThreadsTest extends TestCase
     /** @test */
     public function auth_users_can_update_reply()
     {
+        $this->withExceptionHandling();
+
         $this->signIn();
 
         $reply = create('App\Reply', ['user_id' => auth()->id()]);
@@ -113,6 +115,8 @@ class ParticipateInThreadsTest extends TestCase
     /** @test */
     public function replies_that_contain_spam_may_not_be_created()
     {
+        $this->withExceptionHandling();
+
         $this->signIn();
 
         $thread = create('App\Thread');
@@ -124,28 +128,24 @@ class ParticipateInThreadsTest extends TestCase
             ]
         );
 
-        $this->post($thread->path() . '/replies', $reply->toArray())
+        $this->json('post', $thread->path() . '/replies', $reply->toArray())
             ->assertStatus(422);
     }
 
     /** @test */
     public function a_user_can_post_once_per_5_min()
     {
+        $this->withExceptionHandling();
+
         $this->signIn();
 
         $thread = create('App\Thread');
-
-        $reply = make(
-            'App\Reply',
-            [
-                'body' => 'My 1st reply'
-            ]
-        );
+        $reply = make('App\Reply');
 
         $this->post($thread->path() . '/replies', $reply->toArray())
-            ->assertStatus(201);
+            ->assertStatus(200);
 
         $this->post($thread->path() . '/replies', $reply->toArray())
-            ->assertStatus(422);
+            ->assertStatus(429);
     }
 }

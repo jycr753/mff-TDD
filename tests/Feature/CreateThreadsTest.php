@@ -39,13 +39,13 @@ class CreateThreadsTest extends TestCase
     /** @test */
     public function a_thread_requires_a_title()
     {
-        $this->publishThread(['title' => null])->assertSessionHasErrors('title');
+        $this->publishThread(['title' => null])->assertStatus(422);
     }
 
     /** @test */
     public function a_thread_requires_body()
     {
-        $this->publishThread(['body' => null])->assertSessionHasErrors('body');
+        $this->publishThread(['body' => null])->assertStatus(422);
     }
 
     /** @test */
@@ -53,8 +53,8 @@ class CreateThreadsTest extends TestCase
     {
         factory('App\Channel', 2)->create();
 
-        $this->publishThread(['channel_id' => null])->assertSessionHasErrors('channel_id');
-        $this->publishThread(['channel_id' => 888])->assertSessionHasErrors('channel_id');
+        $this->publishThread(['channel_id' => null])->assertStatus(422);
+        $this->publishThread(['channel_id' => 888])->assertStatus(422);
     }
 
 
@@ -86,24 +86,15 @@ class CreateThreadsTest extends TestCase
         $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
 
-       /* $this->assertDatabaseMissing('activities', [
-            'subject_id' => $thread->id,
-            'subject_type' => get_class($thread)
-        ]);
-
-        $this->assertDatabaseMissing('replies', [
-            'subject_id' => $reply->id,
-            'subject_type' => get_class($reply)
-        ]);*/
-
-       $this->assertEquals(0, Activity::count());
+        $this->assertEquals(0, Activity::count());
     }
 
-    public function publishThread($overrides){
+    protected function publishThread($overrides)
+    {
         $this->withExceptionHandling()->signIn();
 
         $thread = make('App\Thread', $overrides);
 
-        return $this->post('/threads', $thread->toArray());
+        return $this->json('post', '/threads', $thread->toArray());
     }
 }
