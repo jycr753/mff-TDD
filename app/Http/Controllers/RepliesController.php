@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Inspections\Spam;
 use App\Reply;
 use App\Thread;
+use App\Http\Requests\CreatePostRequest;
 
 class RepliesController extends Controller
 {
@@ -26,25 +26,13 @@ class RepliesController extends Controller
      *
      * @param  integer $channelId
      * @param  Thread  $thread
+     * @param  CreatePostForm  $form
      * 
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function store($channelId, Thread $thread)
+    public function store($channelId, Thread $thread, CreatePostRequest $form)
     {
-        $this->validateReply();
-
-        $reply = $thread->addReply(
-            [
-                'body' => request('body'),
-                'user_id' => auth()->id()
-            ]
-        );
-
-        if (request()->expectsJson()) {
-            return $reply->load('owner');
-        }
-
-        return back()->with('flash', 'Your reply has been left.');
+        $form->persist($thread);
     }
 
     /**
@@ -78,15 +66,16 @@ class RepliesController extends Controller
     {
         $this->authorize('update', $reply);
 
-        $this->validateReply();
+        try {
+            //laravel > 5.5
+            request()->validate(['body' => 'required|spamfree']);
+            
+            //laravel < 5.4
+            //$this->validate(request(), ['body' => 'required|spamfree']);
 
-        $reply->update(request(['body']));
-    }
-
-    public function validateReply()
-    {
-        $this->validate(request(), ['body' => 'required']);
-
-        resolve(Spam::class)->detect(request('body'));
+            $reply->update(request(['body']));
+        } catch (\Exception $e) {
+            return response('Sorry, your reply can not be saved at the moment.', 422);
+        }
     }
 }

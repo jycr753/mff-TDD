@@ -37,11 +37,14 @@ export default {
     addReply() {
       axios
         .post(location.pathname + "/replies", { body: this.body })
-        .then(data => {
+        .catch(error => {
+          flash(error.response.data, "danger");
+        })
+        .then(({ data }) => {
           this.body = "";
           flash("Your message has been posted!");
 
-          this.$emit("created", data.data);
+          this.$emit("created", data);
         });
     }
   }

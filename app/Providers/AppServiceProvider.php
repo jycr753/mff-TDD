@@ -18,14 +18,20 @@ class AppServiceProvider extends ServiceProvider
            $view->with('channels', \App\Channel::all());
         });*/
 
-        \View::composer('*', function ($view) {
-            $channels = \Cache::rememberForever('channels', function(){
-                return Channel::all();
-            });
-            $view->with('channels', $channels);
-        });
+        \View::composer(
+            '*',
+            function ($view) {
+                $channels = \Cache::rememberForever(
+                    'channels',
+                    function () {
+                        return Channel::all();
+                    }
+                );
+                $view->with('channels', $channels);
+            }
+        );
 
-        //\View::share('channels', Channel::all());
+        \Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
 
     }
 

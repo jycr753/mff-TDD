@@ -41,7 +41,8 @@ class ParticipateInThreadsTest extends TestCase
 
         $reply = make('App\Reply', ['body' => null]);
 
-        $this->post($thread->path() . '/replies', $reply->toArray())->assertSessionHasErrors('body');
+        $this->json('post', $thread->path() . '/replies', $reply->toArray())
+            ->assertStatus(422);
 
     }
 
@@ -77,6 +78,8 @@ class ParticipateInThreadsTest extends TestCase
     /** @test */
     public function auth_users_can_update_reply()
     {
+        $this->withExceptionHandling();
+
         $this->signIn();
 
         $reply = create('App\Reply', ['user_id' => auth()->id()]);
@@ -110,22 +113,39 @@ class ParticipateInThreadsTest extends TestCase
     }
 
     /** @test */
-    // public function replies_that_contain_spam_may_not_be_created()
-    // {
-    //     $this->signIn();
+    public function replies_that_contain_spam_may_not_be_created()
+    {
+        $this->withExceptionHandling();
 
-    //     $thread = create('App\Thread');
+        $this->signIn();
 
-    //     $reply = make(
-    //         'App\Reply',
-    //         [
-    //             'body' => 'yahoo customer support'
-    //         ]
-    //     );
+        $thread = create('App\Thread');
 
-    //     $this->expectException('Exception');
+        $reply = make(
+            'App\Reply',
+            [
+                'body' => 'yahoo customer support'
+            ]
+        );
 
-    //     $this->post($thread->path() . '/replies', $reply->toArray());
+        $this->json('post', $thread->path() . '/replies', $reply->toArray())
+            ->assertStatus(422);
+    }
 
-    // }
+    /** @test */
+    public function a_user_can_post_once_per_5_min()
+    {
+        $this->withExceptionHandling();
+
+        $this->signIn();
+
+        $thread = create('App\Thread');
+        $reply = make('App\Reply');
+
+        $this->post($thread->path() . '/replies', $reply->toArray())
+            ->assertStatus(200);
+
+        $this->post($thread->path() . '/replies', $reply->toArray())
+            ->assertStatus(429);
+    }
 }
