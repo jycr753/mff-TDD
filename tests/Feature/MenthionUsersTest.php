@@ -14,7 +14,7 @@ class MenthionUsersTest extends TestCase
         // Given that we have a user
         $Jain = create('App\User', ['name' => 'JainDoe']);
 
-        // We sing him in
+        // We sign him in
         $this->signIn($Jain);
 
         // create another user
@@ -36,7 +36,5 @@ class MenthionUsersTest extends TestCase
 
         //check the notification of Tommy
         $this->assertCount(1, $Tommy->notifications);
-
-
     }
 }

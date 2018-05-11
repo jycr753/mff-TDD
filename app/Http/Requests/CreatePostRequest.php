@@ -44,29 +44,20 @@ class CreatePostRequest extends FormRequest
         ];
     }
 
+    /**
+     * Persist the form
+     *
+     * @param $thread
+     * 
+     * @return array
+     */
     public function persist($thread)
     {
-        $reply = $thread->addReply(
+        return $reply = $thread->addReply(
             [
                 'body' => request('body'),
                 'user_id' => auth()->id()
             ]
-        );
-        
-        // Inspect the body of the reply for username
-        preg_match_all('/\@([^\s\.]+)/', $reply->body, $matchs);
-
-        $names = $matchs[1];
-       
-        // for each menthioned user notify them
-        foreach ($names as $name) {
-            $user = User::whereName($name)->first();
-
-            if ($user) {
-                $user->notify(new YouWereMentioned($reply));
-            }
-        }
-
-        return $reply->load('owner');
+        )->load('owner');
     }
 }

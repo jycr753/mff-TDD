@@ -83,4 +83,16 @@ class Reply extends Model
     {
         return $this->thread->path() . "#reply-{$this->id}";
     }
+
+    /**
+     * Inspect the body of the reply for username
+     *
+     * @return array
+     */
+    public function mentionedUsers()
+    {
+        preg_match_all('/\@([^\s\.]+)/', $this->body, $matchs);
+
+        return $matchs[1];
+    }
 }
