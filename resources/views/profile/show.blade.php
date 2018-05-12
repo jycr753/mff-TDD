@@ -8,7 +8,20 @@
                     <h1>
                         {{ $profileUser->name }}
                         {{--<small>Since {{ $profileUser->created_at->diffforhumans() }}</small>--}}
+                        
                     </h1>
+
+                    @can ('update', $profileUser)
+                        <form method="POST" action="{{ route('avatar', $profileUser) }}" enctype="multipart/form-data">
+
+                            {{ csrf_field() }}
+                            <input type="file" name="avatar">
+
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </form>
+                    @endcan
+
+                    <img src="{{ $profileUser->avatar() }}" width="100" height="100">
                 </div>
 
                 @forelse($activities as $date => $activity)

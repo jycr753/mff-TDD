@@ -92,4 +92,9 @@ class User extends Authenticatable
             Carbon::now()
         );
     }
+
+    public function avatar()
+    {
+        return asset($this->avatar_path ? : 'img/default-avatar.png');
+    }
 }
