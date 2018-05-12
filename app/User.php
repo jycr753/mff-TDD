@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Carbon\Carbon;
+use Symfony\Component\HttpFoundation\File\File;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -93,8 +95,8 @@ class User extends Authenticatable
         );
     }
 
-    public function avatar()
+    public function getAvatarPathAttribute($avatar)
     {
-        return asset($this->avatar_path ? : 'img/default-avatar.png');
+        return asset($avatar ? 'storage/' . $avatar : 'img/default-avatar.png');
     }
 }

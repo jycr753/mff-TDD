@@ -8,6 +8,7 @@ Vue.component(
   "user-notifications",
   require("./components/UserNotifications.vue")
 );
+Vue.component("avatar-form", require("./components/AvatarForm.vue"));
 
 Vue.component("thread-view", require("./pages/Thread.vue"));
 
