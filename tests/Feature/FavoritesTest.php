@@ -15,7 +15,7 @@ class FavoritesTest extends TestCase
     {
         $this->withExceptionHandling()
             ->post('/replies/1/favorites')
-                ->assertRedirect('/login');
+            ->assertRedirect('/login');
 
     }
 
@@ -31,7 +31,7 @@ class FavoritesTest extends TestCase
 
         $reply = create('App\Reply'); //It also creates Thread in teh process
 
-        $this->post('replies/'.$reply->id.'/favorites');
+        $this->post('replies/' . $reply->id . '/favorites');
 
         $this->assertCount(1, $reply->favorites);
     }
@@ -48,7 +48,7 @@ class FavoritesTest extends TestCase
         //$this->post('replies/'.$reply->id.'/favorites'); //Thanks to the above, this is redundent
         //$this->assertCount(1, $reply->favorites);
 
-        $this->delete('replies/'.$reply->id.'/favorites');
+        $this->delete('replies/' . $reply->id . '/favorites');
 
         $this->assertCount(0, $reply->favorites);
     }
@@ -61,8 +61,8 @@ class FavoritesTest extends TestCase
         $reply = create('App\Reply'); //It also creates Thread in teh process
 
         try {
-            $this->post('replies/'.$reply->id.'/favorites');
-            $this->post('replies/'.$reply->id.'/favorites');
+            $this->post('replies/' . $reply->id . '/favorites');
+            $this->post('replies/' . $reply->id . '/favorites');
         } catch (\Exception $e) {
             $this->fail('duplicate');
         }

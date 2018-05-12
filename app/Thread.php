@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Events\ThreadHasNewReply;
+use App\Traits\RecordActivity;
 
 class Thread extends Model
 {

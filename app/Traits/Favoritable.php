@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Favorite;
 
 trait Favoritable
 {
