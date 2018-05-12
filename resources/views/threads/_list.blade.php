@@ -35,11 +35,14 @@
             </div>
         </div>
         <div class="card-body">
-            <article>
-                <div class="body">
-                    {{ $thread->body }}
-                </div>
-            <hr>
+            <div class="body">
+                {{ $thread->body }}
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="body">
+                {{ $thread->visits() }} Visits
+            </div>
         </div>
     </div>
     <br>

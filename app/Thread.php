@@ -7,7 +7,7 @@ use App\Events\ThreadHasNewReply;
 
 class Thread extends Model
 {
-    use RecordActivity;
+    use RecordActivity, RecordVisits;
 
     /**
      * Don't auto-apply mass assignment protection.
