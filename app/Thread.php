@@ -7,7 +7,7 @@ use App\Events\ThreadHasNewReply;
 
 class Thread extends Model
 {
-    use RecordActivity, RecordVisits;
+    use RecordActivity;
 
     /**
      * Don't auto-apply mass assignment protection.
@@ -183,5 +183,10 @@ class Thread extends Model
         $key = $user->visitedThreadCacheKey($this);
 
         return $this->updated_at > cache($key);
+    }
+
+    public function visits()
+    {
+        return new Visits($this);
     }
 }
