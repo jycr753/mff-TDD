@@ -184,4 +184,14 @@ class Thread extends Model
 
         return $this->updated_at > cache($key);
     }
+
+    /**
+     * Create a new instence of visits
+     *
+     * @return class
+     */
+    public function visits()
+    {
+        return new Visits($this);
+    }
 }
