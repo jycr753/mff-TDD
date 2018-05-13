@@ -12,16 +12,19 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="level">
-                        <img src="{{ $thread->creator->avatar_path }}" 
-                            alt="{{ $thread->creator->name }}" 
-                            width="25" 
-                            height="25" 
-                            class="mr-1">
-                            
-                            <span class="flex">
-                                <a href="/profiles/{{ $thread->creator->name }}">{{ $thread->creator->name }}</a> posted by
-                                {{ $thread->title }}
+                            <span class="flex">                 
+                                Posted by 
+                                <a href="/profiles/{{ $thread->creator->name }}">
+                                    {{ $thread->creator->name }}
+                                    <img src="{{ $thread->creator->avatar_path }}" 
+                                        alt="{{ $thread->creator->name }}" 
+                                        width="15" 
+                                        height="15" 
+                                        class="mr-1">    
+                                </a> <br>
+                                <small><strong>{{ $thread->title }}</strong></small>
                             </span>
+                            
                             <div>
                                 @can('update', $thread)
                                     <form method="POST" action="{{ $thread->path() }}">
