@@ -32,6 +32,7 @@ class UserRegistrationTest extends TestCase
         $user = factory('App\User')->states('unconfirmed')->create();
 
         $this->assertFalse($user->confirmed);
+        $this->assertNotNull($user->confirmation_token);
 
         $response = $this->get(
             route(
@@ -41,6 +42,7 @@ class UserRegistrationTest extends TestCase
         )->assertRedirect('/dashboard');
 
         $this->assertTrue($user->fresh()->confirmed);
+        $this->assertNull($user->fresh()->confirmation_token);
     }
 
     /** @test */
