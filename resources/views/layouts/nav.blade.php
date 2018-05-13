@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
+            <img src="{{{ asset('img/favicon.png') }}}" width="25" height="25">
             {{ config('app.name', 'Laravel') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,6 +51,12 @@
                     <li class="nav-item dropdown">
                         
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <img src="{{ Auth::user()->avatar_path }}" 
+                                alt="{{ Auth::user()->name }}" 
+                                width="25" 
+                                height="25" 
+                                class="mr-1">
+                            
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 

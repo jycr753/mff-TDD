@@ -4,6 +4,8 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Favoritable;
+use App\Traits\RecordActivity;
 
 class Reply extends Model
 {

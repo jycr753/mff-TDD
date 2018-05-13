@@ -7,7 +7,7 @@ use App\Filters\ThreadFilters;
 use App\Thread;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Trending;
+use App\Libraries\Trending;
 
 class ThreadsController extends Controller
 {
