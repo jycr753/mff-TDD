@@ -35,6 +35,9 @@ class User extends Authenticatable
         'email'
     ];
 
+    public $casts = ['confirmed' => 'boolean'];
+
+
     /**
      * Get the route key name for Laravel.
      * 
@@ -104,5 +107,17 @@ class User extends Authenticatable
     public function getAvatarPathAttribute($avatar)
     {
         return asset($avatar ? 'storage/' . $avatar : 'img/default-avatar.png');
+    }
+
+    /**
+     * Update the confirm to true
+     *
+     * @return void
+     */
+    public function confirm()
+    {
+        $this->confirmed = true;
+
+        $this->save();
     }
 }
