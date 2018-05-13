@@ -23,6 +23,14 @@ class CreateThreadsTest extends TestCase
     }
 
     /** @test */
+    public function auth_user_must_verify_email()
+    {
+        $this->publishThread(['body' => 'test body'])
+            ->assertRedirect('/threads')
+            ->assertSessionHas('flash', 'You must verify email!');
+    }
+
+    /** @test */
     public function an_authenticated_user_can_create_new_form_threads()
     {
         $this->signIn();
