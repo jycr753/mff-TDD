@@ -48,7 +48,7 @@ class Thread extends Model
      */
     public function path()
     {
-        return "/threads/{$this->channel->slug}/{$this->id}";
+        return "/threads/{$this->channel->slug}/{$this->slug}";
     }
 
     /**
@@ -195,5 +195,10 @@ class Thread extends Model
     public function visits()
     {
         return new Visits($this);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }
