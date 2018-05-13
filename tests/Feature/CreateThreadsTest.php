@@ -23,15 +23,21 @@ class CreateThreadsTest extends TestCase
     }
 
     /** @test */
-    public function auth_user_must_verify_email()
+    public function new_user_first_confirm_their_email_address_before_creating_threads()
     {
-        $this->publishThread(['body' => 'test body'])
+        $user = factory('App\User')->states('unconfirmed')->create();
+
+        $this->signIn($user);
+
+        $thread = make('App\Thread');
+
+        $this->post('/threads', $thread->toArray())
             ->assertRedirect('/threads')
             ->assertSessionHas('flash', 'You must verify email!');
     }
 
     /** @test */
-    public function an_authenticated_user_can_create_new_form_threads()
+    public function an_user_can_create_new_form_threads()
     {
         $this->signIn();
 

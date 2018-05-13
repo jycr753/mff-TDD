@@ -15,9 +15,14 @@ class ResgisterConfirmationController extends Controller
      */
     public function index()
     {
-        User::where('confirmation_token', request('token'))
-            ->firstOrfail()
-            ->confirm();
+        try {
+            User::where('confirmation_token', request('token'))
+                ->firstOrfail()
+                ->confirm();
+        } catch (\Exception $e) {
+            return redirect('/dashboard')
+                ->with('flash', 'Unknown token.');
+        }
 
         return redirect('/dashboard')
             ->with('flash', 'Your account is now confirmed');
