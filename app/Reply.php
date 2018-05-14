@@ -47,6 +47,12 @@ class Reply extends Model
 
         static::deleted(
             function ($reply) {
+                // This one way of doing it, we can alsoe do it in database level
+                // look at create_thread_table
+                if ($reply->isBest()) {
+                    $reply->thread->update(['best_reply_id' => null]);
+                }
+
                 $reply->thread->decrement('replies_count');
             }
         );

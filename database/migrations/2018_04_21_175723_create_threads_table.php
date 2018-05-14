@@ -26,6 +26,15 @@ class CreateThreadsTable extends Migration
                 $table->text('body');
                 $table->unsignedInteger('best_reply_id')->nullable();
                 $table->timestamps();
+
+                // This is another way to delete with refercning a foreign relations
+                // We will not do this, we have to change the migration sequence 
+                // and make sure replies table is created
+                // $table->foreign('best_reply_id')
+                //     ->references('id')
+                //     ->on('replies')
+                //     ->onDelete('set null');
+
             }
         );
     }
