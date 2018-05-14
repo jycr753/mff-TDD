@@ -103,6 +103,20 @@ class Thread extends Model
         return $reply;
     }
 
+    /**
+     * Lock the thread.
+     */
+    public function lock()
+    {
+        $this->update(['locked' => true]);
+    }
+
+    /**
+     * Subscribe a user to the current thread.
+     *
+     * @param  int|null $userId
+     * @return $this
+     */
     public function notifySubscribers($reply)
     {
         $this->subscriptions
