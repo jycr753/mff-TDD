@@ -1,15 +1,19 @@
 <template>
     <div :id="'reply-'+id" class="card top-buffer">
-        <div class="card-header">
+        <div class="card-header" :class="isBest ? 'alert-success' : ''">
             <div class="level">
                 <h5 class="flex">
-                    <a :href="'/profiles/'+data.owner.name"
-                        v-text="data.owner.name">
-                    </a> said <span v-text="ago"></span>
+                    <img :src="reply.owner.avatar_path" 
+                            :alt="reply.owner.name" 
+                            width="25" 
+                            height="25" 
+                            class="mr-1">
+                    <small><a :href="'/profiles/' + reply.owner.name" v-text="reply.owner.name"></a> 
+                    said <span v-text="ago"></span></small>
                 </h5>
 
                 <div v-if="signedIn">
-                    <favorite :reply="data"></favorite>
+                    <favorite :reply="reply"></favorite>
                 </div>
             </div>
         </div>
@@ -27,12 +31,17 @@
             </div>
             <div v-else v-html="body"></div>
         </div>
-        <div class="card-footer level" v-if="canUpdate">
-            <button class="btn btn-default btn-info btn-sm mr-1" @click="editing = true">
-                <i class="fa fa-edit"></i>
-            </button>
-            <button type="submit" class="btn btn-default btn-danger btn-sm" @click="destroy">
-                <i class="fa fa-trash"></i>
+        <div class="card-footer level" v-if="authorize('owns', reply) || authorize('owns', reply.thread)">
+            <div v-if="authorize('owns', reply)">
+                <button class="btn btn-default btn-info btn-sm mr-1" @click="editing = true">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button type="submit" class="btn btn-default btn-danger btn-sm mr-1" @click="destroy">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
+            <button type="button" class="btn btn-default btn-default btn-sm ml-a" @click="markBestReply" v-show="authorize('owns', reply.thread) && !isBest">
+                <i class="fa fa-star"></i>
             </button>
         </div>
     </div>
@@ -43,33 +52,29 @@ import Favorite from "./Favorite";
 import moment from "moment";
 
 export default {
-  props: ["data"],
+  props: ["reply"],
 
   components: { Favorite },
 
   data() {
     return {
       editing: false,
-      id: this.data.id,
-      body: this.data.body
+      id: this.reply.id,
+      body: this.reply.body,
+      isBest: this.reply.isBest,
     };
   },
 
   computed: {
     ago() {
-      return moment(this.data.created_at).fromNow() + " ...";
-    },
-
-    signedIn() {
-      return window.App.signedIn;
-    },
-
-    canUpdate() {
-      //return this.data.user_id == window.App.user.id
-      return this.authorize(user => this.data.user_id == user.id);
+      return moment(this.reply.created_at).fromNow() + " ...";
     }
   },
-
+  created() {
+    window.events.$on("best-reply-selected", id => {
+      this.isBest = id === this.id;
+    });
+  },
   methods: {
     update() {
       axios
@@ -86,9 +91,15 @@ export default {
     },
 
     destroy() {
-      axios.delete("/replies/" + this.data.id);
+      axios.delete("/replies/" + this.id);
 
-      this.$emit("deleted", this.data.id);
+      this.$emit("deleted", this.id);
+    },
+
+    markBestReply() {
+      axios.post("/replies/" + this.id + "/best");
+
+      window.events.$emit("best-reply-selected", this.id);
     }
   }
 };

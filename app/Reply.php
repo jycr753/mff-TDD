@@ -30,7 +30,7 @@ class Reply extends Model
      *
      * @var array
      */
-    protected $appends = ['favoriteCount', 'isFavorited'];
+    protected $appends = ['favoriteCount', 'isFavorited', 'isBest'];
 
     /**
      * Boot the reply instance.
@@ -47,6 +47,12 @@ class Reply extends Model
 
         static::deleted(
             function ($reply) {
+                // This one way of doing it, we can alsoe do it in database level
+                // look at create_thread_table
+                if ($reply->isBest()) {
+                    $reply->thread->update(['best_reply_id' => null]);
+                }
+
                 $reply->thread->decrement('replies_count');
             }
         );
@@ -115,5 +121,20 @@ class Reply extends Model
             '<a href="/profiles/$1">$0</a>',
             $body
         );
+    }
+
+    /**
+     * Determine if the current reply is marked as the best.
+     *
+     * @return bool
+     */
+    public function isBest()
+    {
+        return $this->thread->best_reply_id == $this->id;
+    }
+
+    public function getIsBestAttribute()
+    {
+        return $this->isBest();
     }
 }
