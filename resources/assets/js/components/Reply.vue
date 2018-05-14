@@ -3,17 +3,17 @@
         <div class="card-header" :class="isBest ? 'alert-success' : ''">
             <div class="level">
                 <h5 class="flex">
-                    <img :src="data.owner.avatar_path" 
-                            :alt="data.owner.name" 
+                    <img :src="reply.owner.avatar_path" 
+                            :alt="reply.owner.name" 
                             width="25" 
                             height="25" 
                             class="mr-1">
-                    <small><a :href="'/profiles/'+data.owner.name" v-text="data.owner.name"></a> 
+                    <small><a :href="'/profiles/' + reply.owner.name" v-text="reply.owner.name"></a> 
                     said <span v-text="ago"></span></small>
                 </h5>
 
                 <div v-if="signedIn">
-                    <favorite :reply="data"></favorite>
+                    <favorite :reply="reply"></favorite>
                 </div>
             </div>
         </div>
@@ -31,8 +31,8 @@
             </div>
             <div v-else v-html="body"></div>
         </div>
-        <div class="card-footer level">
-            <div v-if="authorize('updateReply', reply)">
+        <div class="card-footer level" v-if="authorize('owns', reply) || authorize('owns', reply.thread)">
+            <div v-if="authorize('owns', reply)">
                 <button class="btn btn-default btn-info btn-sm mr-1" @click="editing = true">
                     <i class="fa fa-edit"></i>
                 </button>
@@ -40,7 +40,7 @@
                     <i class="fa fa-trash"></i>
                 </button>
             </div>
-            <button type="button" class="btn btn-default btn-default btn-sm ml-a" @click="markBestReply" v-show="!isBest">
+            <button type="button" class="btn btn-default btn-default btn-sm ml-a" @click="markBestReply" v-show="authorize('owns', reply.thread) && !isBest">
                 <i class="fa fa-star"></i>
             </button>
         </div>
@@ -52,23 +52,22 @@ import Favorite from "./Favorite";
 import moment from "moment";
 
 export default {
-  props: ["data"],
+  props: ["reply"],
 
   components: { Favorite },
 
   data() {
     return {
       editing: false,
-      id: this.data.id,
-      body: this.data.body,
-      isBest: this.data.isBest,
-      reply: this.data
+      id: this.reply.id,
+      body: this.reply.body,
+      isBest: this.reply.isBest,
     };
   },
 
   computed: {
     ago() {
-      return moment(this.data.created_at).fromNow() + " ...";
+      return moment(this.reply.created_at).fromNow() + " ...";
     }
   },
   created() {
@@ -92,15 +91,15 @@ export default {
     },
 
     destroy() {
-      axios.delete("/replies/" + this.data.id);
+      axios.delete("/replies/" + this.id);
 
-      this.$emit("deleted", this.data.id);
+      this.$emit("deleted", this.id);
     },
 
     markBestReply() {
-      axios.post("/replies/" + this.data.id + "/best");
+      axios.post("/replies/" + this.id + "/best");
 
-      window.events.$emit("best-reply-selected", this.data.id);
+      window.events.$emit("best-reply-selected", this.id);
     }
   }
 };
