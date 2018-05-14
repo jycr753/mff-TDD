@@ -1,11 +1,15 @@
 <template>
     <div :id="'reply-'+id" class="card top-buffer">
-        <div class="card-header">
+        <div class="card-header" :class="isBest ? 'alert-success' : ''">
             <div class="level">
                 <h5 class="flex">
-                    <a :href="'/profiles/'+data.owner.name"
-                        v-text="data.owner.name">
-                    </a> said <span v-text="ago"></span>
+                    <img :src="data.owner.avatar_path" 
+                            :alt="data.owner.name" 
+                            width="25" 
+                            height="25" 
+                            class="mr-1">
+                    <small><a :href="'/profiles/'+data.owner.name" v-text="data.owner.name"></a> 
+                    said <span v-text="ago"></span></small>
                 </h5>
 
                 <div v-if="signedIn">
@@ -27,12 +31,17 @@
             </div>
             <div v-else v-html="body"></div>
         </div>
-        <div class="card-footer level" v-if="canUpdate">
-            <button class="btn btn-default btn-info btn-sm mr-1" @click="editing = true">
-                <i class="fa fa-edit"></i>
-            </button>
-            <button type="submit" class="btn btn-default btn-danger btn-sm" @click="destroy">
-                <i class="fa fa-trash"></i>
+        <div class="card-footer level">
+            <div v-if="canUpdate">
+                <button class="btn btn-default btn-info btn-sm mr-1" @click="editing = true">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button type="submit" class="btn btn-default btn-danger btn-sm mr-1" @click="destroy">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
+            <button type="button" class="btn btn-default btn-default btn-sm ml-a" @click="markBestReply" v-show="!isBest">
+                <i class="fa fa-star"></i>
             </button>
         </div>
     </div>
@@ -51,7 +60,8 @@ export default {
     return {
       editing: false,
       id: this.data.id,
-      body: this.data.body
+      body: this.data.body,
+      isBest: false
     };
   },
 
@@ -89,6 +99,10 @@ export default {
       axios.delete("/replies/" + this.data.id);
 
       this.$emit("deleted", this.data.id);
+    },
+
+    markBestReply() {
+      this.isBest = true;
     }
   }
 };
