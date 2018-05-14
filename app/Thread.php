@@ -39,6 +39,12 @@ class Thread extends Model
                 $thread->replies->each->delete();
             }
         );
+
+        static::created(
+            function ($thread) {
+                $thread->update(['slug' => $thread->title]);
+            }
+        );
     }
 
     /**
