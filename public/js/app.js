@@ -41692,17 +41692,25 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 window.Vue = __webpack_require__(16);
 window.events = new Vue();
 
-Vue.prototype.authorize = function (handler) {
-  //Additional admin privilages
-  // return true; // for testing purpose, open for all
-  //---
-  //let user = window.App.user;
-  // if (! user) return false;
-  // return handler(user);
+var authrizations = __webpack_require__(213);
 
-  var user = window.App.user;
-  return user ? handler(user) : false;
+Vue.prototype.authorize = function () {
+  if (window.App.signedIn == false) {
+    return false;
+  }
+
+  for (var _len = arguments.length, params = Array(_len), _key = 0; _key < _len; _key++) {
+    params[_key] = arguments[_key];
+  }
+
+  if (typeof params[0] === "string") {
+    return authrizations[params[0]](params[1]);
+  }
+
+  return params[0](window.App.user);
 };
+
+Vue.prototype.signedIn = window.App.signedIn;
 
 window.flash = function (message) {
   var level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "success";
@@ -65105,7 +65113,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       editing: false,
       id: this.data.id,
       body: this.data.body,
-      isBest: false
+      isBest: false,
+      reply: this.data
     };
   },
 
@@ -65113,17 +65122,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     ago: function ago() {
       return __WEBPACK_IMPORTED_MODULE_1_moment___default()(this.data.created_at).fromNow() + " ...";
-    },
-    signedIn: function signedIn() {
-      return window.App.signedIn;
-    },
-    canUpdate: function canUpdate() {
-      var _this = this;
-
-      //return this.data.user_id == window.App.user.id
-      return this.authorize(function (user) {
-        return _this.data.user_id == user.id;
-      });
     }
   },
 
@@ -65702,7 +65700,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-footer level" }, [
-        _vm.canUpdate
+        _vm.authorize("updateReply", _vm.reply)
           ? _c("div", [
               _c(
                 "button",
@@ -65848,14 +65846,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       body: ""
     };
   },
-
-
-  computed: {
-    signedIn: function signedIn() {
-      return window.App.signedIn;
-    }
-  },
-
   mounted: function mounted() {
     $("#body").atwho({
       at: "@",
@@ -67813,6 +67803,21 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */
+/***/ (function(module, exports) {
+
+var user = window.App.user;
+
+module.exports = {
+  updateReply: function updateReply(reply) {
+    return reply.user_id === user.id;
+  }
+};
 
 /***/ })
 /******/ ]);

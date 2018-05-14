@@ -26,17 +26,21 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 window.Vue = require("vue");
 window.events = new Vue();
 
-Vue.prototype.authorize = function(handler) {
-  //Additional admin privilages
-  // return true; // for testing purpose, open for all
-  //---
-  //let user = window.App.user;
-  // if (! user) return false;
-  // return handler(user);
+let authrizations = require("./authorizations");
 
-  let user = window.App.user;
-  return user ? handler(user) : false;
+Vue.prototype.authorize = function(...params) {
+  if (window.App.signedIn == false) {
+    return false;
+  }
+
+  if (typeof params[0] === "string") {
+    return authrizations[params[0]](params[1]);
+  }
+
+  return params[0](window.App.user);
 };
+
+Vue.prototype.signedIn = window.App.signedIn;
 
 window.flash = function(message, level = "success") {
   window.events.$emit("flash", { message, level });

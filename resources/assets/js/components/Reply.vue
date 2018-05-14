@@ -32,7 +32,7 @@
             <div v-else v-html="body"></div>
         </div>
         <div class="card-footer level">
-            <div v-if="canUpdate">
+            <div v-if="authorize('updateReply', reply)">
                 <button class="btn btn-default btn-info btn-sm mr-1" @click="editing = true">
                     <i class="fa fa-edit"></i>
                 </button>
@@ -61,22 +61,14 @@ export default {
       editing: false,
       id: this.data.id,
       body: this.data.body,
-      isBest: false
+      isBest: false,
+      reply: this.data
     };
   },
 
   computed: {
     ago() {
       return moment(this.data.created_at).fromNow() + " ...";
-    },
-
-    signedIn() {
-      return window.App.signedIn;
-    },
-
-    canUpdate() {
-      //return this.data.user_id == window.App.user.id
-      return this.authorize(user => this.data.user_id == user.id);
     }
   },
 
