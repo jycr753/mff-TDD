@@ -72,12 +72,16 @@ class CreateThreadsTest extends TestCase
         $this->publishThread(['channel_id' => 888])->assertStatus(422);
     }
 
-    /** @test */
+    /** 
+     * One edge case
+     * 
+     * @test 
+     */
     public function a_thread_requires_unique_slug()
     {
         $this->signIn();
 
-        $thread = create('App\Thread', ['title' => 'news thread one', 'slug' => 'news-thread-one']);
+        $thread = create('App\Thread', ['title' => 'news thread one']);
 
         $this->assertEquals($thread->fresh()->slug, 'news-thread-one');
 
@@ -92,6 +96,32 @@ class CreateThreadsTest extends TestCase
         $this->post('/threads', $thread->toArray());
 
         $this->assertTrue(Thread::whereSlug('news-thread-one-4')->exists());
+    }
+
+    /** 
+     * Second edge case
+     * 
+     * @test 
+     */
+    public function a_thread_with_a_title_that_ends_in_a_number_should_generate_proper_slug()
+    {
+        $this->signIn();
+
+        $thread = create('App\Thread', ['title' => 'Sum Title 24']);
+
+        $this->assertEquals($thread->fresh()->slug, 'sum-title-24');
+
+        $this->post('/threads', $thread->toArray());
+
+        $this->assertTrue(Thread::whereSlug('sum-title-24-2')->exists());
+
+        $this->post('/threads', $thread->toArray());
+
+        $this->assertTrue(Thread::whereSlug('sum-title-24-3')->exists());
+
+        $this->post('/threads', $thread->toArray());
+
+        $this->assertTrue(Thread::whereSlug('sum-title-24-4')->exists());
     }
 
     /** @test */
