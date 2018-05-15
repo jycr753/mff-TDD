@@ -61,12 +61,11 @@ class ThreadsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
      * @param Recaptcha $recaptcha
      * 
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Recaptcha $recaptcha)
+    public function store(Recaptcha $recaptcha)
     {
         request()->validate(
             [
@@ -134,7 +133,18 @@ class ThreadsController extends Controller
      */
     public function update($channel, Thread $thread)
     {
-        //
+        //authorization
+        $this->authorize('update', $thread);
+        
+        //validation
+        $thread->update(
+            request()->validate(
+                [
+                    'title' => 'required|spamfree',
+                    'body' => 'required|spamfree'
+                ]
+            )
+        );
     }
 
     /**

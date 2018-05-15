@@ -7,6 +7,11 @@ use App\User;
 
 class UsersController extends Controller
 {
+    /**
+     * Get the name for the avatar
+     *
+     * @return string
+     */
     public function index()
     {
         $search = request('name');

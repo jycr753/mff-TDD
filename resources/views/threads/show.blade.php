@@ -5,46 +5,11 @@
 @endsection
 
 @section('content')
-<thread-view :thread="{{ $thread }}" inline-template>
+<thread-view :thread="{{ $thread }}" inline-template v-cloak>
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="level">
-                            <span class="flex">                 
-                                Posted by 
-                                <a href="/profiles/{{ $thread->creator->name }}">
-                                    {{ $thread->creator->name }}
-                                    <img src="{{ $thread->creator->avatar_path }}" 
-                                        alt="{{ $thread->creator->name }}" 
-                                        width="15" 
-                                        height="15" 
-                                        class="mr-1">    
-                                </a> <br>
-                                <small><strong>{{ $thread->title }}</strong></small>
-                            </span>
-                            
-                            <div>
-                                @can('update', $thread)
-                                    <form method="POST" action="{{ $thread->path() }}">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-
-                                        <button type="submit" class="btn btn-default btn-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-
-                                    </form>
-                                @endcan
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                       {{ $thread->body }}
-                    </div>
-                </div>
+                @include('threads._question')
 
                 <replies @added="repliesCount++" @removed="repliesCount--"></replies>         
                 
