@@ -3,23 +3,23 @@
     <div class="card-header">
         <div class="level">
             <span class="flex">                 
-                <input class="form-control" value="{{ $thread->title }}">
+                <input class="form-control" value="{{ $thread->title }}" v-model="form.title">
             </span>
         </div>
     </div>
 
     <div class="card-body">
-        <textarea class="form-control">{{ $thread->body }}</textarea>
+        <textarea class="form-control" v-model="form.body"></textarea>
     </div>
 
     <div class="card-footer level">
         <div>
-            <button class="btn btn-default btn-success btn-sm mr-1" @click="editing = true">
+            <button class="btn btn-default btn-success btn-sm mr-1" @click="update">
                 <i class="fa fa-save"></i>
             </button>
         </div>
         <div>
-            <button class="btn btn-default btn-danger btn-sm mr-1" @click="editing = false">
+            <button class="btn btn-default btn-danger btn-sm mr-1" @click="resetForm">
                 <i class="fa fa-close"></i>
             </button>
         </div>
@@ -51,16 +51,14 @@
                         height="15" 
                         class="mr-1">    
                 </a> <br>
-                <small><strong>{{ $thread->title }}</strong></small>
+                <small><strong><span v-text="title"></span></strong></small>
             </span>
         </div>
     </div>
 
-    <div class="card-body">
-        {{ $thread->body }}
-    </div>
+    <div class="card-body" v-text="body"></div>
 
-    <div class="card-footer level">
+    <div class="card-footer level" v-if="authorize('owns', thread)">
         <div>
             <button class="btn btn-default btn-info btn-sm mr-1" @click="editing = true">
                 <i class="fa fa-edit"></i>

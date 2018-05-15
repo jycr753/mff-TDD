@@ -11,7 +11,13 @@ export default {
     return {
       repliesCount: this.thread.replies_count,
       locked: this.thread.locked,
-      editing: false
+      editing: false,
+      title: this.thread.title,
+      body: this.thread.body,
+      form: {
+        title: this.thread.title,
+        body: this.thread.body
+      }
     };
   },
 
@@ -23,9 +29,31 @@ export default {
 
   methods: {
     toggleLock() {
-      axios[this.locked ? 'delete' : 'post']('/locked-threads/' + this.thread.slug);
+      let url = `/locked-threads/${this.thread.slug}`;
+      
+      axios[this.locked ? 'delete' : 'post'](url);
 
       this.locked = ! this.locked;
+    },
+
+    update() {
+      let url = `/threads/${this.thread.channel.slug}/${this.thread.slug}`;
+
+      axios.patch(url, this.form).then(() => {
+        flash('Your thread has been updated!');
+        this.title = this.form.title;
+        this.body = this.form.body;
+        this.editing = false;
+      });
+    },
+
+    resetForm() {
+      this.form = {
+        title: this.thread.title,
+        body: this.thread.body
+      }
+
+      this.editing = false;
     }
   }
 };
