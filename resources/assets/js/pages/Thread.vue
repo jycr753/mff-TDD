@@ -1,15 +1,17 @@
 <script>
 import Replies from "../components/Replies";
 import SubscribeButton from "../components/SubscribeButton";
+import LockButton from "../components/LockButton";
 
 export default {
-  props: ["initialRepliesCount"],
+  props: ["dataRepliesCount", "dataLocked"],
 
-  components: { Replies, SubscribeButton },
+  components: { Replies, SubscribeButton, LockButton },
 
   data() {
     return {
-      repliesCount: this.initialRepliesCount
+      repliesCount: this.dataRepliesCount,
+      locked: this.dataLocked
     };
   }
 };
