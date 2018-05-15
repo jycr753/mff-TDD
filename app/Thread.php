@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Events\ThreadHasNewReply;
 use App\Traits\RecordActivity;
 use App\Libraries\Visits;
+use Laravel\Scout\Searchable;
 
 class Thread extends Model
 {
-    use RecordActivity;
+    use RecordActivity, Searchable;
 
     /**
      * Don't auto-apply mass assignment protection.
