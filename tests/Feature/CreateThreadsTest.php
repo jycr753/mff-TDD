@@ -3,28 +3,47 @@
 namespace Tests\Feature;
 
 use App\Activity;
+use App\Rules\Recaptcha;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Tests\TestCase;
 use App\Thread;
 
 class CreateThreadsTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseMigrations, MockeryPHPUnitIntegration;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        app()->singleton(
+            Recaptcha::class,
+            function () {
+                return \Mockery::mock(
+                    Recaptcha::class,
+                    function ($m) {
+                        $m->shouldReceive('passes')->andReturn(true);
+                    }
+                );
+            }
+        );
+    }
 
     /** @test */
-    public function guest_may_not_create_threads()
+    public function guests_may_not_create_threads()
     {
         $this->withExceptionHandling();
 
         $this->get('/threads/create')
-            ->assertRedirect('/login');
+            ->assertRedirect(route('login'));
 
-        $this->post('/threads')
-            ->assertRedirect('/login');
+        $this->post(route('threads'))
+            ->assertRedirect(route('login'));
     }
 
     /** @test */
-    public function new_user_first_confirm_their_email_address_before_creating_threads()
+    public function new_users_must_first_confirm_their_email_address_before_creating_threads()
     {
         $user = factory('App\User')->states('unconfirmed')->create();
 
@@ -32,52 +51,58 @@ class CreateThreadsTest extends TestCase
 
         $thread = make('App\Thread');
 
-        $this->post('/threads', $thread->toArray())
-            ->assertRedirect('/threads')
+        $this->post(route('threads'), $thread->toArray())
+            ->assertRedirect(route('threads'))
             ->assertSessionHas('flash', 'You must verify email!');
     }
 
     /** @test */
-    public function an_user_can_create_new_form_threads()
+    public function a_user_can_create_new_forum_threads()
     {
-        $this->signIn();
-
-        $thread = make('App\Thread');
-
-        $response = $this->post('/threads', $thread->toArray());
+        $response = $this->publishThread(['title' => 'Some Title', 'body' => 'Some body.']);
 
         $this->get($response->headers->get('Location'))
-            ->assertSee($thread->title)
-            ->assertSee($thread->body);
+            ->assertSee('Some Title')
+            ->assertSee('Some body.');
     }
 
     /** @test */
     public function a_thread_requires_a_title()
     {
-        $this->publishThread(['title' => null])->assertStatus(422);
+        $this->publishThread(['title' => null])
+            ->assertSessionHasErrors('title');
     }
 
     /** @test */
-    public function a_thread_requires_body()
+    public function a_thread_requires_a_body()
     {
-        $this->publishThread(['body' => null])->assertStatus(422);
+        $this->publishThread(['body' => null])
+            ->assertSessionHasErrors('body');
     }
 
     /** @test */
-    public function a_thread_requires_valid_channel()
+    public function a_thread_requires_recaptcha_verification()
+    {
+        unset(app()[Recaptcha::class]);
+
+        $this->publishThread(['g-recaptcha-response' => 'test'])
+            ->assertSessionHasErrors('g-recaptcha-response');
+    }
+
+    /** @test */
+    public function a_thread_requires_a_valid_channel()
     {
         factory('App\Channel', 2)->create();
 
-        $this->publishThread(['channel_id' => null])->assertStatus(422);
-        $this->publishThread(['channel_id' => 888])->assertStatus(422);
+        $this->publishThread(['channel_id' => null])
+            ->assertSessionHasErrors('channel_id');
+
+        $this->publishThread(['channel_id' => 999])
+            ->assertSessionHasErrors('channel_id');
     }
 
-    /** 
-     * One edge case
-     * 
-     * @test 
-     */
-    public function a_thread_requires_unique_slug()
+    /** @test */
+    public function a_thread_requires_a_unique_slug()
     {
         $this->signIn();
 
@@ -85,47 +110,36 @@ class CreateThreadsTest extends TestCase
 
         $this->assertEquals($thread->fresh()->slug, 'news-thread-one');
 
-        $this->post('/threads', $thread->toArray());
-
+        $this->post(route('threads'), $thread->toArray() + ['g-recaptcha-response' => 'token']);
         $this->assertTrue(Thread::whereSlug('news-thread-one-2')->exists());
 
-        $this->post('/threads', $thread->toArray());
-
+        $this->post('/threads', $thread->toArray() + ['g-recaptcha-response' => 'token']);
         $this->assertTrue(Thread::whereSlug('news-thread-one-3')->exists());
 
-        $this->post('/threads', $thread->toArray());
-
+        $this->post('/threads', $thread->toArray() + ['g-recaptcha-response' => 'token']);
         $this->assertTrue(Thread::whereSlug('news-thread-one-4')->exists());
     }
 
-    /** 
-     * Second edge case
-     * 
-     * @test 
-     */
-    public function a_thread_with_a_title_that_ends_in_a_number_should_generate_proper_slug()
+    /** @test */
+    public function a_thread_with_a_title_that_ends_in_a_number_should_generate_the_proper_slug()
     {
         $this->signIn();
 
         $thread = create('App\Thread', ['title' => 'Sum Title 24']);
-
         $this->assertEquals($thread->fresh()->slug, 'sum-title-24');
 
-        $this->post('/threads', $thread->toArray());
-
+        $this->post('/threads', $thread->toArray() + ['g-recaptcha-response' => 'token']);
         $this->assertTrue(Thread::whereSlug('sum-title-24-2')->exists());
 
-        $this->post('/threads', $thread->toArray());
-
+        $this->post('/threads', $thread->toArray() + ['g-recaptcha-response' => 'token']);
         $this->assertTrue(Thread::whereSlug('sum-title-24-3')->exists());
 
-        $this->post('/threads', $thread->toArray());
-
+        $this->post('/threads', $thread->toArray() + ['g-recaptcha-response' => 'token']);
         $this->assertTrue(Thread::whereSlug('sum-title-24-4')->exists());
     }
 
     /** @test */
-    public function unauthorized_can_not_delete_threads()
+    public function unauthorized_users_may_not_delete_threads()
     {
         $this->withExceptionHandling();
 
@@ -138,9 +152,9 @@ class CreateThreadsTest extends TestCase
     }
 
     /** @test */
-    public function authorized_can_delete_threads()
+    public function authorized_users_can_delete_threads()
     {
-        $this->withExceptionHandling()->signIn();
+        $this->signIn();
 
         $thread = create('App\Thread', ['user_id' => auth()->id()]);
         $reply = create('App\Reply', ['thread_id' => $thread->id]);
@@ -155,12 +169,12 @@ class CreateThreadsTest extends TestCase
         $this->assertEquals(0, Activity::count());
     }
 
-    protected function publishThread($overrides)
+    protected function publishThread($overrides = [])
     {
         $this->withExceptionHandling()->signIn();
 
         $thread = make('App\Thread', $overrides);
 
-        return $this->json('post', '/threads', $thread->toArray());
+        return $this->post(route('threads'), $thread->toArray() + ['g-recaptcha-response' => 'token']);
     }
 }
