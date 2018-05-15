@@ -63947,6 +63947,9 @@ module.exports = {
     var prop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "user_id";
 
     return model[prop] === user.id;
+  },
+  isAdmin: function isAdmin() {
+    return ["Tanvir"].includes(user.name);
   }
 };
 
@@ -64841,14 +64844,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["initialRepliesCount"],
+  props: ["thread"],
 
   components: { Replies: __WEBPACK_IMPORTED_MODULE_0__components_Replies___default.a, SubscribeButton: __WEBPACK_IMPORTED_MODULE_1__components_SubscribeButton___default.a },
 
   data: function data() {
     return {
-      repliesCount: this.initialRepliesCount
+      repliesCount: this.thread.replies_count,
+      locked: this.thread.locked
     };
+  },
+
+
+  computed: {
+    classes: function classes() {
+      return ["fa", this.locked ? "fa fa-lock text-danger" : "fa fa-unlock text-success"];
+    }
+  },
+
+  methods: {
+    toggleLock: function toggleLock() {
+      axios[this.locked ? 'delete' : 'post']('/locked-threads/' + this.thread.slug);
+
+      this.locked = !this.locked;
+    }
   }
 });
 
@@ -64910,6 +64929,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewReply__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewReply___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__NewReply__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_Collection__ = __webpack_require__(205);
+//
+//
+//
 //
 //
 //
@@ -67703,7 +67725,11 @@ var render = function() {
         on: { changed: _vm.fetch }
       }),
       _vm._v(" "),
-      _c("new-reply", { on: { created: _vm.add } })
+      _vm.$parent.locked
+        ? _c("p", [
+            _vm._v("\n      The thread has been locked by the admin\n    ")
+          ])
+        : _c("new-reply", { on: { created: _vm.add } })
     ],
     2
   )
