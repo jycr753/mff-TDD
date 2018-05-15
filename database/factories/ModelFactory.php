@@ -28,6 +28,16 @@ $factory->state(
     }
 );
 
+$factory->state(
+    App\User::class,
+    'administrator',
+    function () {
+        return [
+            'name' => 'Tanvir'
+        ];
+    }
+);
+
 $factory->define(
     App\Thread::class,
     function (Faker $faker) {

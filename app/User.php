@@ -121,4 +121,14 @@ class User extends Authenticatable
 
         $this->save();
     }
+
+    /**
+     * Determine if the user is an administrator.
+     *
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return in_array($this->name, ['Tanvir']);
+    }
 }
