@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Channel;
 use App\Filters\ThreadFilters;
+use App\Rules\Recaptcha;
 use App\Thread;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Libraries\Trending;
 
 class ThreadsController extends Controller
@@ -61,17 +61,19 @@ class ThreadsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
+     * @param Recaptcha $recaptcha
      * 
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Recaptcha $recaptcha)
     {
         request()->validate(
             [
                 'title' => 'required|spamfree',
                 'body' => 'required|spamfree',
-                'channel_id' => 'required|exists:channels,id'
+                'channel_id' => 'required|exists:channels,id',
+                'g-recaptcha-response' => ['required', $recaptcha]
             ]
         );
 

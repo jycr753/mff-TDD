@@ -37,7 +37,7 @@ class LocakThreadTest extends TestCase
     {
         $this->signIn(factory('App\User')->states('administrator')->create());
 
-        $thread = create('App\Thread', ['user_id' => auth()->id(), 'locked' => false]);
+        $thread = create('App\Thread', ['user_id' => auth()->id(), 'locked' => true]);
 
         $this->delete(route('locked-threads.destroy', $thread));
 
