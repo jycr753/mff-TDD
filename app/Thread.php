@@ -27,6 +27,10 @@ class Thread extends Model
 
     protected $appends = ['isSubscribedTo'];
 
+    protected $casts = [
+        'locked' => 'boolean'
+    ];
+
     /**
      * Boot the model.
      */
@@ -109,6 +113,14 @@ class Thread extends Model
     public function lock()
     {
         $this->update(['locked' => true]);
+    }
+
+    /**
+     * Unlock the thread.
+     */
+    public function unlock()
+    {
+        $this->update(['locked' => false]);
     }
 
     /**

@@ -1,18 +1,31 @@
 <script>
 import Replies from "../components/Replies";
 import SubscribeButton from "../components/SubscribeButton";
-import LockButton from "../components/LockButton";
 
 export default {
-  props: ["dataRepliesCount", "dataLocked"],
+  props: ["thread"],
 
-  components: { Replies, SubscribeButton, LockButton },
+  components: { Replies, SubscribeButton },
 
   data() {
     return {
-      repliesCount: this.dataRepliesCount,
-      locked: this.dataLocked
+      repliesCount: this.thread.replies_count,
+      locked: this.thread.locked
     };
+  },
+
+  computed: {
+    classes() {
+      return ["fa", this.locked ? "fa fa-lock text-danger" : "fa fa-unlock text-success"];
+    }
+  },
+
+  methods: {
+    toggleLock() {
+      axios[this.locked ? 'delete' : 'post']('/locked-threads/' + this.thread.slug);
+
+      this.locked = ! this.locked;
+    }
   }
 };
 </script>

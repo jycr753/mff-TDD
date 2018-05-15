@@ -17,7 +17,7 @@ class LocakThreadTest extends TestCase
 
         $this->post(route('locked-threads.store', $thread))->assertStatus(403);
 
-        $this->assertFalse(!!$thread->fresh()->locked);
+        $this->assertFalse($thread->fresh()->locked);
     }
 
     /** @test */
@@ -29,7 +29,19 @@ class LocakThreadTest extends TestCase
 
         $this->post(route('locked-threads.store', $thread));
 
-        $this->assertTrue(!!$thread->fresh()->locked);
+        $this->assertTrue($thread->fresh()->locked);
+    }
+
+    /** @test */
+    public function admin_can_unlock_thread()
+    {
+        $this->signIn(factory('App\User')->states('administrator')->create());
+
+        $thread = create('App\Thread', ['user_id' => auth()->id(), 'locked' => false]);
+
+        $this->delete(route('locked-threads.destroy', $thread));
+
+        $this->assertFalse($thread->fresh()->locked);
     }
 
     /** @test */
