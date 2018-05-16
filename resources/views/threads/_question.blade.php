@@ -9,7 +9,7 @@
     </div>
 
     <div class="card-body">
-        <textarea class="form-control" v-model="form.body"></textarea>
+        <wysiwyg v-model="form.body" value="form.body"></wysiwyg>
     </div>
 
     <div class="card-footer level">
@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    <div class="card-body" v-text="body"></div>
+    <div class="card-body" v-html="form.body"></div>
 
     <div class="card-footer level" v-if="authorize('owns', thread)">
         <div>

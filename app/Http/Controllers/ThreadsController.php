@@ -135,7 +135,7 @@ class ThreadsController extends Controller
     {
         //authorization
         $this->authorize('update', $thread);
-        
+
         //validation
         $thread->update(
             request()->validate(
