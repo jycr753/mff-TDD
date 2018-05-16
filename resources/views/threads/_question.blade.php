@@ -9,7 +9,7 @@
     </div>
 
     <div class="card-body">
-        <wysiwyg v-model="form.body" value="form.body"></wysiwyg>
+        <wysiwyg v-model="form.body"></wysiwyg>
     </div>
 
     <div class="card-footer level">

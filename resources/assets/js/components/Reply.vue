@@ -20,7 +20,7 @@
         <div class="card-body">
             <div v-if="editing">
                 <div class="form-group">
-                    <textarea class="form-control" id="" cols="30" rows="3" v-model="body" required></textarea>
+                    <wysiwyg v-model="body"></wysiwyg>
                 </div>
                 <button class="btn btn-default btn-outline-success btn-sm mr-1" @click="update">
                     <i class="fa fa-save"></i>
