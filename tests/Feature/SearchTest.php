@@ -20,6 +20,7 @@ class SearchTest extends TestCase
         create('App\Thread', ['body' => "A thread with the {$search} term"], 2);
 
         do {
+            sleep(1);
             $results = $this->getJson("/threads/search?q={$search}")->json()['data'];
         } while (empty($results));
 
