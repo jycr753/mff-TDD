@@ -7,6 +7,7 @@ use App\Events\ThreadHasNewReply;
 use App\Traits\RecordActivity;
 use App\Libraries\Visits;
 use Laravel\Scout\Searchable;
+use Stevebauman\Purify\Purify;
 
 class Thread extends Model
 {
@@ -272,8 +273,25 @@ class Thread extends Model
         );
     }
 
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
     public function toSearchableArray()
     {
         return $this->toArray() + ['path' => $this->path()];
+    }
+
+    /**
+     * Access the body attribute.
+     *
+     * @param string $body
+     * 
+     * @return string
+     */
+    public function getBodyAttribute($body)
+    {
+        return \Purify::clean($body);
     }
 }
