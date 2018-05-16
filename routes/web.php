@@ -20,10 +20,11 @@ Auth::routes();
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 Route::get('/threads', 'ThreadsController@index')->name('threads');
 Route::get('/threads/create', 'ThreadsController@create');
+
+Route::get('/threads/search', 'SearchController@show');
+
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
-
 Route::patch('/threads/{channel}/{thread}', 'ThreadsController@update');
-
 Route::delete('/threads/{channel}/{thread}', 'ThreadsController@destroy');
 Route::post('/threads', 'ThreadsController@store')->middleware('must-confirm-email');
 Route::get('/threads/{channel}', 'ThreadsController@index');
