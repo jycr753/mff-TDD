@@ -23,10 +23,10 @@
                                 <div class="form-group">
                                     <form method="GET" action="/threads/search">
                                         <input name="q" type="text" class="form-control" placeholder="Search">
+                                        <div class="form-group">
+                                            <button class="btn btn-default">Search</button>
+                                        </div>
                                     </form>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-default">Search</button>
                                 </div>
                             </div>
                         </article>

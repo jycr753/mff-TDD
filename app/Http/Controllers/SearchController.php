@@ -19,9 +19,8 @@ class SearchController extends Controller
         }
 
         return view(
-            'threads.index',
+            'threads.search',
             [
-                'threads' => $threads,
                 'trending' => $trending->get()
             ]
         );
