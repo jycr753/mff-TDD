@@ -20,14 +20,16 @@
                     <div class="card-body">
                         <article>
                             <div class="body level">
-                                <div class="form-group">
-                                    <form method="GET" action="/threads/search">
+                                <form method="GET" action="/threads/search">
+                                    <div class="col-md-8 form-group">
                                         <input name="q" type="text" class="form-control" placeholder="Search">
-                                        <div class="form-group">
-                                            <button class="btn btn-default">Search</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <button class="btn btn-default">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </article>
                     </div>
