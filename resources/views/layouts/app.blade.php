@@ -32,6 +32,7 @@
         .ml-a { margin-left: auto; }
         .font-color { color: white; }
         [v-cloak] { display: none; }
+        .ais-highlight > em { background: black; font-style: normal; color: white;}
     </style>
 
     @yield('header')

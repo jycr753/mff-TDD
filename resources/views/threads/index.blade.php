@@ -9,6 +9,30 @@
                 {{ $threads->render() }}
             </div>
             <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="level">
+                            <div class="flex">
+                                Search
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <article>
+                            <div class="body level">
+                                <div class="form-group">
+                                    <form method="GET" action="/threads/search">
+                                        <input name="q" type="text" class="form-control" placeholder="Search">
+                                        <div class="form-group">
+                                            <button class="btn btn-default">Search</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <br>
                 @if (count($trending))
                     <div class="card">
                         <div class="card-header">
