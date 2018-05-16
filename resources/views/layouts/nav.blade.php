@@ -37,7 +37,13 @@
                     </div>
                 </li>
             </ul>
-
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <form method="GET" action="/threads/search">
+                        <input name="q" type="text" class="form-control" placeholder="Search">
+                    </form>
+                </li>
+            </ul>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
