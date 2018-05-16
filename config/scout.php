@@ -13,7 +13,7 @@ return [
     |
     | Supported: "algolia", "null"
     |
-    */
+ */
 
     'driver' => env('SCOUT_DRIVER', 'algolia'),
 
@@ -26,7 +26,7 @@ return [
     | names used by Scout. This prefix may be useful if you have multiple
     | "tenants" or applications sharing the same search infrastructure.
     |
-    */
+     */
 
     'prefix' => env('SCOUT_PREFIX', ''),
 
@@ -39,7 +39,7 @@ return [
     | with your search engines are queued. When this is set to "true" then
     | all automatic data syncing will get queued for better performance.
     |
-    */
+     */
 
     'queue' => env('SCOUT_QUEUE', false),
 
@@ -52,7 +52,7 @@ return [
     | mass importing data into the search engine. This allows you to fine
     | tune each of these chunk sizes based on the power of the servers.
     |
-    */
+     */
 
     'chunk' => [
         'searchable' => 500,
@@ -68,7 +68,7 @@ return [
     | the search indexes. Maintaining soft deleted records can be useful
     | if your application still needs to search for the records later.
     |
-    */
+     */
 
     'soft_delete' => false,
 
@@ -81,10 +81,11 @@ return [
     | search engine which works great with Scout out of the box. Just plug
     | in your application ID and admin API key to get started searching.
     |
-    */
+     */
 
     'algolia' => [
         'id' => env('ALGOLIA_APP_ID', ''),
+        'key' => env('ALGOLIA_KEY', ''),
         'secret' => env('ALGOLIA_SECRET', ''),
     ],
 
