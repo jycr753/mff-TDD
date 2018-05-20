@@ -60,6 +60,11 @@ class Reply extends Model
                 }
 
                 $reply->thread->decrement('replies_count');
+
+                (new Reputation)->revoke(
+                    $reply->owner,
+                    Reputation::REPLY_POSTED
+                );
             }
         );
     }

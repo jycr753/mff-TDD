@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Favorite;
+use App\Reputation;
 
 trait Favoritable
 {
@@ -41,6 +42,12 @@ trait Favoritable
         $attributes = ['user_id' => auth()->id()];
 
         if (!$this->favorites()->where($attributes)->exists()) {
+
+            (new Reputation)->award(
+                auth()->user(),
+                Reputation::REPLY_FAVORITED
+            );
+
             return $this->favorites()->create($attributes);
         }
     }
@@ -55,6 +62,11 @@ trait Favoritable
         $attributes = ['user_id' => auth()->id()];
 
         $this->favorites()->where($attributes)->get()->each->delete();
+
+        (new Reputation)->revoke(
+            auth()->user(),
+            Reputation::REPLY_FAVORITED
+        );
     }
 
     /**

@@ -43,6 +43,11 @@ class Thread extends Model
         static::deleting(
             function ($thread) {
                 $thread->replies->each->delete();
+
+                (new Reputation)->revoke(
+                    $thread->creator,
+                    Reputation::THREAD_WAS_PUBLISHED
+                );
             }
         );
 
