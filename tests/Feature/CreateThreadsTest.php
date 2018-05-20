@@ -30,6 +30,21 @@ class CreateThreadsTest extends TestCase
         );
     }
 
+    /**
+     * Create thread
+     *
+     * @param array $overrides
+     * @return void
+     */
+    protected function publishThread($overrides = [])
+    {
+        $this->withExceptionHandling()->signIn();
+
+        $thread = make('App\Thread', $overrides);
+
+        return $this->post(route('threads'), $thread->toArray() + ['g-recaptcha-response' => 'token']);
+    }
+
     /** @test */
     public function guests_may_not_create_threads()
     {
@@ -167,14 +182,5 @@ class CreateThreadsTest extends TestCase
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
 
         $this->assertEquals(0, Activity::count());
-    }
-
-    protected function publishThread($overrides = [])
-    {
-        $this->withExceptionHandling()->signIn();
-
-        $thread = make('App\Thread', $overrides);
-
-        return $this->post(route('threads'), $thread->toArray() + ['g-recaptcha-response' => 'token']);
     }
 }
