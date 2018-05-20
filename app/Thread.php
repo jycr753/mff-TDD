@@ -43,12 +43,22 @@ class Thread extends Model
         static::deleting(
             function ($thread) {
                 $thread->replies->each->delete();
+
+                (new Reputation)->revoke(
+                    $thread->creator,
+                    Reputation::THREAD_WAS_PUBLISHED
+                );
             }
         );
 
         static::created(
             function ($thread) {
                 $thread->update(['slug' => $thread->title]);
+
+                (new Reputation)->award(
+                    $thread->creator,
+                    Reputation::THREAD_WAS_PUBLISHED
+                );
             }
         );
     }
@@ -270,6 +280,11 @@ class Thread extends Model
             [
                 'best_reply_id' => $reply->id
             ]
+        );
+
+        (new Reputation)->award(
+            $reply->owner,
+            Reputation::BEST_REPLY_AWAREDED
         );
     }
 

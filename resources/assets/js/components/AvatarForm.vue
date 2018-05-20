@@ -2,9 +2,12 @@
 <div>
     <div class="level">
         <img :src="avatar" width="50" height="50" class="mr-1">
-        <h1 v-text="user.name"></h1>
+        <h1>
+          {{ user.name }}
+          <small v-text="reputation"></small>
+        </h1>
     </div>
-    
+    <br>
     <form v-if="canUpdate" method="POST" enctype="multipart/form-data">
         <image-uploader name="avatar" class="mr-1" @loaded="onLoad"></image-uploader>
     </form>
@@ -29,6 +32,10 @@ export default {
   computed: {
     canUpdate() {
       return this.authorize(user => user.id == this.user.id);
+    },
+
+    reputation() {
+      return this.user.reputation + " XP";
     }
   },
 

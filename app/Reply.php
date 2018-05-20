@@ -43,6 +43,11 @@ class Reply extends Model
         static::created(
             function ($reply) {
                 $reply->thread->increment('replies_count');
+
+                (new Reputation)->award(
+                    $reply->owner,
+                    Reputation::REPLY_POSTED
+                );
             }
         );
 
@@ -55,6 +60,11 @@ class Reply extends Model
                 }
 
                 $reply->thread->decrement('replies_count');
+
+                (new Reputation)->revoke(
+                    $reply->owner,
+                    Reputation::REPLY_POSTED
+                );
             }
         );
     }

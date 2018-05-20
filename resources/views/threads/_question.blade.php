@@ -50,7 +50,7 @@
                         width="15" 
                         height="15" 
                         class="mr-1">    
-                </a> <br>
+                </a> ({{ $thread->creator->reputation }} XP)<br>
                 <small><strong><span v-text="title"></span></strong></small>
             </span>
         </div>
