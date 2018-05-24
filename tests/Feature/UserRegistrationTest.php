@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use App\Mail\PleaseConfirmYourEmail;
 use Illuminate\Auth\Events\Registered;
-use App\User;
+use App\Models\User;
 
 class UserRegistrationTest extends TestCase
 {
@@ -17,7 +17,7 @@ class UserRegistrationTest extends TestCase
     {
         Mail::fake();
 
-        $user = create('App\User');
+        $user = create('App\Models\User');
 
         event(new Registered($user));
 
@@ -29,7 +29,7 @@ class UserRegistrationTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory('App\User')->states('unconfirmed')->create();
+        $user = factory('App\Models\User')->states('unconfirmed')->create();
 
         $this->assertFalse($user->confirmed);
         $this->assertNotNull($user->confirmation_token);

@@ -25,7 +25,7 @@ class TrendingThreadTest extends TestCase
         $this->assertEmpty($this->trending->get());
         
         // Given that we have a thread
-        $thread = create('App\Thread');
+        $thread = create('App\Models\Thread');
 
         $this->call('GET', $thread->path());
 

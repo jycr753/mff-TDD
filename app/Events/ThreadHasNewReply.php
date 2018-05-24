@@ -16,8 +16,8 @@ class ThreadHasNewReply
     /**
      * Create a new event instance.
      * 
-     * @param \App\Thread $thread
-     * @param \App\Reply $reply
+     * @param \App\Models\Thread $thread
+     * @param \App\Models\Reply $reply
      */
     public function __construct($thread, $reply)
     {

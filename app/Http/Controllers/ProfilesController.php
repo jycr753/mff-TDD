@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Activity;
-use App\User;
+use App\Models\Activity;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfilesController extends Controller

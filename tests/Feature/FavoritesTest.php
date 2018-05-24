@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Favorite;
+use App\Models\Favorite;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -29,7 +29,7 @@ class FavoritesTest extends TestCase
          */
         $this->signIn();
 
-        $reply = create('App\Reply'); //It also creates Thread in teh process
+        $reply = create('App\Models\Reply'); //It also creates Thread in teh process
 
         $this->post('replies/' . $reply->id . '/favorites');
 
@@ -41,7 +41,7 @@ class FavoritesTest extends TestCase
     {
         $this->signIn();
 
-        $reply = create('App\Reply'); //It also creates Thread in teh process
+        $reply = create('App\Models\Reply'); //It also creates Thread in teh process
 
         $reply->favorite();
 
@@ -58,7 +58,7 @@ class FavoritesTest extends TestCase
     {
         $this->signIn();
 
-        $reply = create('App\Reply'); //It also creates Thread in teh process
+        $reply = create('App\Models\Reply'); //It also creates Thread in teh process
 
         try {
             $this->post('replies/' . $reply->id . '/favorites');

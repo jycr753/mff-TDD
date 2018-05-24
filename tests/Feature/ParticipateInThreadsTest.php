@@ -23,9 +23,9 @@ class ParticipateInThreadsTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create('App\Thread');
+        $thread = create('App\Models\Thread');
 
-        $reply = make('App\Reply');
+        $reply = make('App\Models\Reply');
         $this->post($thread->path() . '/replies', $reply->toArray());
 
         $this->assertDatabaseHas('replies', ['body' => $reply->body]);
@@ -37,9 +37,9 @@ class ParticipateInThreadsTest extends TestCase
     {
         $this->withExceptionHandling()->signIn();
 
-        $thread = create('App\Thread');
+        $thread = create('App\Models\Thread');
 
-        $reply = make('App\Reply', ['body' => null]);
+        $reply = make('App\Models\Reply', ['body' => null]);
 
         $this->json('post', $thread->path() . '/replies', $reply->toArray())
             ->assertStatus(422);
@@ -51,7 +51,7 @@ class ParticipateInThreadsTest extends TestCase
     {
         $this->withExceptionHandling();
 
-        $reply = create('App\Reply');
+        $reply = create('App\Models\Reply');
 
         $this->delete("/replies/{$reply->id}")
             ->assertRedirect('/login');
@@ -66,7 +66,7 @@ class ParticipateInThreadsTest extends TestCase
     {
         $this->signIn();
 
-        $reply = create('App\Reply', ['user_id' => auth()->id()]);
+        $reply = create('App\Models\Reply', ['user_id' => auth()->id()]);
 
         $this->delete("/replies/{$reply->id}")->assertStatus(302);
 
@@ -82,7 +82,7 @@ class ParticipateInThreadsTest extends TestCase
 
         $this->signIn();
 
-        $reply = create('App\Reply', ['user_id' => auth()->id()]);
+        $reply = create('App\Models\Reply', ['user_id' => auth()->id()]);
 
         $updateReply = 'You been changed, fool.';
 
@@ -102,7 +102,7 @@ class ParticipateInThreadsTest extends TestCase
     {
         $this->withExceptionHandling();
 
-        $reply = create('App\Reply');
+        $reply = create('App\Models\Reply');
 
         $this->patch("/replies/{$reply->id}")
             ->assertRedirect('/login');
@@ -119,10 +119,10 @@ class ParticipateInThreadsTest extends TestCase
 
         $this->signIn();
 
-        $thread = create('App\Thread');
+        $thread = create('App\Models\Thread');
 
         $reply = make(
-            'App\Reply',
+            'App\Models\Reply',
             [
                 'body' => 'yahoo customer support'
             ]
@@ -139,8 +139,8 @@ class ParticipateInThreadsTest extends TestCase
 
         $this->signIn();
 
-        $thread = create('App\Thread');
-        $reply = make('App\Reply');
+        $thread = create('App\Models\Thread');
+        $reply = make('App\Models\Reply');
 
         $this->post($thread->path() . '/replies', $reply->toArray())
             ->assertStatus(201);

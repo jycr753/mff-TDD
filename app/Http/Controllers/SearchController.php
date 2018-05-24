@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Thread;
+use App\Models\Thread;
 use App\Libraries\Trending;
 
 class SearchController extends Controller

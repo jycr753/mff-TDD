@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Notifications\ThreadWasUpdated;
@@ -37,7 +37,7 @@ class ThreadSubscription extends Model
     /**
      * Notify the related user that the thread was updated.
      *
-     * @param \App\Reply $reply
+     * @param \App\Models\Reply $reply
      */
     public function notify($reply)
     {

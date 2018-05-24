@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
@@ -12,8 +12,8 @@ class UserPolicy
     /**
      * Determine whether the user can update the given profile.
      *
-     * @param \App\User  $user
-     * @param \App\User  $signInUser
+     * @param \App\Models\User  $user
+     * @param \App\Models\User  $signInUser
      * 
      * @return mixed
      */

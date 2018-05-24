@@ -12,20 +12,20 @@ class MenthionUsersTest extends TestCase
     public function mentioned_users_in_a_reply_are_notified()
     {
         // Given that we have a user
-        $Jain = create('App\User', ['name' => 'JainDoe']);
+        $Jain = create('App\Models\User', ['name' => 'JainDoe']);
 
         // We sign him in
         $this->signIn($Jain);
 
         // create another user
-        $Tommy = create('App\User', ['name' => 'TommyDoe']);
+        $Tommy = create('App\Models\User', ['name' => 'TommyDoe']);
 
         // create a thread by Jain
-        $thread = create('App\Thread');
+        $thread = create('App\Models\Thread');
 
         // Make a reply by Jain to @tommy
         $reply = make(
-            'App\Reply',
+            'App\Models\Reply',
             [
                 'body' => '@TommyDoe look at this.'
             ]
@@ -41,9 +41,9 @@ class MenthionUsersTest extends TestCase
     /** @test */
     public function it_can_fetch_all_mentioned_users_starting_with_the_given_charac()
     {
-        create('App\User', ['name' => 'JhonDoe']);
-        create('App\User', ['name' => 'JhonDoe1']);
-        create('App\User', ['name' => 'JainDoe']);
+        create('App\Models\User', ['name' => 'JhonDoe']);
+        create('App\Models\User', ['name' => 'JhonDoe1']);
+        create('App\Models\User', ['name' => 'JainDoe']);
 
         $result = $this->json('GET', '/api/users', ['name' => 'jhon']);
 

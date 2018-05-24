@@ -2,7 +2,7 @@
 
 namespace App\Filters;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ThreadFilters extends Filters

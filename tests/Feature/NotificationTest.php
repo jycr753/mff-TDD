@@ -14,7 +14,7 @@ class NotificationTest extends TestCase
         parent::setup();
 
         $this->signIn();
-        $this->thread = create('App\Thread')->subscribe();
+        $this->thread = create('App\Models\Thread')->subscribe();
     }
 
     /** @test */
@@ -36,7 +36,7 @@ class NotificationTest extends TestCase
         // Anoterh user replied
         $this->thread->addReply(
             [
-                'user_id' => create('App\User')->id,
+                'user_id' => create('App\Models\User')->id,
                 'body' => 'Some reply here'
             ]
         );

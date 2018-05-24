@@ -18,7 +18,7 @@ class UpdateThreadsTest extends TestCase
     /** @test */
     public function a_thread_requires_title_and_body_to_be_updated()
     {
-        $thread = create('App\Thread', ['user_id' => auth()->id()]);
+        $thread = create('App\Models\Thread', ['user_id' => auth()->id()]);
 
         $this->patch(
             $thread->path(),
@@ -38,7 +38,7 @@ class UpdateThreadsTest extends TestCase
     /** @test */
     public function unauthorize_user_may_not_update_thread()
     {
-        $thread = create('App\Thread', ['user_id' => create('App\User')->id]);
+        $thread = create('App\Models\Thread', ['user_id' => create('App\Models\User')->id]);
 
         $this->patch(
             $thread->path(),
@@ -49,7 +49,7 @@ class UpdateThreadsTest extends TestCase
     /** @test */
     public function a_thread_can_be_updated_by_its_creator()
     {
-        $thread = create('App\Thread', ['user_id' => auth()->id()]);
+        $thread = create('App\Models\Thread', ['user_id' => auth()->id()]);
 
         $this->patch(
             $thread->path(),

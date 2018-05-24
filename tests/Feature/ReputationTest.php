@@ -3,7 +3,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Reputation;
+use App\Models\Reputation;
 
 class ReputationTest extends TestCase
 {
@@ -12,7 +12,7 @@ class ReputationTest extends TestCase
     /** @test */
     public function a_user_earn_points_when_they_create_thread()
     {
-        $thread = create('App\Thread');
+        $thread = create('App\Models\Thread');
 
         $this->assertEquals(Reputation::THREAD_WAS_PUBLISHED, $thread->creator->reputation);
     }
@@ -22,7 +22,7 @@ class ReputationTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create('App\Thread', ['user_id' => auth()->id()]);
+        $thread = create('App\Models\Thread', ['user_id' => auth()->id()]);
 
         $this->assertEquals(Reputation::THREAD_WAS_PUBLISHED, $thread->creator->reputation);
 
@@ -34,11 +34,11 @@ class ReputationTest extends TestCase
     /** @test */
     public function a_user_earns_point_when_reply_to_thread()
     {
-        $thread = create('App\Thread');
+        $thread = create('App\Models\Thread');
 
         $reply = $thread->addReply(
             [
-                'user_id' => create('App\User')->id,
+                'user_id' => create('App\Models\User')->id,
                 'body' => 'Hear is a reply'
             ]
         );
@@ -51,7 +51,7 @@ class ReputationTest extends TestCase
     {
         $this->signIn();
 
-        $reply = create('App\Reply', ['user_id' => auth()->id()]);
+        $reply = create('App\Models\Reply', ['user_id' => auth()->id()]);
 
         $this->assertEquals(Reputation::REPLY_POSTED, $reply->owner->reputation);
 
@@ -63,11 +63,11 @@ class ReputationTest extends TestCase
     /** @test */
     public function a_user_earns_points_when_their_reply_is_marked_as_best()
     {
-        $thread = create('App\Thread');
+        $thread = create('App\Models\Thread');
 
         $reply = $thread->addReply(
             [
-                'user_id' => create('App\User')->id,
+                'user_id' => create('App\Models\User')->id,
                 'body' => 'Hear is a reply'
             ]
         );
@@ -84,7 +84,7 @@ class ReputationTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create('App\Thread');
+        $thread = create('App\Models\Thread');
 
         $reply = $thread->addReply(
             [
@@ -105,7 +105,7 @@ class ReputationTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create('App\Thread');
+        $thread = create('App\Models\Thread');
 
         $reply = $thread->addReply(
             [

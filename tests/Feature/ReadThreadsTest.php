@@ -13,7 +13,7 @@ class ReadThreadsTest extends TestCase
     {
         parent::setUp();
 
-        $this->thread = create('App\Thread');
+        $this->thread = create('App\Models\Thread');
     }
 
     /** @test */
@@ -33,9 +33,9 @@ class ReadThreadsTest extends TestCase
     /** @test */
     public function a_user_can_filter_threads_according_to_a_channel()
     {
-        $channel = create('App\Channel');
-        $threadInChannel = create('App\Thread', ['channel_id' => $channel->id]);
-        $threadNotInChannel = create('App\Thread');
+        $channel = create('App\Models\Channel');
+        $threadInChannel = create('App\Models\Thread', ['channel_id' => $channel->id]);
+        $threadNotInChannel = create('App\Models\Thread');
 
         $this->get('/threads/' . $channel->slug)
             ->assertSee($threadInChannel->title)
@@ -45,10 +45,10 @@ class ReadThreadsTest extends TestCase
     /** @test */
     public function a_user_can_filter_threads_by_any_username()
     {
-        $this->signIn(create('App\User', ['name' => 'JohnDoe']));
+        $this->signIn(create('App\Models\User', ['name' => 'JohnDoe']));
 
-        $threadByJhone = create('App\Thread', ['user_id' => auth()->id()]);
-        $threadNotByJhon = create('App\Thread');
+        $threadByJhone = create('App\Models\Thread', ['user_id' => auth()->id()]);
+        $threadNotByJhon = create('App\Models\Thread');
 
         $this->get('threads?by=JohnDoe')
             ->assertSee($threadByJhone->title)
@@ -64,11 +64,11 @@ class ReadThreadsTest extends TestCase
          * when I filter all threads by popularity
          * Then I shoudl see the most replies to least replies order.
          * */
-        $threadsWithTwoReplies = create('App\Thread');
-        create('App\Reply', ['thread_id' => $threadsWithTwoReplies->id], 2);
+        $threadsWithTwoReplies = create('App\Models\Thread');
+        create('App\Models\Reply', ['thread_id' => $threadsWithTwoReplies->id], 2);
 
-        $threadsWithThreeReplies = create('App\Thread');
-        create('App\Reply', ['thread_id' => $threadsWithThreeReplies->id], 3);
+        $threadsWithThreeReplies = create('App\Models\Thread');
+        create('App\Models\Reply', ['thread_id' => $threadsWithThreeReplies->id], 3);
 
         $threadsWithZeroReplies = $this->thread;
 
@@ -80,8 +80,8 @@ class ReadThreadsTest extends TestCase
     /** @test */
     public function a_user_can_filter_threads_that_are_unanswered()
     {
-        $thread = create('App\Thread');
-        create('App\Reply', ['thread_id' => $thread->id]);
+        $thread = create('App\Models\Thread');
+        create('App\Models\Reply', ['thread_id' => $thread->id]);
 
         $response = $this->getJson('threads?unanswered=1')->json();
 
@@ -91,8 +91,8 @@ class ReadThreadsTest extends TestCase
     /** @test */
     public function a_user_can_request_all_replies_to_a_given_thread()
     {
-        $thread = create('App\Thread');
-        create('App\Reply', ['thread_id' => $thread->id], 2);
+        $thread = create('App\Models\Thread');
+        create('App\Models\Reply', ['thread_id' => $thread->id], 2);
 
         $response = $this->getJson($thread->path() . '/replies')->json();
 
