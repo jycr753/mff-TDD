@@ -15,15 +15,15 @@ class ReplyTest extends TestCase
     /** @test */
     function it_has_an_owner()
     {
-        $reply = create('App\Reply');
+        $reply = create('App\Models\Reply');
 
-        $this->assertInstanceOf('App\User', $reply->owner);
+        $this->assertInstanceOf('App\Models\User', $reply->owner);
     }
 
     /** @test */
     public function a_reply_knows_if_it_was_just_published()
     {
-        $reply = create('App\Reply');
+        $reply = create('App\Models\Reply');
 
         $this->assertTrue($reply->wasJustPublished());
 
@@ -35,7 +35,7 @@ class ReplyTest extends TestCase
     /** @test */
     public function it_can_detect_all_mentioned_users_in_the_body()
     {
-        $reply = new \App\Reply(
+        $reply = new \App\Models\Reply(
             [
                 'body' => '@JaneDoe wants to talk to @JhonDoe'
             ]
@@ -47,7 +47,7 @@ class ReplyTest extends TestCase
     /** @test */
     public function it_wraps_mentioned_usernames_in_the_body_within_anchor_tags()
     {
-        $reply = new \App\Reply(
+        $reply = new \App\Models\Reply(
             [
                 'body' => 'Hello @Tanvir.'
             ]
@@ -62,7 +62,7 @@ class ReplyTest extends TestCase
     /** @test */
     public function it_know_if_it_is_best_reply()
     {
-        $reply = create('App\Reply');
+        $reply = create('App\Models\Reply');
 
         $this->assertFalse($reply->isBest());
 
@@ -75,7 +75,7 @@ class ReplyTest extends TestCase
     public function a_replies_body_is_sanatize_automatically()
     {
         // Given we have thread
-        $reply = make('App\Reply', ['body' => '<script>alert("bad")</script><p>This is ok</p>']);
+        $reply = make('App\Models\Reply', ['body' => '<script>alert("bad")</script><p>This is ok</p>']);
 
         $this->assertEquals("<p>This is ok</p>", $reply->body);
     }

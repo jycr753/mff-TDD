@@ -13,9 +13,9 @@ class BestReplyTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create('App\Thread', ['user_id' => auth()->id()]);
+        $thread = create('App\Models\Thread', ['user_id' => auth()->id()]);
 
-        $replies = create('App\Reply', ['thread_id' => $thread->id], 2);
+        $replies = create('App\Models\Reply', ['thread_id' => $thread->id], 2);
 
         $this->assertFalse($replies[1]->isbest());
 
@@ -29,11 +29,11 @@ class BestReplyTest extends TestCase
     {
         $this->withExceptionHandling()->signIn();
 
-        $thread = create('App\Thread', ['user_id' => auth()->id()]);
+        $thread = create('App\Models\Thread', ['user_id' => auth()->id()]);
 
-        $replies = create('App\Reply', ['thread_id' => $thread->id], 2);
+        $replies = create('App\Models\Reply', ['thread_id' => $thread->id], 2);
 
-        $this->signIn(create('App\User'));
+        $this->signIn(create('App\Models\User'));
 
         $this->postJson(
             route('best-replies.store', [$replies[1]->id])
@@ -47,7 +47,7 @@ class BestReplyTest extends TestCase
     {
         $this->signIn();
 
-        $reply = create('App\Reply', ['user_id' => auth()->id()]);
+        $reply = create('App\Models\Reply', ['user_id' => auth()->id()]);
 
         $reply->thread->markBestReply($reply);
 

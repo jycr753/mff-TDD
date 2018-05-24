@@ -5,7 +5,7 @@ use Faker\Provider\Uuid;
 use Illuminate\Support\Str;
 
 $factory->define(
-    App\User::class,
+    App\Models\User::class,
     function (Faker $faker) {
         return [
             'name' => $faker->name,
@@ -19,7 +19,7 @@ $factory->define(
 );
 
 $factory->state(
-    App\User::class,
+    App\Models\User::class,
     'unconfirmed',
     function () {
         return [
@@ -29,7 +29,7 @@ $factory->state(
 );
 
 $factory->state(
-    App\User::class,
+    App\Models\User::class,
     'administrator',
     function () {
         return [
@@ -39,16 +39,16 @@ $factory->state(
 );
 
 $factory->define(
-    App\Thread::class,
+    App\Models\Thread::class,
     function (Faker $faker) {
         $title = $faker->sentence;
 
         return [
             'user_id' => function () {
-                return factory('App\User')->create()->id;
+                return factory('App\Models\User')->create()->id;
             },
             'channel_id' => function () {
-                return factory('App\Channel')->create()->id;
+                return factory('App\Models\Channel')->create()->id;
             },
             'title' => $title,
             'body' => $faker->paragraph,
@@ -60,7 +60,7 @@ $factory->define(
 );
 
 $factory->define(
-    App\Channel::class,
+    App\Models\Channel::class,
     function (Faker $faker) {
         return [
             'name' => $faker->word,
@@ -70,14 +70,14 @@ $factory->define(
 );
 
 $factory->define(
-    App\Reply::class,
+    App\Models\Reply::class,
     function (Faker $faker) {
         return [
             'thread_id' => function () {
-                return factory('App\Thread')->create()->id;
+                return factory('App\Models\Thread')->create()->id;
             },
             'user_id' => function () {
-                return factory('App\User')->create()->id;
+                return factory('App\Models\User')->create()->id;
             },
             'body' => $faker->paragraph,
         ];
@@ -91,9 +91,9 @@ $factory->define(
             'id' => (string)Str::uuid(), //Laravel special unique identifier :)
             'type' => 'App\Notifications\ThreadWasUpdated',
             'notifiable_id' => function () {
-                return auth()->id() ? : factory('App\User')->create()->id;
+                return auth()->id() ? : factory('App\Models\User')->create()->id;
             },
-            'notifiable_type' => 'App\User',
+            'notifiable_type' => 'App\Models\User',
             'data' => ['foo' => 'bar']
         ];
     }

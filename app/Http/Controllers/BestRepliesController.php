@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Reply;
+use App\Models\Reply;
 
 class BestRepliesController extends Controller
 {

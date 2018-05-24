@@ -3,8 +3,8 @@
 namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Favorite;
-use App\Reputation;
+use App\Models\Favorite;
+use App\Models\Reputation;
 
 trait Favoritable
 {

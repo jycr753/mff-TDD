@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Activity;
+use App\Models\Activity;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -16,14 +16,17 @@ class ActivityTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create('App\Thread');
+        $thread = create('App\Models\Thread');
 
-        $this->assertDatabaseHas('activities', [
-            'user_id' => auth()->id(),
-            'subject_id' => $thread->id,
-            'subject_type' => 'App\Thread',
-            'type' => 'created_thread'
-        ]);
+        $this->assertDatabaseHas(
+            'activities',
+            [
+                'user_id' => auth()->id(),
+                'subject_id' => $thread->id,
+                'subject_type' => 'App\Models\Thread',
+                'type' => 'created_thread'
+            ]
+        );
 
         $activity = Activity::first();
 
@@ -35,7 +38,7 @@ class ActivityTest extends TestCase
     {
         $this->signIn();
 
-        $reply = create('App\Reply');
+        $reply = create('App\Models\Reply');
 
         $this->assertEquals(2, Activity::count());
     }
@@ -51,7 +54,7 @@ class ActivityTest extends TestCase
          */
         $this->signIn();
 
-        create('App\Thread', ['user_id' => auth()->id()], 2);
+        create('App\Models\Thread', ['user_id' => auth()->id()], 2);
         /*create('App\Thread', [
             'user_id' => auth()->id(),
             'created_at' => Carbon::now()->subWeek()
@@ -61,18 +64,24 @@ class ActivityTest extends TestCase
             ->user()
             ->activity()
             ->first()
-            ->update([
-                'created_at' => Carbon::now()->subWeek()
-            ]);
+            ->update(
+                [
+                    'created_at' => Carbon::now()->subWeek()
+                ]
+            );
 
         $feed = Activity::feed(auth()->user(), 50);
 
-        $this->assertTrue($feed->keys()->contains(
-            Carbon::now()->format('Y-m-d')
-        ));
+        $this->assertTrue(
+            $feed->keys()->contains(
+                Carbon::now()->format('Y-m-d')
+            )
+        );
 
-        $this->assertTrue($feed->keys()->contains(
-            Carbon::now()->subWeek()->format('Y-m-d')
-        ));
+        $this->assertTrue(
+            $feed->keys()->contains(
+                Carbon::now()->subWeek()->format('Y-m-d')
+            )
+        );
     }
 }

@@ -6,7 +6,7 @@ use App\Exceptions\ThrottleException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use App\Notifications\YouWereMentioned;
-use App\User;
+use App\Models\User;
 
 class CreatePostRequest extends FormRequest
 {
@@ -17,7 +17,7 @@ class CreatePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return Gate::allows('create', new \App\Reply);
+        return Gate::allows('create', new \App\Models\Reply);
     }
 
     /**

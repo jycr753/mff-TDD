@@ -3,7 +3,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Thread;
+use App\Models\Thread;
 
 class SearchTest extends TestCase
 {
@@ -16,8 +16,8 @@ class SearchTest extends TestCase
 
         $search = 'foobar';
 
-        create('App\Thread', [], 2);
-        create('App\Thread', ['body' => "A thread with the {$search} term"], 2);
+        create('App\Models\Thread', [], 2);
+        create('App\Models\Thread', ['body' => "A thread with the {$search} term"], 2);
 
         do {
             sleep(1);

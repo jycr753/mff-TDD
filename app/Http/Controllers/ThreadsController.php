@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Channel;
+use App\Models\Channel;
 use App\Filters\ThreadFilters;
 use App\Rules\Recaptcha;
-use App\Thread;
+use App\Models\Thread;
 use Illuminate\Http\Request;
 use App\Libraries\Trending;
 
@@ -114,7 +114,7 @@ class ThreadsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Thread $thread
+     * @param \App\Models\Thread $thread
      * 
      * @return \Illuminate\Http\Response
      */
