@@ -23,7 +23,11 @@ class LocakThreadTest extends TestCase
     /** @test */
     public function admin_can_lock_thread()
     {
-        $this->signIn(factory('App\Models\User')->states('administrator')->create());
+        $user = factory('App\Models\User')->create();
+
+        config(['council.admin' => [$user->email]]);
+
+        $this->signIn($user);
 
         $thread = create('App\Models\Thread', ['user_id' => auth()->id()]);
 
@@ -35,7 +39,11 @@ class LocakThreadTest extends TestCase
     /** @test */
     public function admin_can_unlock_thread()
     {
-        $this->signIn(factory('App\Models\User')->states('administrator')->create());
+        $user = factory('App\Models\User')->create();
+
+        config(['council.admin' => [$user->email]]);
+
+        $this->signIn($user);
 
         $thread = create('App\Models\Thread', ['user_id' => auth()->id(), 'locked' => true]);
 

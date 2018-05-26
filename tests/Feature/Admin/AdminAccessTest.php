@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 use App\Models\User;
 
-class AdministratorTest extends TestCase
+class AdminAccessTest extends TestCase
 {
     use RefreshDatabase;
 
