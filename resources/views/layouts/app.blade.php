@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="shortcut icon" href="{{{ asset('img/favicon.png') }}}">
+    <link rel="shortcut icon" href="{{{ asset('img/favicon.ico') }}}">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
@@ -34,12 +34,13 @@
         .font-color { color: white; }
         [v-cloak] { display: none; }
         .ais-highlight > em { background: black; font-style: normal; color: white;}
+        .pad-top { padding-top: 10px; }
     </style>
 
     @yield('header')
 </head>
 <body>
-    <div id="app">
+    <div id="app" v-cloak>
         @include('layouts.nav')
 
         <main class="py-4">
@@ -51,5 +52,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 </body>
 </html>

@@ -6,10 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-        <link rel="shortcut icon" href="{{{ asset('img/favicon.png') }}}">
+        <link rel="shortcut icon" href="{{{ asset('img/favicon.ico') }}}">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
         <!-- Styles -->
         <style>
             html, body {
@@ -44,44 +45,50 @@
             .content {
                 text-align: center;
             }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
         </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/dashboard') }}">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
             <div class="content">
                 <div class="title m-b-md">
-                    <img src="img/mfbf.png">
+                    <img src="img/mff.png">
+                    <br>
+                        @if (Route::has('login'))
+                            @auth
+                                <a class="button is-link is-rounded" href="{{ url('/dashboard') }}">
+                                    <span class="icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    </span>
+                                    <span>Dashboard</span>
+                                </a>
+                            @else
+                                <a class="button is-link is-rounded" href="{{ route('login') }}">
+                                    <span class="icon">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                    </span>
+                                    <span>Login</span>
+                                </a>
+
+                                <a class="button is-link is-rounded" href="{{ route('register') }}">
+                                    <span class="icon">
+                                    <i class="fas fa-user-plus"></i>
+                                    </span>
+                                    <span>Register</span>
+                                </a>
+                            @endauth
+                        @endif
                 </div>
+                <footer class="footer">
+                    <div class="container">
+                        <div class="content has-text-centered">
+                        <p>
+                            <strong>MFF</strong> by <a href="https://tanvir.dk">Tanvir Alam</a>
+                        </p>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
+        
     </body>
 </html>

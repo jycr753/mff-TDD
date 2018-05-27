@@ -1,4 +1,5 @@
 require("./bootstrap");
+import "bulma/css/bulma.css";
 
 window.Vue = require("vue");
 
