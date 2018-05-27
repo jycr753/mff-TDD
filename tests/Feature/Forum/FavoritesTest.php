@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Forum;
 
 use App\Models\Favorite;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

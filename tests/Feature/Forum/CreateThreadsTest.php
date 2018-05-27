@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Forum;
 
 use App\Models\Activity;
 use App\Rules\Recaptcha;

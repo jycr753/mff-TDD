@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Feature;
+namespace Tests\Unit\Forum;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
