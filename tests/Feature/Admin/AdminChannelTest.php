@@ -54,6 +54,28 @@ class AdminChannelTest extends TestCase
     }
 
     /** @test */
+    public function a_admin_can_edit_an_exisiting_channel()
+    {
+        $this->signInAdmin();
+
+        $channel = create('App\Models\Channel');
+
+        $updated_channel = [
+            'name' => 'changed',
+            'description' => 'A channel for php'
+        ];
+
+        $this->patch(
+            route('admin.channels.update', ['channel' => $channel->slug]),
+            $updated_channel
+        );
+
+        $this->get(route('admin.channels.index'))
+            ->assertSee($updated_channel['name'])
+            ->assertSee($updated_channel['description']);
+    }
+
+    /** @test */
     public function a_Channel_needs_a_name()
     {
         $this->createChannel(
