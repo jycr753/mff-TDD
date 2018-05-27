@@ -49,12 +49,19 @@
       <div class="navbar-item">
         <div class="field is-grouped">
           <p class="control">
-            <div class="navbar-item has-dropdown is-hoverable">
+            @guest
+              {{-- Show naathing for now --}}
+            @else
+            
+
+                <user-notifications></user-notifications>
+
                 <a href="/admin">
                     <img src="{{{ asset('img/setting.png') }}}" width="25" height="25">
                 </a>
+              <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
-                <img src="{{ Auth::user()->avatar_path }}" 
+                    <img src="{{ Auth::user()->avatar_path }}" 
                                 alt="{{ Auth::user()->name }}" 
                                 width="25" 
                                 height="25" 
@@ -74,6 +81,7 @@
                     </form>
                 </div>
             </div>
+            @endguest
           </p>
         </div>
       </div>
