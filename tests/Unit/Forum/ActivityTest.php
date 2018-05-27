@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit\Forum;
 
 use App\Models\Activity;
 use Carbon\Carbon;

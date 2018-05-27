@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Feature;
+namespace Tests\Unit\Forum;
 
 use App\Inspections\Spam;
 use Tests\TestCase;
