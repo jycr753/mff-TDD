@@ -33,7 +33,7 @@ abstract class TestCase extends BaseTestCase
     {
         $admin = $admin ? : create('App\Models\User');
 
-        config(['council.administrators' => [$admin->email]]);
+        config(['council.admin' => [$admin->email]]);
 
         $this->actingAs($admin);
 
