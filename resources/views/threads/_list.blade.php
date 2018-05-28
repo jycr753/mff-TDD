@@ -11,6 +11,9 @@
                             class="mr-1">
                             
                         <a href=" {{ $thread->path() }}">
+                            @if ($thread->pinned)
+                                <i class="fas fa-map-pin"></i>
+                            @endif
                             @if (auth()->user() && $thread->hasUpdateFor(auth()->user()))
                                 <strong>
                                     {{ $thread->title }}                                            

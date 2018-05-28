@@ -30,6 +30,10 @@
                             <button class="btn btn-default ml-a" v-if="authorize('isAdmin')" @click="toggleLock">
                                 <i :class="classes"></i>
                             </button>
+
+                            <button :class="classes(pinned)" v-if="authorize('isAdmin')" @click="togglePin" v-text="pinned ? 'Unpin' : 'Pin'">
+                                <i class="fas fa-map-pin"></i>
+                            </button>
                         </p>
                     </div>
                 </div>
