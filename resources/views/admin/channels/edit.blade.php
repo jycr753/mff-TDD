@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('admin.channels.update', ['channel' => $channel->slug]) }}">
                             {{ method_field('PATCH') }}
-                            @include ('admin.channels._form')
+                            @include ('admin.channels._form', ['btnText' => 'Update'])
                         </form>
                     </div>
                 </div>

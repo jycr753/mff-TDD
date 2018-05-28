@@ -33,18 +33,12 @@
                             </thead>
                             <tbody>
                             @forelse($channels as $channel)
-                                <tr>
+                            <tr class="{{ $channel->archived ? 'is-selected' : '' }}">
                                     <td>{{$channel->name}}</td>
                                     <td>{{$channel->slug}}</td>
                                     <td>{{$channel->description}}</td>
                                     <td>{{ $channel->threads()->count() }}</td>
                                     <td>
-                                        <a class="button is-danger is-rounded is-small">
-                                            <span class="icon">
-                                            <i class="fas fa-trash-alt"></i>
-                                            </span>
-                                            <span>Delete</span>
-                                        </a>
                                         <a class="button is-success is-rounded is-small" href="/admin/channels/{{ $channel->slug }}/edit">
                                             <span class="icon">
                                             <i class="fas fa-pencil-alt"></i>
@@ -62,9 +56,7 @@
                         </table>
                     </div>
                     <footer class="card-footer">
-                        <a href="#" class="card-footer-item">Save</a>
-                        <a href="#" class="card-footer-item">Edit</a>
-                        <a href="#" class="card-footer-item">Delete</a>
+
                     </footer>
                 </div>
             </div>
