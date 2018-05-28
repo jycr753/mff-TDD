@@ -29,7 +29,7 @@ class AlterChannelTable extends Migration
     public function down()
     {
         Schema::table(
-            'threads',
+            'channels',
             function ($table) {
                 $table->dropColumn('archived');
             }

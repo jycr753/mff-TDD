@@ -44,7 +44,8 @@ class AdminChannelTest extends TestCase
         $response = $this->createChannel(
             [
                 'name' => 'php',
-                'description' => 'A channel for php'
+                'description' => 'A channel for php',
+                'archived' => false
             ]
         );
 
@@ -62,7 +63,8 @@ class AdminChannelTest extends TestCase
 
         $updated_channel = [
             'name' => 'changed',
-            'description' => 'A channel for php'
+            'description' => 'A channel for php',
+            'archived' => true
         ];
 
         $this->patch(
