@@ -13,11 +13,7 @@ class PinAThreadTest extends TestCase
     /** @test */
     public function admin_can_pin_a_threads()
     {
-        $user = factory('App\Models\User')->create();
-
-        config(['council.admin' => [$user->email]]);
-
-        $this->signIn($user);
+        $this->signInAdmin();
 
         $thread = create('App\Models\Thread', ['user_id' => auth()->id()]);
 
@@ -29,11 +25,7 @@ class PinAThreadTest extends TestCase
     /** @test */
     public function admin_can_unpin_threads()
     {
-        $user = factory('App\Models\User')->create();
-
-        config(['council.admin' => [$user->email]]);
-
-        $this->signIn($user);
+        $this->signInAdmin();
 
         $thread = create('App\Models\Thread', ['pinned' => true]);
 
@@ -45,47 +37,33 @@ class PinAThreadTest extends TestCase
     /** @test */
     public function pinned_threads_are_listed_first()
     {
-        $channel = create(
-            Channel::class,
-            [
-                'name' => 'PHP',
-                'slug' => 'php'
-            ]
-        );
+        $this->signInAdmin();
 
-        create(Thread::class, ['channel_id' => $channel->id]);
-        create(Thread::class, ['channel_id' => $channel->id]);
+        $thread = create(Thread::class, [], 3);
+        $ids = $thread->pluck('id');
 
-        $threadToPin = create(Thread::class, ['channel_id' => $channel->id]);
-
-        $user = factory('App\Models\User')->create();
-
-        config(['council.admin' => [$user->email]]);
-
-        $this->signIn($user);
-
-        $response = $this->getJson(route('threads'));
-
-        $response->assertJson(
+        $this->getJson(
+            route('threads')
+        )->assertJson(
             [
                 'data' => [
-                    ['id' => '1'],
-                    ['id' => '2'],
-                    ['id' => '3'],
+                    ['id' => $ids[0]],
+                    ['id' => $ids[1]],
+                    ['id' => $ids[2]],
                 ]
             ]
         );
 
-        $this->post(route('pinned-threads.store', $threadToPin));
+        $this->post(route('pinned-threads.store', $thread->last()));
 
-        $response = $this->getJson(route('threads'));
-
-        $response->assertJson(
+        $this->getJson(
+            route('threads')
+        )->assertJson(
             [
                 'data' => [
-                    ['id' => '3'],
-                    ['id' => '1'],
-                    ['id' => '2'],
+                    ['id' => $ids[2]],
+                    ['id' => $ids[0]],
+                    ['id' => $ids[1]],
                 ]
             ]
         );
