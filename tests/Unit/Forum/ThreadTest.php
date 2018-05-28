@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Forum;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\ThreadWasUpdated;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Redis;
 
 class ThreadTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     protected $thread;
 

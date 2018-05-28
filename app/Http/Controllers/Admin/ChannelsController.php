@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Channel;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Validation\Rule;
 
 class ChannelsController extends Controller
 {
@@ -50,8 +51,9 @@ class ChannelsController extends Controller
         $channel->update(
             request()->validate(
                 [
-                    'name' => 'required|unique:channels',
+                    'name' => ['required', Rule::unique('channels')->ignore($channel->id)],
                     'description' => 'required',
+                    'archived' => 'required|boolean'
                 ]
             )
         );

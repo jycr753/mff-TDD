@@ -66,7 +66,8 @@ $factory->define(
         return [
             'name' => $faker->word,
             'slug' => $faker->word,
-            'description' => $faker->sentence
+            'description' => $faker->sentence,
+            'archived' => false
         ];
     }
 );
