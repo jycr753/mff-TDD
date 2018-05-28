@@ -64,7 +64,7 @@ class AdminChannelTest extends TestCase
         $updated_channel = [
             'name' => 'changed',
             'description' => 'A channel for php',
-            'archived' => true
+            'archived' => false
         ];
 
         $this->patch(
