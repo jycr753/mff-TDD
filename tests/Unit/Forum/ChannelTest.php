@@ -4,6 +4,7 @@ namespace Tests\Unit\Forum;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Models\Channel;
 
 class ChannelTest extends TestCase
 {
@@ -29,5 +30,15 @@ class ChannelTest extends TestCase
         $channel->archived();
 
         $this->assertTrue($channel->archived);
+    }
+
+    /** @test */
+    public function archived_channels_are_excluded_by_default()
+    {
+        create('App\Models\Channel');
+
+        create('App\Models\Channel', ['archived' => true]);
+
+        $this->assertEquals(1, Channel::count());
     }
 }
