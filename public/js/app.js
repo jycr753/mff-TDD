@@ -92122,7 +92122,10 @@ var staticRenderFns = [
           _vm._v(" "),
           _c(
             "button",
-            { staticClass: "button is-small", attrs: { type: "button" } },
+            {
+              staticClass: "button is-small",
+              attrs: { type: "button", disabled: "" }
+            },
             [_c("i", { staticClass: "fas fa-arrow-circle-right" })]
           )
         ])
