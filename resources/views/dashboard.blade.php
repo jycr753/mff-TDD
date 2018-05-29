@@ -13,7 +13,10 @@
                     <div class="level">
                         <div class="level-left">
                         <div class="level-item">
-                            <div class="title">Dashboard</div>
+                            <div class="title flex">Dashboard</div>
+                            <button type="button" class="button is-small">
+                                <i class="fas fa-recycle"></i> 
+                            </button>
                         </div>
                         </div>
                         <div class="level-right">

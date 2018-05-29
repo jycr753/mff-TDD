@@ -91914,6 +91914,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -91970,118 +91975,118 @@ var render = function() {
             options: _vm.options
           },
           on: { ready: _vm.onReady }
-        })
+        }),
+        _vm._v(" "),
+        _c("p", { staticClass: "heading level-right" }, [_vm._v("DKK")])
       ],
       1
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "level" }, [
-      _c("table", { staticClass: "table is-striped is-narrow is-hoverable" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _c("tfoot", [
-          _c("tr", [
-            _c("th", [_vm._v("Total:")]),
-            _vm._v(" "),
-            _c(
-              "th",
-              [
-                _c("ICountUp", {
-                  attrs: {
-                    startVal: _vm.startVal,
-                    endVal: _vm.endVal,
-                    decimals: _vm.decimals,
-                    duration: _vm.duration,
-                    options: _vm.options
-                  },
-                  on: { ready: _vm.onReady }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("th"),
-            _vm._v(" "),
-            _c("th")
-          ])
+    _c("table", { staticClass: "table is-striped is-narrow is-hoverable" }, [
+      _vm._m(1),
+      _vm._v(" "),
+      _c("tfoot", [
+        _c("tr", [
+          _c("th", [_vm._v("Total:")]),
+          _vm._v(" "),
+          _c(
+            "th",
+            [
+              _c("ICountUp", {
+                attrs: {
+                  startVal: _vm.startVal,
+                  endVal: _vm.endVal,
+                  decimals: _vm.decimals,
+                  duration: _vm.duration,
+                  options: _vm.options
+                },
+                on: { ready: _vm.onReady }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("th"),
+          _vm._v(" "),
+          _c("th")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tbody", [
+        _c("tr", [
+          _c("td", [_vm._v("Salary")]),
+          _vm._v(" "),
+          _c(
+            "td",
+            [
+              _c("ICountUp", {
+                attrs: {
+                  startVal: _vm.startVal,
+                  endVal: _vm.endVal,
+                  decimals: _vm.decimals,
+                  duration: _vm.duration,
+                  options: _vm.options
+                },
+                on: { ready: _vm.onReady }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _vm._m(3)
         ]),
         _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td", [_vm._v("Salary")]),
-            _vm._v(" "),
-            _c(
-              "td",
-              [
-                _c("ICountUp", {
-                  attrs: {
-                    startVal: _vm.startVal,
-                    endVal: _vm.endVal,
-                    decimals: _vm.decimals,
-                    duration: _vm.duration,
-                    options: _vm.options
-                  },
-                  on: { ready: _vm.onReady }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _vm._m(2),
-            _vm._v(" "),
-            _vm._m(3)
-          ]),
+        _c("tr", [
+          _c("td", [_vm._v("Extra")]),
           _vm._v(" "),
-          _c("tr", [
-            _c("td", [_vm._v("Extra")]),
-            _vm._v(" "),
-            _c(
-              "td",
-              [
-                _c("ICountUp", {
-                  attrs: {
-                    startVal: _vm.startVal,
-                    endVal: _vm.endVal,
-                    decimals: _vm.decimals,
-                    duration: _vm.duration,
-                    options: _vm.options
-                  },
-                  on: { ready: _vm.onReady }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _vm._m(4),
-            _vm._v(" "),
-            _vm._m(5)
-          ]),
+          _c(
+            "td",
+            [
+              _c("ICountUp", {
+                attrs: {
+                  startVal: _vm.startVal,
+                  endVal: _vm.endVal,
+                  decimals: _vm.decimals,
+                  duration: _vm.duration,
+                  options: _vm.options
+                },
+                on: { ready: _vm.onReady }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("tr", [
-            _c("td", { staticClass: "strikethrough" }, [_vm._v("SKAT")]),
-            _vm._v(" "),
-            _c(
-              "td",
-              { staticClass: "strikethrough" },
-              [
-                _c("ICountUp", {
-                  attrs: {
-                    startVal: _vm.startVal,
-                    endVal: _vm.endVal,
-                    decimals: _vm.decimals,
-                    duration: _vm.duration,
-                    options: _vm.options
-                  },
-                  on: { ready: _vm.onReady }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("td"),
-            _vm._v(" "),
-            _vm._m(6)
-          ])
+          _vm._m(4),
+          _vm._v(" "),
+          _vm._m(5)
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("td", { staticClass: "strikethrough" }, [_vm._v("SKAT")]),
+          _vm._v(" "),
+          _c(
+            "td",
+            { staticClass: "strikethrough" },
+            [
+              _c("ICountUp", {
+                attrs: {
+                  startVal: _vm.startVal,
+                  endVal: _vm.endVal,
+                  decimals: _vm.decimals,
+                  duration: _vm.duration,
+                  options: _vm.options
+                },
+                on: { ready: _vm.onReady }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("td"),
+          _vm._v(" "),
+          _vm._m(6)
         ])
       ])
     ]),
@@ -92097,7 +92102,9 @@ var staticRenderFns = [
     return _c("div", { staticClass: "level" }, [
       _c("div", { staticClass: "level-left" }, [
         _c("div", { staticClass: "level-item" }, [
-          _c("div", { staticClass: "heading" }, [_vm._v("Incomes")])
+          _c("div", { staticClass: "heading animated infinite bounce" }, [
+            _vm._v("Incomes")
+          ])
         ])
       ]),
       _vm._v(" "),
@@ -92106,7 +92113,17 @@ var staticRenderFns = [
           _c(
             "button",
             { staticClass: "button is-small", attrs: { type: "button" } },
-            [_vm._v("\n          << March >>\n        ")]
+            [_c("i", { staticClass: "fas fa-arrow-circle-left" })]
+          ),
+          _vm._v(" "),
+          _c("a", { staticClass: "button is-small" }, [
+            _vm._v("\n            May-2018\n        ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "button is-small", attrs: { type: "button" } },
+            [_c("i", { staticClass: "fas fa-arrow-circle-right" })]
           )
         ])
       ])
