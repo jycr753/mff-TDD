@@ -13,6 +13,7 @@ Vue.component("avatar-form", require("./components/AvatarForm.vue"));
 Vue.component("wysiwyg", require("./components/Wysiwyg.vue"));
 
 Vue.component("thread-view", require("./pages/Thread.vue"));
+Vue.component("dashboard-view", require("./pages/Dashboard.vue"));
 
 const app = new Vue({
   el: "#app"
