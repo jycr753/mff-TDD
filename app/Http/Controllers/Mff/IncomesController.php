@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Mff;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Mff\Income;
+use App\Models\Income;
 
 class IncomesController extends Controller
 {
@@ -26,7 +26,7 @@ class IncomesController extends Controller
         request()->validate(
             [
                 'income_date' => 'required|date',
-                'income_type' => 'required|string',
+                'category_id' => 'required|exists:categories,id',
                 'gross_amount' => 'required|regex:/^[\d]+[\.][\d]{2}/|greaterThan:net_amount',
                 'net_amount' => 'required|regex:/^[\d]+[\.][\d]{2}/'
             ]
@@ -36,7 +36,7 @@ class IncomesController extends Controller
             [
                 'user_id' => auth()->id(),
                 'income_date' => request('income_date'),
-                'income_type' => request('income_type'),
+                'category_id' => request('category_id'),
                 'gross_amount' => request('gross_amount'),
                 'net_amount' => request('net_amount')
             ]

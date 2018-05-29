@@ -19,7 +19,7 @@ class IncomeTest extends TestCase
     {
         $this->withExceptionHandling()->signIn();
 
-        $income = create('App\Models\Mff\Income', $overrides);
+        $income = make('App\Models\Income', $overrides);
 
         return $income;
     }
@@ -59,16 +59,16 @@ class IncomeTest extends TestCase
     }
 
     /** @test */
-    public function income_type_is_required()
+    public function income_needs_category()
     {
-        $income = $this->createIncome(['income_type' => null]);
+        $income = $this->createIncome(['category_id' => null]);
 
         $this->post(
             route(
                 'income.store',
                 $income->toArray()
             )
-        )->assertSessionHasErrors('income_type');
+        )->assertSessionHasErrors();
     }
 
     /** @test */
