@@ -77,3 +77,13 @@ Route::group(
         Route::patch('/channels/{channel}', 'ChannelsController@update')->name('admin.channels.update');
     }
 );
+
+Route::group(
+    [
+        'prefix' => 'income',
+        'namespace' => 'Mff'
+    ],
+    function () {
+        Route::post('/', 'IncomesController@store')->middleware('must-confirm-email')->name('income.store');
+    }
+);
