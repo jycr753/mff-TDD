@@ -91807,6 +91807,55 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_countup_v2__ = __webpack_require__(560);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_countup_v2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_countup_v2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -91866,7 +91915,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "demo",
+  components: {
+    ICountUp: __WEBPACK_IMPORTED_MODULE_0_vue_countup_v2___default.a
+  },
+  data: function data() {
+    return {
+      startVal: 0,
+      endVal: 120500,
+      decimals: 0,
+      duration: 2.5,
+      options: {
+        useEasing: true,
+        useGrouping: true,
+        separator: ",",
+        decimal: ".",
+        prefix: "",
+        suffix: ""
+      }
+    };
+  },
+
+  methods: {
+    onReady: function onReady(instance, CountUp) {
+      var that = this;
+      instance.update(that.endVal + 100);
+    }
+  }
+});
 
 /***/ }),
 /* 552 */
@@ -91876,99 +91954,232 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "box" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "title" },
+      [
+        _c("ICountUp", {
+          attrs: {
+            startVal: _vm.startVal,
+            endVal: _vm.endVal,
+            decimals: _vm.decimals,
+            duration: _vm.duration,
+            options: _vm.options
+          },
+          on: { ready: _vm.onReady }
+        })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "level" }, [
+      _c("table", { staticClass: "table is-striped is-narrow is-hoverable" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("tfoot", [
+          _c("tr", [
+            _c("th", [_vm._v("Total:")]),
+            _vm._v(" "),
+            _c(
+              "th",
+              [
+                _c("ICountUp", {
+                  attrs: {
+                    startVal: _vm.startVal,
+                    endVal: _vm.endVal,
+                    decimals: _vm.decimals,
+                    duration: _vm.duration,
+                    options: _vm.options
+                  },
+                  on: { ready: _vm.onReady }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("th"),
+            _vm._v(" "),
+            _c("th")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tbody", [
+          _c("tr", [
+            _c("td", [_vm._v("Salary")]),
+            _vm._v(" "),
+            _c(
+              "td",
+              [
+                _c("ICountUp", {
+                  attrs: {
+                    startVal: _vm.startVal,
+                    endVal: _vm.endVal,
+                    decimals: _vm.decimals,
+                    duration: _vm.duration,
+                    options: _vm.options
+                  },
+                  on: { ready: _vm.onReady }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm._m(2),
+            _vm._v(" "),
+            _vm._m(3)
+          ]),
+          _vm._v(" "),
+          _c("tr", [
+            _c("td", [_vm._v("Extra")]),
+            _vm._v(" "),
+            _c(
+              "td",
+              [
+                _c("ICountUp", {
+                  attrs: {
+                    startVal: _vm.startVal,
+                    endVal: _vm.endVal,
+                    decimals: _vm.decimals,
+                    duration: _vm.duration,
+                    options: _vm.options
+                  },
+                  on: { ready: _vm.onReady }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm._m(4),
+            _vm._v(" "),
+            _vm._m(5)
+          ]),
+          _vm._v(" "),
+          _c("tr", [
+            _c("td", { staticClass: "strikethrough" }, [_vm._v("SKAT")]),
+            _vm._v(" "),
+            _c(
+              "td",
+              { staticClass: "strikethrough" },
+              [
+                _c("ICountUp", {
+                  attrs: {
+                    startVal: _vm.startVal,
+                    endVal: _vm.endVal,
+                    decimals: _vm.decimals,
+                    duration: _vm.duration,
+                    options: _vm.options
+                  },
+                  on: { ready: _vm.onReady }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("td"),
+            _vm._v(" "),
+            _vm._m(6)
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(7)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box" }, [
-      _c("div", { staticClass: "level" }, [
-        _c("div", { staticClass: "level-left" }, [
-          _c("div", { staticClass: "level-item" }, [
-            _c("div", { staticClass: "heading" }, [_vm._v("Incomes")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "level-right" }, [
-          _c("div", { staticClass: "level-item" }, [
-            _c(
-              "button",
-              { staticClass: "button is-small", attrs: { type: "button" } },
-              [_vm._v("\n          << March >>\n        ")]
-            )
-          ])
+    return _c("div", { staticClass: "level" }, [
+      _c("div", { staticClass: "level-left" }, [
+        _c("div", { staticClass: "level-item" }, [
+          _c("div", { staticClass: "heading" }, [_vm._v("Incomes")])
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "title" }, [_vm._v("56,950")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "level" }, [
-        _c(
-          "table",
-          { staticClass: "table is-striped is-narrow is-hoverable" },
-          [
-            _c("thead", [
-              _c("tr", [
-                _c("th", [_vm._v("Type")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Amount")]),
-                _vm._v(" "),
-                _c("th")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tfoot", [
-              _c("tr", [
-                _c("th", [_vm._v("Total:")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("270,000")]),
-                _vm._v(" "),
-                _c("th")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tbody", [
-              _c("tr", [
-                _c("td", [_vm._v("Salary")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("250,000")]),
-                _vm._v(" "),
-                _c("td", [_c("i", { staticClass: "fa fa-edit" })])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("td", [_vm._v("Extra")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("20,000")]),
-                _vm._v(" "),
-                _c("td", [_c("i", { staticClass: "fa fa-edit" })])
-              ])
-            ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-footer level" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-default btn-default btn-sm",
-            attrs: { type: "button" }
-          },
-          [_c("i", { staticClass: "fa fa-bar-chart" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-default btn-default btn-sm",
-            attrs: { type: "button" }
-          },
-          [_c("i", { staticClass: "fa fa-plus" })]
-        )
+      _c("div", { staticClass: "level-right" }, [
+        _c("div", { staticClass: "level-item" }, [
+          _c(
+            "button",
+            { staticClass: "button is-small", attrs: { type: "button" } },
+            [_vm._v("\n          << March >>\n        ")]
+          )
+        ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Amount (DKK)")]),
+        _vm._v(" "),
+        _c("th"),
+        _vm._v(" "),
+        _c("th")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("i", { staticClass: "fas fa-pencil-alt" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("i", { staticClass: "fas fa-trash-alt" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("i", { staticClass: "fas fa-pencil-alt" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("i", { staticClass: "fas fa-trash-alt" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("i", { staticClass: "far fa-trash-alt" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-footer level" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default btn-default btn-sm",
+          attrs: { type: "button" }
+        },
+        [_c("i", { staticClass: "fas fa-chart-line" })]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default btn-default btn-sm",
+          attrs: { type: "button" }
+        },
+        [_c("i", { staticClass: "fas fa-plus-circle" })]
+      )
     ])
   }
 ]
@@ -92211,6 +92422,23 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-26e140ac", module.exports)
   }
 }
+
+/***/ }),
+/* 560 */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,t){if(true)module.exports=t(__webpack_require__(561));else if("function"==typeof define&&define.amd)define(["countup.js"],t);else{var n=t("object"==typeof exports?require("countup.js"):e.CountUp);for(var r in n)("object"==typeof exports?exports:e)[r]=n[r]}}("undefined"!=typeof self?self:this,function(e){return function(e){function t(r){if(n[r])return n[r].exports;var u=n[r]={i:r,l:!1,exports:{}};return e[r].call(u.exports,u,u.exports,t),u.l=!0,u.exports}var n={};return t.m=e,t.c=n,t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=0)}([function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r=n(1),u=n.n(r),i=n(4),o=n.n(i),a={__countup__:o.a,name:"ICountUp",props:{startVal:{type:Number,required:!1,default:0},endVal:{type:Number,required:!0},decimals:{type:Number,required:!1,default:0},duration:{type:Number,required:!1,default:2},options:{type:Object,required:!1}},data:function(){return{instance:null}},watch:{endVal:{handler:function(e){var t=this;t.instance&&u()(t.instance.update)&&t.instance.update(e)},deep:!1}},methods:{init:function(){var e=this;if(!e.instance){var t=e.$el,n=new o.a(t,e.startVal,e.endVal,e.decimals,e.duration,e.options);n.error||(n.start(function(){return e.$emit("ready",n,o.a)}),e.instance=n)}},uninit:function(){this.instance=null},start:function(e){var t=this;if(t.instance&&u()(t.instance.start)&&u()(e))return t.instance.start(e)},pauseResume:function(){var e=this;if(e.instance&&u()(e.instance.pauseResume))return e.instance.pauseResume()},reset:function(){var e=this;if(e.instance&&u()(e.instance.reset))return e.instance.reset()},update:function(e){var t=this;if(t.instance&&u()(t.instance.update))return t.instance.update(e)}},mounted:function(){this.init()},beforeDestroy:function(){this.uninit()},render:function(e){return e("span",{})}};t.default=a},function(e,t,n){function r(e){if(!i(e))return!1;var t=u(e);return t==a||t==c||t==o||t==s}var u=n(2),i=n(3),o="[object AsyncFunction]",a="[object Function]",c="[object GeneratorFunction]",s="[object Proxy]";e.exports=r},function(e,t){function n(e){return u.call(e)}var r=Object.prototype,u=r.toString;e.exports=n},function(e,t){function n(e){var t=typeof e;return null!=e&&("object"==t||"function"==t)}e.exports=n},function(t,n){t.exports=e}])});
+//# sourceMappingURL=vue-countup.js.map
+
+/***/ }),
+/* 561 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function(a,n){ true?!(__WEBPACK_AMD_DEFINE_FACTORY__ = (n),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):"object"==typeof exports?module.exports=n(require,exports,module):a.CountUp=n()}(this,function(a,n,t){var e=function(a,n,t,e,i,r){function o(a){var n,t,e,i,r,o,s=a<0;if(a=Math.abs(a).toFixed(l.decimals),a+="",n=a.split("."),t=n[0],e=n.length>1?l.options.decimal+n[1]:"",l.options.useGrouping){for(i="",r=0,o=t.length;r<o;++r)0!==r&&r%3===0&&(i=l.options.separator+i),i=t[o-r-1]+i;t=i}return l.options.numerals.length&&(t=t.replace(/[0-9]/g,function(a){return l.options.numerals[+a]}),e=e.replace(/[0-9]/g,function(a){return l.options.numerals[+a]})),(s?"-":"")+l.options.prefix+t+e+l.options.suffix}function s(a,n,t,e){return t*(-Math.pow(2,-10*a/e)+1)*1024/1023+n}function u(a){return"number"==typeof a&&!isNaN(a)}var l=this;if(l.version=function(){return"1.9.3"},l.options={useEasing:!0,useGrouping:!0,separator:",",decimal:".",easingFn:s,formattingFn:o,prefix:"",suffix:"",numerals:[]},r&&"object"==typeof r)for(var m in l.options)r.hasOwnProperty(m)&&null!==r[m]&&(l.options[m]=r[m]);""===l.options.separator?l.options.useGrouping=!1:l.options.separator=""+l.options.separator;for(var d=0,c=["webkit","moz","ms","o"],f=0;f<c.length&&!window.requestAnimationFrame;++f)window.requestAnimationFrame=window[c[f]+"RequestAnimationFrame"],window.cancelAnimationFrame=window[c[f]+"CancelAnimationFrame"]||window[c[f]+"CancelRequestAnimationFrame"];window.requestAnimationFrame||(window.requestAnimationFrame=function(a,n){var t=(new Date).getTime(),e=Math.max(0,16-(t-d)),i=window.setTimeout(function(){a(t+e)},e);return d=t+e,i}),window.cancelAnimationFrame||(window.cancelAnimationFrame=function(a){clearTimeout(a)}),l.initialize=function(){return!!l.initialized||(l.error="",l.d="string"==typeof a?document.getElementById(a):a,l.d?(l.startVal=Number(n),l.endVal=Number(t),u(l.startVal)&&u(l.endVal)?(l.decimals=Math.max(0,e||0),l.dec=Math.pow(10,l.decimals),l.duration=1e3*Number(i)||2e3,l.countDown=l.startVal>l.endVal,l.frameVal=l.startVal,l.initialized=!0,!0):(l.error="[CountUp] startVal ("+n+") or endVal ("+t+") is not a number",!1)):(l.error="[CountUp] target is null or undefined",!1))},l.printValue=function(a){var n=l.options.formattingFn(a);"INPUT"===l.d.tagName?this.d.value=n:"text"===l.d.tagName||"tspan"===l.d.tagName?this.d.textContent=n:this.d.innerHTML=n},l.count=function(a){l.startTime||(l.startTime=a),l.timestamp=a;var n=a-l.startTime;l.remaining=l.duration-n,l.options.useEasing?l.countDown?l.frameVal=l.startVal-l.options.easingFn(n,0,l.startVal-l.endVal,l.duration):l.frameVal=l.options.easingFn(n,l.startVal,l.endVal-l.startVal,l.duration):l.countDown?l.frameVal=l.startVal-(l.startVal-l.endVal)*(n/l.duration):l.frameVal=l.startVal+(l.endVal-l.startVal)*(n/l.duration),l.countDown?l.frameVal=l.frameVal<l.endVal?l.endVal:l.frameVal:l.frameVal=l.frameVal>l.endVal?l.endVal:l.frameVal,l.frameVal=Math.round(l.frameVal*l.dec)/l.dec,l.printValue(l.frameVal),n<l.duration?l.rAF=requestAnimationFrame(l.count):l.callback&&l.callback()},l.start=function(a){l.initialize()&&(l.callback=a,l.rAF=requestAnimationFrame(l.count))},l.pauseResume=function(){l.paused?(l.paused=!1,delete l.startTime,l.duration=l.remaining,l.startVal=l.frameVal,requestAnimationFrame(l.count)):(l.paused=!0,cancelAnimationFrame(l.rAF))},l.reset=function(){l.paused=!1,delete l.startTime,l.initialized=!1,l.initialize()&&(cancelAnimationFrame(l.rAF),l.printValue(l.startVal))},l.update=function(a){if(l.initialize()){if(a=Number(a),!u(a))return void(l.error="[CountUp] update() - new endVal is not a number: "+a);l.error="",a!==l.frameVal&&(cancelAnimationFrame(l.rAF),l.paused=!1,delete l.startTime,l.startVal=l.frameVal,l.endVal=a,l.countDown=l.startVal>l.endVal,l.rAF=requestAnimationFrame(l.count))}},l.initialize()&&l.printValue(l.startVal)};return e});
 
 /***/ })
 /******/ ]);

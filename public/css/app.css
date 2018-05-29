@@ -10400,3 +10400,7 @@ a.text-dark:focus {
   font-size: x-small;
 }
 
+.strikethrough {
+  text-decoration: line-through;
+}
+
