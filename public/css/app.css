@@ -10408,3 +10408,12 @@ a.text-dark:focus {
   padding-right: 2px;
 }
 
+.vdp-datepicker__calendar {
+  position: absolute;
+  z-index: 9999;
+  background: #fff;
+  width: 300px !important;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+

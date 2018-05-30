@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
+Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
 
 Route::view('scan', 'scan');
 

@@ -67,9 +67,34 @@ class User extends Authenticatable
         return $this->hasMany(Thread::class)->latest();
     }
 
+    /**
+     * Get latest reply
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
     public function lastReply()
     {
         return $this->hasOne(Reply::class)->latest();
+    }
+
+    /**
+     * Get all users latest incomes
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function incomes()
+    {
+        return $this->hasMany(Income::class)->latest();
+    }
+
+    /**
+     * Get all users latest incomes
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function incomeCategories()
+    {
+        return $this->hasMany(Category::class, 'user_id')->latest();
     }
 
     /**

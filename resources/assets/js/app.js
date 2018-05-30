@@ -1,7 +1,11 @@
 require("./bootstrap");
 import "bulma/css/bulma.css";
+import Buefy from "buefy";
+import "buefy/lib/buefy.css";
 
 window.Vue = require("vue");
+
+Vue.use(Buefy);
 
 Vue.component("flash", require("./components/Flash.vue"));
 Vue.component("paginator", require("./components/Paginator.vue"));

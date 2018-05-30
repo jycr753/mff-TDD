@@ -15,6 +15,8 @@ class Income extends Model
      */
     protected $guarded = [];
 
+    protected $appends = ['categoryName', 'totalNetAmount'];
+
     /**
      * A income belongs to a owner.
      *
@@ -32,6 +34,38 @@ class Income extends Model
      */
     public function category()
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Get the name of each income category
+     *
+     * @return string
+     */
+    public function getCategoryNameAttribute()
+    {
+        return $this->category()
+            ->where('user_id', auth()->id())
+            ->value('name');
+    }
+
+    /**
+     * Get the total monthly net amount
+     *
+     * @return integer
+     */
+    public function getTotalNetAmountAttribute()
+    {
+        return $this->sum('net_amount');
+    }
+
+    /**
+     * Get all users latest incomes
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function incomeCategories()
+    {
+        return $this->hasMany(Category::class, 'user_id')->latest();
     }
 }

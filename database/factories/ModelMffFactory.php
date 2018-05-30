@@ -16,7 +16,8 @@ $factory->define(
                 return factory('App\Models\Category')->create()->id;
             },
             'gross_amount' => '46000.00',
-            'net_amount' => '27000.00'
+            'net_amount' => '27000.00',
+            'description' => $faker->sentence
         ];
     }
 );

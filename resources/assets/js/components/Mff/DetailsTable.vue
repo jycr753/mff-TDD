@@ -12,31 +12,28 @@
             <tr>
                 <th>Total:</th>
                 <th>
-                    <span class="is-pulled-right"><amount-count-up-effect :amount='150004000'></amount-count-up-effect></span>
+                    <span class="is-pulled-right"><amount-count-up-effect :amount="parseInt(this.getData[0].totalNetAmount)"></amount-count-up-effect></span>
                 </th>
                 <th></th>
                 <th></th>
             </tr>
         </tfoot>
         <tbody>
-            <tr>
-                <td>Salary</td>
-                <td><span class="is-pulled-right"><amount-count-up-effect :amount='150000000'></amount-count-up-effect></span></td>
+            <tr v-for="income in this.getData" :key="income.id">
+                <td v-text="income.categoryName"></td>
+                <td>
+                    <span class="is-pulled-right">
+                        <amount-count-up-effect :amount='income.net_amount'></amount-count-up-effect>
+                    </span>
+                </td>
                 <td><i class="fas fa-pencil-alt"></i></td>
                 <td><i class="fas fa-trash-alt"></i></td>
-            </tr>
-            <tr>
-                <td>Extra</td>
-                <td><span class="is-pulled-right"><amount-count-up-effect :amount='4000'></amount-count-up-effect></span></td>
-                <td><i class="fas fa-pencil-alt"></i></td>
-                <td><i class="fas fa-trash-alt"></i></td>
-            </tr>
-            <tr>
-                <td class="strikethrough">SKAT</td>
-                <td><span class="is-pulled-right strikethrough"><amount-count-up-effect :amount='7000'></amount-count-up-effect></span></td>
-                <td></td>
-                <td><i class="far fa-trash-alt"></i></td>
             </tr>
         </tbody>
     </table>
 </template>
+<script>
+export default {
+  props: ["getData"]
+};
+</script>

@@ -22,6 +22,7 @@ class CreateIncomesTable extends Migration
                 $table->timestamp('income_date')->nullable();
                 $table->unsignedInteger('gross_amount')->default(0);
                 $table->unsignedInteger('net_amount')->default(0);
+                $table->text('description')->nullable();
                 $table->timestamps();
             }
         );

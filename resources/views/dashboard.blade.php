@@ -26,7 +26,7 @@
             
                     <div class="columns is-multiline">
                         <div class="column">
-                            <incomes></incomes> 
+                        <incomes :incomes="{{ $incomes }}"></incomes> 
                         </div>
                         
                         <div class="column">

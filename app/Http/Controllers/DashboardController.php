@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -23,6 +23,15 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
-        return view('dashboard');
+        $incomes = auth()->user()->incomes;
+        $incomeCategories = auth()->user()->incomeCategories()->get()->toArray();
+
+        return view(
+            'dashboard',
+            [
+                'incomes' => $incomes,
+                'categories' => $incomeCategories
+            ]
+        );
     }
 }
