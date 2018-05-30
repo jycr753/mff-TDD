@@ -50657,6 +50657,9 @@ Vue.component("paginator", __webpack_require__(506));
 Vue.component("user-notifications", __webpack_require__(509));
 Vue.component("avatar-form", __webpack_require__(512));
 Vue.component("wysiwyg", __webpack_require__(518));
+Vue.component("month-selector", __webpack_require__(562));
+Vue.component("amount-count-up-effect", __webpack_require__(564));
+Vue.component("details-table", __webpack_require__(567));
 
 Vue.component("thread-view", __webpack_require__(523));
 Vue.component("dashboard-view", __webpack_require__(548));
@@ -91751,7 +91754,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: { Incomes: __WEBPACK_IMPORTED_MODULE_0__components_Mff_Incomes___default.a, MonthlyExpensesChart: __WEBPACK_IMPORTED_MODULE_1__components_Mff_MonthlyExpensesChart___default.a, DashboardMenu: __WEBPACK_IMPORTED_MODULE_2__components_Mff_DashboardMenu___default.a }
+  components: {
+    Incomes: __WEBPACK_IMPORTED_MODULE_0__components_Mff_Incomes___default.a,
+    MonthlyExpensesChart: __WEBPACK_IMPORTED_MODULE_1__components_Mff_MonthlyExpensesChart___default.a,
+    DashboardMenu: __WEBPACK_IMPORTED_MODULE_2__components_Mff_DashboardMenu___default.a
+  }
 });
 
 /***/ }),
@@ -91761,7 +91768,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(551)
+var __vue_script__ = null
 /* template */
 var __vue_template__ = __webpack_require__(552)
 /* template functional */
@@ -91802,156 +91809,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 551 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_countup_v2__ = __webpack_require__(560);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_countup_v2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_countup_v2__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "demo",
-  components: {
-    ICountUp: __WEBPACK_IMPORTED_MODULE_0_vue_countup_v2___default.a
-  },
-  data: function data() {
-    return {
-      startVal: 0,
-      endVal: 120500,
-      decimals: 0,
-      duration: 2.5,
-      options: {
-        useEasing: true,
-        useGrouping: true,
-        separator: ",",
-        decimal: ".",
-        prefix: "",
-        suffix: ""
-      }
-    };
-  },
-
-  methods: {
-    onReady: function onReady(instance, CountUp) {
-      var that = this;
-      instance.update(that.endVal + 100);
-    }
-  }
-});
-
-/***/ }),
+/* 551 */,
 /* 552 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -91959,225 +91817,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "box" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "title" },
-      [
-        _c("ICountUp", {
-          attrs: {
-            startVal: _vm.startVal,
-            endVal: _vm.endVal,
-            decimals: _vm.decimals,
-            duration: _vm.duration,
-            options: _vm.options
-          },
-          on: { ready: _vm.onReady }
-        }),
-        _vm._v(" "),
-        _c("p", { staticClass: "heading level-right" }, [_vm._v("DKK")])
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("table", { staticClass: "table is-striped is-narrow is-hoverable" }, [
-      _vm._m(1),
-      _vm._v(" "),
-      _c("tfoot", [
-        _c("tr", [
-          _c("th", [_vm._v("Total:")]),
-          _vm._v(" "),
-          _c(
-            "th",
-            [
-              _c("ICountUp", {
-                attrs: {
-                  startVal: _vm.startVal,
-                  endVal: _vm.endVal,
-                  decimals: _vm.decimals,
-                  duration: _vm.duration,
-                  options: _vm.options
-                },
-                on: { ready: _vm.onReady }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("th"),
-          _vm._v(" "),
-          _c("th")
-        ])
+  return _c(
+    "div",
+    { staticClass: "box" },
+    [
+      _c("div", { staticClass: "level" }, [
+        _c(
+          "div",
+          { staticClass: "level-item is-centered" },
+          [_c("month-selector")],
+          1
+        )
       ]),
       _vm._v(" "),
-      _c("tbody", [
-        _c("tr", [
-          _c("td", [_vm._v("Salary")]),
-          _vm._v(" "),
-          _c(
-            "td",
-            [
-              _c("ICountUp", {
-                attrs: {
-                  startVal: _vm.startVal,
-                  endVal: _vm.endVal,
-                  decimals: _vm.decimals,
-                  duration: _vm.duration,
-                  options: _vm.options
-                },
-                on: { ready: _vm.onReady }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _vm._m(3)
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("td", [_vm._v("Extra")]),
-          _vm._v(" "),
-          _c(
-            "td",
-            [
-              _c("ICountUp", {
-                attrs: {
-                  startVal: _vm.startVal,
-                  endVal: _vm.endVal,
-                  decimals: _vm.decimals,
-                  duration: _vm.duration,
-                  options: _vm.options
-                },
-                on: { ready: _vm.onReady }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _vm._m(4),
-          _vm._v(" "),
-          _vm._m(5)
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("td", { staticClass: "strikethrough" }, [_vm._v("SKAT")]),
-          _vm._v(" "),
-          _c(
-            "td",
-            { staticClass: "strikethrough" },
-            [
-              _c("ICountUp", {
-                attrs: {
-                  startVal: _vm.startVal,
-                  endVal: _vm.endVal,
-                  decimals: _vm.decimals,
-                  duration: _vm.duration,
-                  options: _vm.options
-                },
-                on: { ready: _vm.onReady }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("td"),
-          _vm._v(" "),
-          _vm._m(6)
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _vm._m(7)
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "level" }, [
-      _c("div", { staticClass: "level-left" }, [
-        _c("div", { staticClass: "level-item" }, [
-          _c("div", { staticClass: "heading animated infinite bounce" }, [
-            _vm._v("Incomes")
+      _c("div", { staticClass: "title" }, [
+        _c("div", { staticClass: "level-item has-text-centered" }, [
+          _c("div", [
+            _c("p", { staticClass: "heading" }, [_vm._v("Incomes")]),
+            _vm._v(" "),
+            _c(
+              "p",
+              { staticClass: "title is-4" },
+              [_c("amount-count-up-effect", { attrs: { amount: 150004000 } })],
+              1
+            )
           ])
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "level-right" }, [
-        _c("div", { staticClass: "level-item" }, [
-          _c(
-            "button",
-            { staticClass: "button is-small", attrs: { type: "button" } },
-            [_c("i", { staticClass: "fas fa-arrow-circle-left" })]
-          ),
-          _vm._v(" "),
-          _c("a", { staticClass: "button is-small" }, [
-            _vm._v("\n            May-2018\n        ")
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "button is-small",
-              attrs: { type: "button", disabled: "" }
-            },
-            [_c("i", { staticClass: "fas fa-arrow-circle-right" })]
-          )
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Type")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Amount (DKK)")]),
-        _vm._v(" "),
-        _c("th"),
-        _vm._v(" "),
-        _c("th")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("i", { staticClass: "fas fa-pencil-alt" })])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("i", { staticClass: "fas fa-trash-alt" })])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("i", { staticClass: "fas fa-pencil-alt" })])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("i", { staticClass: "fas fa-trash-alt" })])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("i", { staticClass: "far fa-trash-alt" })])
-  },
+      _c("details-table"),
+      _vm._v(" "),
+      _vm._m(0)
+    ],
+    1
+  )
+}
+var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -92459,6 +92134,428 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function(a,n)
 				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
 				__WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):"object"==typeof exports?module.exports=n(require,exports,module):a.CountUp=n()}(this,function(a,n,t){var e=function(a,n,t,e,i,r){function o(a){var n,t,e,i,r,o,s=a<0;if(a=Math.abs(a).toFixed(l.decimals),a+="",n=a.split("."),t=n[0],e=n.length>1?l.options.decimal+n[1]:"",l.options.useGrouping){for(i="",r=0,o=t.length;r<o;++r)0!==r&&r%3===0&&(i=l.options.separator+i),i=t[o-r-1]+i;t=i}return l.options.numerals.length&&(t=t.replace(/[0-9]/g,function(a){return l.options.numerals[+a]}),e=e.replace(/[0-9]/g,function(a){return l.options.numerals[+a]})),(s?"-":"")+l.options.prefix+t+e+l.options.suffix}function s(a,n,t,e){return t*(-Math.pow(2,-10*a/e)+1)*1024/1023+n}function u(a){return"number"==typeof a&&!isNaN(a)}var l=this;if(l.version=function(){return"1.9.3"},l.options={useEasing:!0,useGrouping:!0,separator:",",decimal:".",easingFn:s,formattingFn:o,prefix:"",suffix:"",numerals:[]},r&&"object"==typeof r)for(var m in l.options)r.hasOwnProperty(m)&&null!==r[m]&&(l.options[m]=r[m]);""===l.options.separator?l.options.useGrouping=!1:l.options.separator=""+l.options.separator;for(var d=0,c=["webkit","moz","ms","o"],f=0;f<c.length&&!window.requestAnimationFrame;++f)window.requestAnimationFrame=window[c[f]+"RequestAnimationFrame"],window.cancelAnimationFrame=window[c[f]+"CancelAnimationFrame"]||window[c[f]+"CancelRequestAnimationFrame"];window.requestAnimationFrame||(window.requestAnimationFrame=function(a,n){var t=(new Date).getTime(),e=Math.max(0,16-(t-d)),i=window.setTimeout(function(){a(t+e)},e);return d=t+e,i}),window.cancelAnimationFrame||(window.cancelAnimationFrame=function(a){clearTimeout(a)}),l.initialize=function(){return!!l.initialized||(l.error="",l.d="string"==typeof a?document.getElementById(a):a,l.d?(l.startVal=Number(n),l.endVal=Number(t),u(l.startVal)&&u(l.endVal)?(l.decimals=Math.max(0,e||0),l.dec=Math.pow(10,l.decimals),l.duration=1e3*Number(i)||2e3,l.countDown=l.startVal>l.endVal,l.frameVal=l.startVal,l.initialized=!0,!0):(l.error="[CountUp] startVal ("+n+") or endVal ("+t+") is not a number",!1)):(l.error="[CountUp] target is null or undefined",!1))},l.printValue=function(a){var n=l.options.formattingFn(a);"INPUT"===l.d.tagName?this.d.value=n:"text"===l.d.tagName||"tspan"===l.d.tagName?this.d.textContent=n:this.d.innerHTML=n},l.count=function(a){l.startTime||(l.startTime=a),l.timestamp=a;var n=a-l.startTime;l.remaining=l.duration-n,l.options.useEasing?l.countDown?l.frameVal=l.startVal-l.options.easingFn(n,0,l.startVal-l.endVal,l.duration):l.frameVal=l.options.easingFn(n,l.startVal,l.endVal-l.startVal,l.duration):l.countDown?l.frameVal=l.startVal-(l.startVal-l.endVal)*(n/l.duration):l.frameVal=l.startVal+(l.endVal-l.startVal)*(n/l.duration),l.countDown?l.frameVal=l.frameVal<l.endVal?l.endVal:l.frameVal:l.frameVal=l.frameVal>l.endVal?l.endVal:l.frameVal,l.frameVal=Math.round(l.frameVal*l.dec)/l.dec,l.printValue(l.frameVal),n<l.duration?l.rAF=requestAnimationFrame(l.count):l.callback&&l.callback()},l.start=function(a){l.initialize()&&(l.callback=a,l.rAF=requestAnimationFrame(l.count))},l.pauseResume=function(){l.paused?(l.paused=!1,delete l.startTime,l.duration=l.remaining,l.startVal=l.frameVal,requestAnimationFrame(l.count)):(l.paused=!0,cancelAnimationFrame(l.rAF))},l.reset=function(){l.paused=!1,delete l.startTime,l.initialized=!1,l.initialize()&&(cancelAnimationFrame(l.rAF),l.printValue(l.startVal))},l.update=function(a){if(l.initialize()){if(a=Number(a),!u(a))return void(l.error="[CountUp] update() - new endVal is not a number: "+a);l.error="",a!==l.frameVal&&(cancelAnimationFrame(l.rAF),l.paused=!1,delete l.startTime,l.startVal=l.frameVal,l.endVal=a,l.countDown=l.startVal>l.endVal,l.rAF=requestAnimationFrame(l.count))}},l.initialize()&&l.printValue(l.startVal)};return e});
+
+/***/ }),
+/* 562 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(563)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Mff/MonthSelector.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-38798bd4", Component.options)
+  } else {
+    hotAPI.reload("data-v-38798bd4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 563 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "level-item" }, [
+      _c(
+        "button",
+        { staticClass: "button is-small", attrs: { type: "button" } },
+        [_c("i", { staticClass: "fas fa-arrow-circle-left" })]
+      ),
+      _vm._v(" "),
+      _c("a", { staticClass: "button is-small" }, [
+        _vm._v("\n        May-2018\n    ")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "button is-small",
+          attrs: { type: "button", disabled: "" }
+        },
+        [_c("i", { staticClass: "fas fa-arrow-circle-right" })]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-38798bd4", module.exports)
+  }
+}
+
+/***/ }),
+/* 564 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(565)
+/* template */
+var __vue_template__ = __webpack_require__(566)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Mff/AmountCountUpEffect.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b30949cc", Component.options)
+  } else {
+    hotAPI.reload("data-v-b30949cc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 565 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_countup_v2__ = __webpack_require__(560);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_countup_v2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_countup_v2__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["amount"],
+
+  name: "AmountCountUpEffect",
+
+  components: {
+    ICountUp: __WEBPACK_IMPORTED_MODULE_0_vue_countup_v2___default.a
+  },
+
+  data: function data() {
+    return {
+      startVal: 0,
+      endVal: this.amount,
+      decimals: 2,
+      duration: 2.5,
+      options: {
+        useEasing: true,
+        useGrouping: true,
+        separator: ",",
+        decimal: ".",
+        prefix: "",
+        suffix: ""
+      }
+    };
+  },
+
+
+  methods: {
+    onReady: function onReady(instance, CountUp) {
+      var that = this;
+      instance.update(that.endVal);
+    }
+  }
+});
+
+/***/ }),
+/* 566 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("ICountUp", {
+    attrs: {
+      startVal: _vm.startVal,
+      endVal: _vm.endVal,
+      decimals: _vm.decimals,
+      duration: _vm.duration,
+      options: _vm.options
+    },
+    on: { ready: _vm.onReady }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-b30949cc", module.exports)
+  }
+}
+
+/***/ }),
+/* 567 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(568)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Mff/DetailsTable.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-08b0fee5", Component.options)
+  } else {
+    hotAPI.reload("data-v-08b0fee5", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 568 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "table",
+    { staticClass: "table is-striped is-narrow is-hoverable" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("tfoot", [
+        _c("tr", [
+          _c("th", [_vm._v("Total:")]),
+          _vm._v(" "),
+          _c("th", [
+            _c(
+              "span",
+              { staticClass: "is-pulled-right" },
+              [_c("amount-count-up-effect", { attrs: { amount: 150004000 } })],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("th"),
+          _vm._v(" "),
+          _c("th")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tbody", [
+        _c("tr", [
+          _c("td", [_vm._v("Salary")]),
+          _vm._v(" "),
+          _c("td", [
+            _c(
+              "span",
+              { staticClass: "is-pulled-right" },
+              [_c("amount-count-up-effect", { attrs: { amount: 150000000 } })],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _vm._m(2)
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("td", [_vm._v("Extra")]),
+          _vm._v(" "),
+          _c("td", [
+            _c(
+              "span",
+              { staticClass: "is-pulled-right" },
+              [_c("amount-count-up-effect", { attrs: { amount: 4000 } })],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(3),
+          _vm._v(" "),
+          _vm._m(4)
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("td", { staticClass: "strikethrough" }, [_vm._v("SKAT")]),
+          _vm._v(" "),
+          _c("td", [
+            _c(
+              "span",
+              { staticClass: "is-pulled-right strikethrough" },
+              [_c("amount-count-up-effect", { attrs: { amount: 7000 } })],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("td"),
+          _vm._v(" "),
+          _vm._m(5)
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Type")]),
+        _vm._v(" "),
+        _c("th", [
+          _c("span", { staticClass: "is-pulled-right" }, [
+            _vm._v("Amount (DKK)")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("th"),
+        _vm._v(" "),
+        _c("th")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("i", { staticClass: "fas fa-pencil-alt" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("i", { staticClass: "fas fa-trash-alt" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("i", { staticClass: "fas fa-pencil-alt" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("i", { staticClass: "fas fa-trash-alt" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("i", { staticClass: "far fa-trash-alt" })])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-08b0fee5", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

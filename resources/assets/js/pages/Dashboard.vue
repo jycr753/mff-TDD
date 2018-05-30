@@ -4,6 +4,10 @@ import MonthlyExpensesChart from "../components/Mff/MonthlyExpensesChart";
 import DashboardMenu from "../components/Mff/DashboardMenu";
 
 export default {
-  components: { Incomes, MonthlyExpensesChart, DashboardMenu }
+  components: {
+    Incomes,
+    MonthlyExpensesChart,
+    DashboardMenu
+  }
 };
 </script>

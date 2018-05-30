@@ -10404,3 +10404,7 @@ a.text-dark:focus {
   text-decoration: line-through;
 }
 
+.pad-right {
+  padding-right: 2px;
+}
+

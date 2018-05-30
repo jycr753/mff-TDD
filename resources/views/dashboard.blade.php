@@ -15,16 +15,12 @@
                         <div class="level-item">
                             <div class="title flex">Dashboard</div>
                             <button type="button" class="button is-small">
-                                <i class="fas fa-recycle"></i> 
+                                <i class="fas fa-recycle pad-right"></i> Generate Next Month
                             </button>
                         </div>
                         </div>
                         <div class="level-right">
-                        <div class="level-item">
-                            <button type="button" class="button is-small">
-                            March 8, 2017
-                            </button>
-                        </div>
+                            {{-- <month-selector></month-selector> --}}
                         </div>
                     </div>
             
@@ -46,7 +42,7 @@
                     
                     <div class="columns is-multiline">
                         <div class="column is-6">
-                        <monthly-expenses-chart></monthly-expenses-chart>
+                            {{-- <monthly-expenses-chart></monthly-expenses-chart> --}}
                         </div>
                         <div class="column is-6">
                         
