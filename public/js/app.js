@@ -91953,6 +91953,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
@@ -91964,22 +91973,38 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "panel" }, [
+    _c("div", { staticClass: "panel-heading" }, [
+      _c("div", { staticClass: "level" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "level-right" }, [_c("month-selector")], 1)
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(1)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel" }, [
-      _c("p", { staticClass: "panel-heading" }, [
-        _vm._v("\n        Monthly Expenses: Bar chart\n    ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "panel-block" }, [
-        _c("figure", { staticClass: "image is-16x9" }, [
-          _c("img", { attrs: { src: "img/chart-image.png" } })
+    return _c("div", { staticClass: "level-left" }, [
+      _c("div", { staticClass: "level-item" }, [
+        _c("div", { staticClass: "title is-6 flex" }, [
+          _vm._v("Monthly Expenses: Bar chart")
         ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-block" }, [
+      _c("figure", { staticClass: "image is-16x9" }, [
+        _c("img", { attrs: { src: "img/chart-image.png" } })
       ])
     ])
   }

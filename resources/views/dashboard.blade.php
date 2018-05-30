@@ -30,19 +30,19 @@
                         </div>
                         
                         <div class="column">
-                        
+                
                         </div>
                         <div class="column">
                         
                         </div>
                         <div class="column">
-                        
+                       
                         </div>
                     </div>
                     
                     <div class="columns is-multiline">
                         <div class="column is-6">
-                            {{-- <monthly-expenses-chart></monthly-expenses-chart> --}}
+                            <monthly-expenses-chart></monthly-expenses-chart> 
                         </div>
                         <div class="column is-6">
                         
