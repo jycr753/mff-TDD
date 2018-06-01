@@ -12,7 +12,9 @@
             <tr>
                 <th>Total:</th>
                 <th>
-                    <span class="is-pulled-right"><amount-count-up-effect :amount="parseInt(this.getData[0].totalNetAmount)"></amount-count-up-effect></span>
+                    <span class="is-pulled-right">
+                         <amount-count-up-effect :amount="getTotalNetAmount"></amount-count-up-effect>
+                    </span>
                 </th>
                 <th></th>
                 <th></th>
@@ -34,6 +36,14 @@
 </template>
 <script>
 export default {
-  props: ["getData"]
+  props: ["getData"],
+
+  computed: {
+    getTotalNetAmount: function() {
+      return this.getData.length == 0
+        ? 0
+        : parseInt(this.getData[0].totalNetAmount);
+    }
+  }
 };
 </script>

@@ -9,8 +9,8 @@
             <div class="level-item has-text-centered">
                 <div>
                     <p class="heading">Incomes</p>
-                    <p class="title is-4">
-                        <amount-count-up-effect :amount='parseInt(this.incomes[0].totalNetAmount)'></amount-count-up-effect>
+                    <p class="title is-4" v-if="incomesData">
+                        <amount-count-up-effect :amount='getTotalNetAmount'></amount-count-up-effect>
                     </p>
                 </div>
             </div>
@@ -48,8 +48,17 @@ export default {
 
   data() {
     return {
-      showIncomeForm: false
+      showIncomeForm: false,
+      incomesData: this.incomes
     };
+  },
+
+  computed: {
+    getTotalNetAmount: function() {
+      return this.incomesData.length == 0
+        ? 0
+        : parseInt(this.incomesData[0].totalNetAmount);
+    }
   },
 
   methods: {

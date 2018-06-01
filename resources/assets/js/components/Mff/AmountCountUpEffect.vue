@@ -32,7 +32,7 @@ export default {
         useGrouping: true,
         separator: ",",
         decimal: ".",
-        prefix: "",
+        prefix: "DKK ",
         suffix: ""
       }
     };
@@ -46,3 +46,10 @@ export default {
   }
 };
 </script>
+<style scoped>
+.iCountUp {
+  font-size: 12em;
+  margin: 0;
+  color: #4d63bc;
+}
+</style>

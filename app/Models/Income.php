@@ -17,6 +17,8 @@ class Income extends Model
 
     protected $appends = ['categoryName', 'totalNetAmount'];
 
+    protected $fillable = ['income_date', 'gross_amount', 'net_amount', 'description'];
+
     /**
      * A income belongs to a owner.
      *
@@ -56,7 +58,7 @@ class Income extends Model
      */
     public function getTotalNetAmountAttribute()
     {
-        return $this->sum('net_amount');
+        return $this->sum('net_amount') ? : 0;
     }
 
     /**

@@ -1,99 +1,100 @@
 <template>
-<div class="modal is-active">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Add monthly income</p>
-      <button class="delete" aria-label="close" @click="$emit('close')"></button>
-    </header>
-    <section class="modal-card-body">
-        <div class="columns is-mobile">
-            <div class="column">
-                <b-field label="Income categories">
-                    <div class="control">
-                        <div class="select is-primary">
-                            <select class="form-control c-select" name="incomeIntervel">
-                                <option disabled value="">Please select one</option>
-                                <option value="Y">Yearly</option>
-                                <option value="M" selected="selected">Monthly</option>
-                                <option value="W">Weekly</option>
-                                <option value="D">Daily</option>
-                                <option value="H">Hourly</option>
-                            </select>
+<form @submit.prevent="validateIncome">
+    <div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+        <p class="modal-card-title">Add monthly income</p>
+        <button class="delete" aria-label="close" @click="$emit('close')"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="columns is-mobile">
+                <div class="column">
+                    <b-field label="Income categories">
+                        <div class="control">
+                            <div class="select is-primary">
+                                <select v-model="category" class="form-control c-select" name="category">
+                                    <option value="" selected>Please select one</option>
+                                    <option v-for="item in this.categories" :key="item.id" :value="item">{{item.name}}</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                </b-field>
-            </div>
+                    </b-field>
+                </div>
 
-            <div class="column">
-                <b-field label="Income collected month">
-                    <div class="control">
-                        <datepicker
-                                name="incomeDate"
-                                input-class="input incomeAmount"
-                                :minimumView="'month'"
-                                :placeholder="'Select 1st of the month'"
-                                v-model="currentMonth">
-                        </datepicker>
-                    </div>
-                </b-field>
-            </div>
-        </div>
-        <div class="columns is-mobile">
-            <div class="column">
-                <b-field label="Amount before SKAT">
-                    <div class="control has-icons-left">
-                        <vue-autonumeric
-                            v-model="incomeBeforeSkat"
-                            :options="{
-                                digitGroupSeparator: '.',
-                                decimalCharacter: ',',
-                                decimalCharacterAlternative: '.',
-                                currencySymbol: '\u00a0DKK',
-                                currencySymbolPlacement: 's',
-                                roundingMethod: 'U',
-                                minimumValue: '0'
-                            }"
-                            class="input incomeAmount">
-                        </vue-autonumeric>
-                    </div>
-                </b-field>
-            </div>
-
-            <div class="column">
-                <b-field label="Amount after SKAT">
-                    <div class="control has-icons-left">
-                        <vue-autonumeric
-                                v-model="incomeAfterSkat"
-                                :options="{
-                                digitGroupSeparator: '.',
-                                decimalCharacter: ',',
-                                decimalCharacterAlternative: '.',
-                                currencySymbol: '\u00a0DKK',
-                                currencySymbolPlacement: 's',
-                                roundingMethod: 'U',
-                                minimumValue: '0',
-                            }"
-                                class="input incomeAmount">
-                        </vue-autonumeric>
-                    </div>
-                </b-field>
-            </div>
-        </div>
-        <div class="columns is-mobile">
-            <div class="column">
-                <div class="control">
-                    <wysiwyg name="body" v-model="incomeDescription" placeholder="Have something to say?"></wysiwyg>
+                <div class="column">
+                    <b-field label="Income collected month">
+                        <div class="control">
+                            <datepicker
+                                    name="incomeDate"
+                                    input-class="input incomeAmount"
+                                    :minimumView="'month'"
+                                    :placeholder="'Select 1st of the month'"
+                                    v-model="this.currentMonth"
+                                >
+                            </datepicker>
+                        </div>
+                    </b-field>
                 </div>
             </div>
-        </div>    
-    </section>
-    <footer class="modal-card-foot">
-      <button class="button is-success">Add</button>
-      <button class="button" @click="$emit('close')">Cancel</button>
-    </footer>
-  </div>
-</div>
+            <div class="columns is-mobile">
+                <div class="column">
+                    <b-field label="Gross Income">
+                        <div class="control has-icons-left">
+                            <vue-autonumeric
+                                v-model="grossIncome"
+                                :options="{
+                                    digitGroupSeparator: '.',
+                                    decimalCharacter: ',',
+                                    decimalCharacterAlternative: '.',
+                                    currencySymbol: '\u00a0DKK',
+                                    currencySymbolPlacement: 's',
+                                    roundingMethod: 'U',
+                                    minimumValue: '0'
+                                }"
+                                class="input incomeAmount"
+                            >
+                            </vue-autonumeric>
+                        </div>
+                    </b-field>
+                </div>
+
+                <div class="column">
+                    <b-field label="Net Income">
+                        <div class="control has-icons-left">
+                            <vue-autonumeric
+                                    v-model="netIncome"
+                                    :options="{
+                                    digitGroupSeparator: '.',
+                                    decimalCharacter: ',',
+                                    decimalCharacterAlternative: '.',
+                                    currencySymbol: '\u00a0DKK',
+                                    currencySymbolPlacement: 's',
+                                    roundingMethod: 'U',
+                                    minimumValue: '0',
+                                }"
+                                    class="input incomeAmount"
+                                >
+                            </vue-autonumeric>
+                        </div>
+                    </b-field>
+                </div>
+            </div>
+            <div class="columns is-mobile">
+                <div class="column">
+                    <div class="control">
+                        <wysiwyg name="body" v-model="description" placeholder="Have something to say?"></wysiwyg>
+                    </div>
+                </div>
+            </div>    
+        </section>
+        <footer class="modal-card-foot">
+        <button type="submit" class="button is-primary">Add</button>
+        <button class="button" @click="$emit('close')">Cancel</button>
+        </footer>
+    </div>
+    </div>
+</form>
 </template>
 <script>
 import Datepicker from "vuejs-datepicker";
@@ -114,9 +115,9 @@ export default {
       category: "",
       incomeDate: "",
       getDate: this.currentMonth,
-      incomeBeforeSkat: 0.0,
-      incomeAfterSkat: 0.0,
-      incomeDescription: ""
+      grossIncome: 0.0,
+      netIncome: 0.0,
+      description: ""
     };
   },
 
@@ -124,7 +125,24 @@ export default {
     currentMonth() {
       return moment()
         .startOf("month")
-        .format("YYYY-MM-DD hh:mm");
+        .format("YYYY-MM-DD");
+    }
+  },
+
+  methods: {
+    validateIncome() {
+      axios
+        .post("mff/incomes", {
+          income_date: this.currentMonth,
+          category_id: this.category.id,
+          gross_amount: this.grossIncome + ".00",
+          net_amount: this.netIncome + ".00",
+          description: this.description
+        })
+        .then(response => {
+          console.log(response.data.message);
+          flash(response.data.message);
+        });
     }
   }
 };

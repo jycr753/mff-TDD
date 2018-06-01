@@ -118,6 +118,8 @@ return [
     |
      */
 
-    'attributes' => [],
+    'attributes' => [
+        'category_id' => 'Gross income must be greater then Net income'
+    ],
 
 ];

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Mff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Income;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class IncomesController extends Controller
 {
@@ -21,16 +23,23 @@ class IncomesController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        request()->validate(
+        //dd(request('income_date'), request('category_id'), request('gross_amount'), request('net_amount'));
+        $validator = Validator::make(
+            $request->all(),
             [
-                'income_date' => 'required|date',
+                'income_date' => 'required|date_format:Y-m-d',
                 'category_id' => 'required|exists:categories,id',
                 'gross_amount' => 'required|regex:/^[\d]+[\.][\d]{2}/|greaterThan:net_amount',
                 'net_amount' => 'required|regex:/^[\d]+[\.][\d]{2}/'
             ]
         );
+
+        if ($validator->fails()) {
+            dd($validator->errors());
+            return response()->json(['message' => $validator->errors()]);
+        }
 
         $income = Income::create(
             [
@@ -38,11 +47,12 @@ class IncomesController extends Controller
                 'income_date' => request('income_date'),
                 'category_id' => request('category_id'),
                 'gross_amount' => request('gross_amount'),
-                'net_amount' => request('net_amount')
+                'net_amount' => request('net_amount'),
+                'description' => request('description')
             ]
         );
 
-        return redirect('/dashboard')
-            ->with('flash', 'Your income is saved!');
+
+        return ['message' => 'Income added!'];
     }
 }

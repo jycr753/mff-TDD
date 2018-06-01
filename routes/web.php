@@ -78,12 +78,12 @@ Route::group(
     }
 );
 
-Route::group(
-    [
-        'prefix' => 'income',
-        'namespace' => 'Mff'
-    ],
-    function () {
-        Route::post('/', 'IncomesController@store')->middleware('must-confirm-email')->name('income.store');
-    }
-);
+// Route::group(
+//     [
+//         'prefix' => 'mff',
+//         'namespace' => 'Mff'
+//     ],
+//     function () {
+Route::post('/mff/incomes', 'Mff\IncomesController@store')->middleware('auth');
+//     }
+// );

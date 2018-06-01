@@ -2,10 +2,12 @@ require("./bootstrap");
 import "bulma/css/bulma.css";
 import Buefy from "buefy";
 import "buefy/lib/buefy.css";
+import VeeValidate from "vee-validate";
 
 window.Vue = require("vue");
 
 Vue.use(Buefy);
+Vue.use(VeeValidate);
 
 Vue.component("flash", require("./components/Flash.vue"));
 Vue.component("paginator", require("./components/Paginator.vue"));
